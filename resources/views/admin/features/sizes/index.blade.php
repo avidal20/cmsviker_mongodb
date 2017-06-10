@@ -15,13 +15,15 @@
         </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            @foreach ($sizesCategories as $sizesCategory)
+                <tr>
+                    <td>{{$sizesCategory->name}}</td>
+                    <td></td>
+                    <td>{{$sizesCategory->state}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
                     
