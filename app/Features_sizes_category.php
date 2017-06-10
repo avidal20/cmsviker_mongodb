@@ -18,3 +18,4 @@ class Features_sizes_category extends Model
         return $this->hasMany('md_features_sizes');
     }
 }
+ 

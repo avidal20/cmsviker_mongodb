@@ -3,12 +3,8 @@
 return [
 	/* Modulo  features */
     'mod_features_title' => 'Caracter&iacute;sticas de producto',
-<<<<<<< HEAD
     'mod_features_sizes_title' => 'Tallas',
     'mod_features_sizes_list_title' => 'Listado de tallas',
-=======
-
-
 
     /* Modulo  categories */
     'mod_categories_field_name' => 'Nombre',
@@ -30,6 +26,4 @@ return [
     'mod_categories_store_msj_delete_succes' => 'Categor&iacute;a eliminada con &eacute;xito.',
     'mod_categories_store_msj_delete_error' => 'Ha ocurrido un error al eliminar la categor&iacute;a, por favor intente de nuevo.',
     'mod_categories_store_msj_confirm_delete' => 'Realmente desea eliminar la categor\u00EDa?',
-
->>>>>>> a318c8b1782d10a07afdbe2c1b003760ac4071fe
 ];
