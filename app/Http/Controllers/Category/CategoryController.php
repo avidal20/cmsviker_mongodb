@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Category;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
+
+use App\Categories;
 
 class CategoryController extends Controller
 {
@@ -24,18 +28,24 @@ class CategoryController extends Controller
                     ],
 
                     trans('config.app_create') => [
-                        'href' => '#',
+                        'href' => route('categories.create'),
+                    ],
+                ],
+
+                'create' => [
+                    trans('config.app_back') => [
+                        'href' => route('categories.index'),
                     ],
                 ],
             ],
 
             'modTitleAction' => [
                 'index' => trans('config.mod_categories_desc'),
+                'create' => trans('modules.mod_categories_create_action'),
               ],
 
             'modBreadCrumb' => [
                 'index' => [
-
                     trans('config.app_home') => [
                         'href' => '#'
                     ],
@@ -43,6 +53,21 @@ class CategoryController extends Controller
                     trans('config.mod_categories_desc') => [
                         'active' => true
                     ]
+                ],
+
+                'create' => [
+
+                    trans('config.app_home') => [
+                        'href' => '#'
+                    ],
+
+                    trans('config.mod_categories_desc') => [
+                        'href' => route('categories.index')
+                    ],
+
+                    trans('modules.mod_categories_create_action') => [
+                        'active' => true
+                    ],
                 ],
             ]
           ];
@@ -57,7 +82,8 @@ class CategoryController extends Controller
     public function index()
     {
         $plugins[] = 'Datatable';
-        return $this->view('admin.category.index',compact('plugins'));
+        $categories = Categories::all();
+        return $this->view('admin.category.index',compact('plugins','categories'));
     }
 
     /**
@@ -67,7 +93,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return $this->view('admin.category.create');
     }
 
     /**
@@ -78,7 +104,29 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'name' => 'required|max:255',
+          'description' => 'max:550',
+          'state' => 'required|max:10|numeric',
+        ]);
+
+        try {
+            
+            $categories = new Categories;
+            $categories->name = $request->name;
+            $categories->description = $request->description;
+            $categories->state = $request->state;
+            $categories->save();
+
+            Session::flash('success', trans('modules.mod_categories_store_msj_create_succes'));
+
+        } catch (QueryException $e) {
+
+            Session::flash('error',trans('modules.mod_categories_store_msj_create_error'));
+
+        }
+
+        return redirect()->route('categories.index');
     }
 
     /**
