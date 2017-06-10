@@ -18,17 +18,24 @@ class CategoryController extends Controller
             'modTitle' => trans('config.mod_categories_name'),
             'modMenu' => [
                 'index' => [
-
                     trans('config.app_back') => [
                         'href' => route('admin'),
                     ],
-
                     trans('config.app_create') => [
                         'href' => route('categories.create'),
                     ],
                 ],
-
                 'create' => [
+                    trans('config.app_back') => [
+                        'href' => route('categories.index'),
+                    ],
+                ],
+                'edit' => [
+                    trans('config.app_back') => [
+                        'href' => route('categories.index'),
+                    ],
+                ],
+                'show' => [
                     trans('config.app_back') => [
                         'href' => route('categories.index'),
                     ],
@@ -38,6 +45,8 @@ class CategoryController extends Controller
             'modTitleAction' => [
                 'index' => trans('config.mod_categories_desc'),
                 'create' => trans('modules.mod_categories_create_action'),
+                'edit' => trans('modules.mod_categories_edit_action'),
+                'show' => trans('modules.mod_categories_delete_action'),
               ],
 
             'modBreadCrumb' => [
@@ -45,23 +54,43 @@ class CategoryController extends Controller
                     trans('config.app_home') => [
                         'href' => '#'
                     ],
-
                     trans('config.mod_categories_desc') => [
                         'active' => true
                     ]
                 ],
 
                 'create' => [
-
                     trans('config.app_home') => [
                         'href' => '#'
                     ],
-
                     trans('config.mod_categories_desc') => [
                         'href' => route('categories.index')
                     ],
-
                     trans('modules.mod_categories_create_action') => [
+                        'active' => true
+                    ],
+                ],
+
+                'edit' => [
+                    trans('config.app_home') => [
+                        'href' => '#'
+                    ],
+                    trans('config.mod_categories_desc') => [
+                        'href' => route('categories.index')
+                    ],
+                    trans('modules.mod_categories_edit_action') => [
+                        'active' => true
+                    ],
+                ],
+
+                'show' => [
+                    trans('config.app_home') => [
+                        'href' => '#'
+                    ],
+                    trans('config.mod_categories_desc') => [
+                        'href' => route('categories.index')
+                    ],
+                    trans('modules.mod_categories_delete_action') => [
                         'active' => true
                     ],
                 ],
@@ -133,7 +162,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Categories::find($id);
+        return $this->view('admin.category.show',compact('category'));
     }
 
     /**
@@ -144,7 +174,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Categories::find($id);
+        return $this->view('admin.category.edit',compact('category'));
     }
 
     /**
@@ -156,7 +187,29 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+          'name' => 'required|max:255',
+          'description' => 'max:550',
+          'state' => 'required|max:10|numeric',
+        ]);
+
+        try {
+            
+            $category = Categories::find($id);
+            $category->name = $request->name;
+            $category->description = $request->description;
+            $category->state = $request->state;
+            $category->save();
+
+            Session::flash('success', trans('modules.mod_categories_store_msj_edit_succes'));
+
+        } catch (QueryException $e) {
+
+            Session::flash('error',trans('modules.mod_categories_store_msj_edit_error'));
+
+        }
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -167,6 +220,17 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+        
+            Categories::destroy($id);
+            Session::flash('success', trans('modules.mod_categories_store_msj_delete_succes'));
+
+        } catch (QueryException $e) {
+        
+            Session::flash('error',trans('modules.mod_categories_store_msj_delete_error'));
+        
+        }
+
+        return redirect()->route('categories.index');
     }
 }

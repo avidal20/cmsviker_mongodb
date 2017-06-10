@@ -29,6 +29,8 @@ return [
     //Generales
     'app_home' => 'Inicio',
     'app_create' => 'Crear',
+    'app_edit' => 'Modificar',
+    'app_delete' => 'Eliminar',
     'app_back' => 'Regresar',
     'app_welcome' => 'Bienvenido',
     'app_general' => 'General',
