@@ -19,12 +19,7 @@ class CategoryController extends Controller
             'modMenu' => [
                 'index' => [
                     trans('config.app_back') => [
-                        'class' => 'active',
                         'href' => route('admin'),
-                        'atribute' => [
-                            'id' => '12W',
-                            'data-name' => 'test'
-                        ],
                     ],
                     trans('config.app_create') => [
                         'href' => route('categories.create'),
@@ -57,7 +52,7 @@ class CategoryController extends Controller
             'modBreadCrumb' => [
                 'index' => [
                     trans('config.app_home') => [
-                        'href' => '#'
+                        'href' => route('admin')
                     ],
                     trans('config.mod_categories_desc') => [
                         'active' => true
@@ -66,7 +61,7 @@ class CategoryController extends Controller
 
                 'create' => [
                     trans('config.app_home') => [
-                        'href' => '#'
+                        'href' => route('admin')
                     ],
                     trans('config.mod_categories_desc') => [
                         'href' => route('categories.index')
@@ -78,7 +73,7 @@ class CategoryController extends Controller
 
                 'edit' => [
                     trans('config.app_home') => [
-                        'href' => '#'
+                        'href' => route('admin')
                     ],
                     trans('config.mod_categories_desc') => [
                         'href' => route('categories.index')
@@ -90,7 +85,7 @@ class CategoryController extends Controller
 
                 'show' => [
                     trans('config.app_home') => [
-                        'href' => '#'
+                        'href' => route('admin')
                     ],
                     trans('config.mod_categories_desc') => [
                         'href' => route('categories.index')

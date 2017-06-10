@@ -6,22 +6,29 @@
 <table id="datatable-buttons" class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th>Nombre de la zona</th>
-      <th>Responsable de la atenci&oacute;n</th>
-      <th>Estado</th>
-      <th>Acciones</th>
+      <th>{{ trans('modules.mod_categories_field_name') }}</th>
+      <th>{{ trans('modules.mod_categories_field_description') }}</th>
+      <th>{{ trans('modules.mod_categories_field_state') }}</th>
+      <th>{{ trans('config.app_edit') }}</th>
+      <th>{{ trans('config.app_delete') }}</th>
     </tr>
   </thead>
   <tbody>
-      <tr>
-        <td>1</td> 
-        <td>1</td> 
-        <td>1</td> 
-        <td>
-           <a href="#" class="btn btn-primary">Editar</a>
-           <a href="#" class="btn btn-danger">Eliminar</a>
-        </td>
-      </tr>
+  @foreach($categories as $category)
+   <tr>
+      <td>{{ $category->name }}</td> 
+      <td>{{ $category->description }}</td> 
+      <td>
+        @if($category->state == 1)
+          {{ trans('modules.mod_categories_field_state_enabled') }}
+        @else
+          {{ trans('modules.mod_categories_field_state_disabled') }}
+        @endif
+      </td>
+      <td><a href="{{ route('categories.edit',['id' => $category->id ]) }}"><i class="fa fa-edit fa-2x"></i></a></td>
+      <td><a href="{{ route('categories.show',['id' => $category->id ]) }}"><i class="fa fa-remove fa-2x"></i></a></td>
+    </tr>
+  @endforeach
   </tbody>
-   </table>
+</table>
 @endsection
