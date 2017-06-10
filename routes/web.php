@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
     Route::get('/', 'HomeController@index')->name('admin');
 
-    //Rutas de modulos
+    //Rutas de modulos/
     Route::resource('category', 'Category\CategoryController',
         [
             'names' => 
@@ -32,5 +32,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
                 ],
         ]
     );
+
+    // Features - Caracteristicas
+    Route::get('features', 'Features\FeatureController@index')->name('features');
+    Route::get('features/sizes', 'Features\FeatureController@sizes')->name('features.sizes');
+    Route::get('features/colors', 'Features\FeatureController@colors')->name('features.colors');
 
 });

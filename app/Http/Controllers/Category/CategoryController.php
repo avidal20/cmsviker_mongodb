@@ -14,9 +14,13 @@ class CategoryController extends Controller
             'modTitle' => trans('config.mod_categories_name'),
             'modMenu' => [
                 'index' => [
-
                     trans('config.app_back') => [
+                        'class' => 'active',
                         'href' => route('admin'),
+                        'atribute' => [
+                            'id' => '12W',
+                            'data-name' => 'test'
+                        ],
                     ],
 
                     trans('config.app_create') => [
