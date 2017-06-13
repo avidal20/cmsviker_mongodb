@@ -54,7 +54,7 @@ class FeatureSizesCategoryController extends Controller
                     trans('modules.mod_features_sizes_list_title') => [
                         'href' => route('features.sizes'),
                     ],
-                    trans('modules.mod_features_sizes_action') => [
+                    trans('modules.mod_features_sizes_create') => [
                         'active' => true
                     ]
                 ],
@@ -91,7 +91,7 @@ class FeatureSizesCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
