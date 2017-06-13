@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Features;
 
 use Illuminate\Http\Request;
-use App\Feature;
 use App\Http\Controllers\Controller;
+use App\Feature;
 
 class FeatureController extends Controller
 {
@@ -66,11 +66,6 @@ class FeatureController extends Controller
     {
         $features = Feature::all();
         return $this->view('admin.features.index',  compact('features'));
-    }
-
-    public function sizes(){
-        $plugins[] = 'Datatable';
-        return $this->view('admin.features.sizes', compact('plugins'));
     }
 
     public function colors(){

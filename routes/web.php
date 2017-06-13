@@ -38,7 +38,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
     // Features - Caracteristicas
     Route::get('features', 'Features\FeatureController@index')->name('features');
-    Route::get('features/sizes', 'Features\FeatureController@sizes')->name('features.sizes');
+
+    Route::get('features/sizes', 'Features\FeatureSizesCategoryController@index')->name('features.sizes');
+    Route::get('features/sizes/create', 'Features\FeatureSizesCategoryController@create')->name('features.sizes.create');
+    Route::post('features/sizes/store', 'Features\FeatureSizesCategoryController@store')->name('features.sizes.store');
+
     Route::get('features/colors', 'Features\FeatureController@colors')->name('features.colors');
 
     // Product
