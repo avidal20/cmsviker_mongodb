@@ -22,6 +22,8 @@ return [
     //Productos
     'mod_products_name' => 'Productos',
     'mod_products_desc' => 'Administrar productos',
+    //Kids
+    'mod_kids_name' => 'Kids',
 
     //Titulos de pagina
     'app_page_panel_admin' => 'Panel de administraci&oacute;n',

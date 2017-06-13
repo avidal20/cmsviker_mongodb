@@ -170,4 +170,9 @@ return [
       'js' => 'vendors/fastclick/lib/fastclick.js'
     ],
 
+    'summernote' => [
+      'css' => 'vendors/summernote/dist/summernote.css',
+      'js' => 'vendors/summernote/dist/summernote.min.js',
+    ]
+
 ];

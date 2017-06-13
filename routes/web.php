@@ -10,6 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Features_sizes_category;
+
+Route::get('/test', function () {
+    $size = new Features_sizes_category();
+    $size->name = '111';
+    $size->state = '111';
+    $size->save();
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,11 +32,19 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/', 'HomeController@index')->name('admin');
 
     //Rutas de modulos
+
+    // Categories - Categorias
     Route::resource('categories', 'Category\CategoryController');
 
     // Features - Caracteristicas
     Route::get('features', 'Features\FeatureController@index')->name('features');
     Route::get('features/sizes', 'Features\FeatureController@sizes')->name('features.sizes');
     Route::get('features/colors', 'Features\FeatureController@colors')->name('features.colors');
+
+    // Product
+    Route::get('products/home', 'Products\ProductController@home')->name('products.home');
+    Route::get('products/ajax/category/{id}', 'Products\ProductController@ajaxCategory');
+    Route::resource('products', 'Products\ProductController');
+
 
 });

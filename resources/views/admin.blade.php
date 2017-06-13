@@ -26,7 +26,7 @@
             <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
                <div class="tile-stats">
                   <div class="icon"><i class="fa fa-calendar"></i></div>
-                  <div class="count"><a href="#">{{ trans('config.mod_products_name') }}</a></div>
+                  <div class="count"><a href="{{ route('products.home') }}">{{ trans('config.mod_products_name') }}</a></div>
                   <h3>{{ trans('config.mod_products_desc') }}</h3>
                </div>
             </div>
