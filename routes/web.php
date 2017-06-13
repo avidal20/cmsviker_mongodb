@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('features/sizes', 'Features\FeatureSizesCategoryController@index')->name('features.sizes');
     Route::get('features/sizes/create', 'Features\FeatureSizesCategoryController@create')->name('features.sizes.create');
     Route::post('features/sizes/store', 'Features\FeatureSizesCategoryController@store')->name('features.sizes.store');
+    Route::post('features/sizes/edit', 'Features\FeatureSizesCategoryController@edit')->name('features.sizes.edit');
+    Route::post('features/sizes/delete', 'Features\FeatureSizesCategoryController@delete')->name('features.sizes.delete');
 
     Route::get('features/colors', 'Features\FeatureController@colors')->name('features.colors');
 

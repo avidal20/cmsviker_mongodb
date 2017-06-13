@@ -8,6 +8,9 @@ return [
     'mod_features_sizes_list_title' => 'Listado de tallas',
     'mod_features_sizes_add' => 'Agregar talla',
     'mod_features_sizes_create' => 'Crear talla',
+    'mod_sizes_store_msj_create_succes' => 'Talla creada con &eacute;xito.',
+    'mod_features_sizes_store_msj_create_error' => 'Ha ocurrido un error al crear la tappa, por favor intente de nuevo.',
+    
 
     /* Modulo  categories */
     'mod_categories_field_name' => 'Nombre',

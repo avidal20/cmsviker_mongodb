@@ -29,15 +29,15 @@
 
         <div class="form-group">
             <a id="btnAddSize" hred="#" class="control-label col-md-3 col-sm-3 col-xs-12">
-                <label for="state" class="control-label">{{trans('modules.mod_features_sizes_add')}} </label>
+                <label for="state" class="control-label"><i class="fa fa-plus" aria-hidden="true"></i> {{trans('modules.mod_features_sizes_add')}} </label>
             </a>            
         </div>
 
         <div  id="inputSizes">
-            <div id="size1" class="form-group">
-                <label for="sizes" class="control-label col-md-3 col-sm-3 col-xs-12" for="name">{{trans('modules.mod_features_size_title')}}<span class="required">*</span></label>
+            <div id="size1Container" class="form-group">
+                <label for="sizes" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_features_size_title')}}<span class="required">*</span></label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="size" type="text" name="sizes[]" class="form-control col-md-7 col-xs-12" maxlength="255" required>
+                    <input id="size1" type="text" name="sizes[]" class="form-control col-md-7 col-xs-12" maxlength="255" required>
                 </div>
             </div>
         </div>
@@ -55,8 +55,37 @@
 
 
 <script>
-    
 
+    let sizesCount = 1;
+    
+    document.getElementById("btnAddSize").addEventListener("click", function(e){
+        e.preventDefault();
+   
+        sizesCount++;
+        let divContainer = document.createElement("div");
+        divContainer.id = "size"+sizesCount+"Container";
+        divContainer.className = "form-group";
+
+        let label = document.createElement("label");
+        label.innerHTML = "{{ trans('modules.mod_features_size_title') }}";
+        label.className = "control-label col-md-3 col-sm-3 col-xs-12";
+        divContainer.appendChild(label);
+
+        let divInput =  document.createElement("div");
+        divInput.className = "col-md-6 col-sm-6 col-xs-12";
+
+        let input = document.createElement("input");
+        input.type = "text";
+        input.id = "size"+sizesCount;
+        input.name = "sizes[]";
+        input.className = "form-control col-md-7 col-xs-12";
+        divInput.appendChild(input);
+
+        divContainer.appendChild(divInput);
+
+        document.getElementById("inputSizes").appendChild(divContainer);
+
+    });
 
 </script>
 

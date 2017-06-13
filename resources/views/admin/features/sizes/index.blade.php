@@ -15,16 +15,28 @@
         </tr>
         </thead>
         <tbody>
-            @foreach ($sizesCategories as $sizesCategory)
+            @foreach ( $sizesCategories as $sizesCategory )
                 <tr>
-                    <td>{{$sizesCategory->name}}</td>
-                    <td></td>
-                    <td>{{$sizesCategory->state}}</td>
+                    <td>{{ $sizesCategory->name }}</td>
+                    <td>
+                        @if ( count($sizesCategory->md_features_sizes)>0 )
+                            @foreach ( $sizesCategory->md_features_sizes as $index => $size )
+                                @if (!$loop->last)
+                                    {{ $size->name }} -
+                                @else
+                                    {{ $size->name }}
+                                @endif
+                            @endforeach
+                        @else
+                             No hay tallas asociadas
+                        @endif
+                    </td>
+                    <td>{{ $sizesCategory->state == 1? "Activo" : "Inactivo" }}</td>
                     <td></td>
                     <td></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-                    
+
 @endsection

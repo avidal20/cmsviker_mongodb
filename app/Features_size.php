@@ -15,6 +15,6 @@ class Features_size extends Model
 
     public function md_features_sizes()
     {
-        return $this->belongsTo('md_features_sizes_category', 'id_md_features_sizes_category');
+        return $this->belongsTo('App\Features_sizes_category', 'id_md_features_sizes_category', 'id');
     }
 }
