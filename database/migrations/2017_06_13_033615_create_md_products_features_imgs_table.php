@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMdProductsFeaturesTable extends Migration
+class CreateMdProductsFeaturesImgsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateMdProductsFeaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('md_products_features', function (Blueprint $table) {
+        Schema::create('md_products_features_imgs', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->integer('id_product');
-            $table->integer('id_color');
+            $table->integer('id_product_feature');
+            $table->integer('file');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateMdProductsFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('md_products_features');
+        Schema::drop('md_products_features_imgs');
     }
 }

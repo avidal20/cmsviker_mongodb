@@ -11,12 +11,20 @@
 |
 */
 use App\Features_sizes_category;
+use App\Features_color;
 
 Route::get('/test', function () {
     $size = new Features_sizes_category();
     $size->name = '111';
     $size->state = '111';
     $size->save();
+
+    $color = new Features_color();
+    $color->name = '111';
+    $color->state = '111';
+    $color->image = '111';
+    $color->save();
+
 });
 
 Route::get('/', function () {
@@ -47,7 +55,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
     // Product
     Route::get('products/home', 'Products\ProductController@home')->name('products.home');
-    Route::get('products/ajax/category/{id}', 'Products\ProductController@ajaxCategory');
+    Route::get('products/ajax/category/{id?}', 'Products\ProductController@ajaxCategory');
     Route::resource('products', 'Products\ProductController');
 
 

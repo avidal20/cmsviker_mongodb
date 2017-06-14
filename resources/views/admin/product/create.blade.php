@@ -11,7 +11,7 @@
       <div class="form-group">
          <label for="category" class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('modules.mod_products_field_category') }}<span class="required">*</label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-            <select id="category" class="form-control" required="required">
+            <select id="category" name="category" class="form-control" required="required">
                <option value="">{{ trans('config.app_field_select_value') }}</option>
                @foreach($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -60,7 +60,7 @@
          <div class="clearfix"></div>
       </div>
 
-      <div id="description">Hello Summernote</div>
+      <textarea id="description" name="description"></textarea>
 
       <div class="x_title">
          <h2>{{trans('modules.mod_products_fielset_product_features')}}</h2>
@@ -91,10 +91,9 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
               <select name="color[0]" id="color_0" class="form-control" required="required">
                 <option value="">{{trans('config.app_field_select_value')}}</option>
-                <option value="1">1</option>
-                <option value="2">1</option>
-                <option value="3">1</option>
-                <option value="4">1</option>
+                @foreach($colors as $color)
+                  <option value="{{$color->id}}">{{$color->name}}</option>
+                @endforeach
               </select>
             </div>
         </div>
@@ -154,10 +153,9 @@
                     '<div class="col-md-6 col-sm-6 col-xs-12">'+
                       '<select name="color['+countField+']" id="color_'+countField+'" class="form-control" required="required">'+
                         '<option value="">{{trans('config.app_field_select_value')}}</option>'+
-                          '<option value="1">1</option>'+
-                          '<option value="2">1</option>'+
-                          '<option value="3">1</option>'+
-                          '<option value="4">1</option>'+
+                          @foreach($colors as $color)
+                            '<option value="{{$color->id}}">{{$color->name}}</option>'+
+                          @endforeach
                       '</select>'+
                     '</div>'+
                 '</div>'+

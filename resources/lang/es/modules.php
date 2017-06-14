@@ -48,5 +48,7 @@ return [
         //create
         'mod_products_create_action' => 'Crear producto',
         'mod_products_fielset_product_features' => 'Caracter&iacute;sticas de producto',
+        'mod_products_store_msj_error' => 'Ha ocurrido un error al eliminar el producto, por favor intente de nuevo.',
+        'mod_products_store_msj_succes' => 'Producto creado con &eacute;xito.',
 
 ];

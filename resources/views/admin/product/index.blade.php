@@ -31,6 +31,24 @@
       <th>{{ trans('config.app_delete') }}</th>
     </tr>
   </thead>
+    <tbody>
+      @foreach($products as $product)
+       <tr>
+          <td>{{ $product->reference }}</td> 
+          <td>{{ $product->name }}</td>
+          <td>{{ $product->category }}</td>
+          <td>
+            @if($product->state == 1)
+              {{ trans('modules.mod_categories_field_state_enabled') }}
+            @else
+              {{ trans('modules.mod_categories_field_state_disabled') }}
+            @endif
+          </td>
+          <td><a href="{{ route('products.edit',['id' => $product->id ]) }}"><i class="fa fa-edit fa-2x"></i></a></td>
+          <td><a href="{{ route('products.show',['id' => $product->id ]) }}"><i class="fa fa-remove fa-2x"></i></a></td>
+      </tr>
+    @endforeach
+    </tbody>
 </table>
 @endsection
 
