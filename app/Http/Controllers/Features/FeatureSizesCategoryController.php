@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Features;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Database\QueryException;
+use App\Features_size;
 use App\Features_sizes_category;
 
 class FeatureSizesCategoryController extends Controller
@@ -69,7 +72,7 @@ class FeatureSizesCategoryController extends Controller
     public function index()
     {
         $plugins[] = 'Datatable';
-        $sizesCategories = Features_sizes_category::all();
+        $sizesCategories = Features_sizes_category::with("md_features_sizes")->get();
         return $this->view('admin.features.sizes.index', compact('plugins', 'sizesCategories'));
     }
 
@@ -91,7 +94,37 @@ class FeatureSizesCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $this->validate($request, [
+          'name' => 'required|max:255',
+          'sizes' => 'required',
+          'state' => 'required|max:10|numeric',
+        ]);
+
+        try {
+
+            $tallaCat = new Features_sizes_category;
+            $tallaCat->name = $request->name;
+            $tallaCat->state = $request->state;
+            $tallaCat->save();
+
+            foreach($request->sizes as $index => $size){
+                if(strlen($size) > 0){
+                     $talla = new Features_size;
+                    $talla->name = $size;
+                    $talla->id_md_features_sizes_category = $tallaCat->id;
+                    $talla->save();
+                }
+            }
+
+            Session::flash('success', trans('modules.mod_sizes_store_msj_create_succes'));
+
+        } catch (QueryException $e) {
+
+            Session::flash('error',trans('modules.mod_features_sizes_store_msj_create_error'));
+
+        }
+
+        return redirect()->route('features.sizes');
     }
 
     /**
@@ -111,9 +144,10 @@ class FeatureSizesCategoryController extends Controller
      * @param  \App\Features_sizes_category  $features_sizes_category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Features_sizes_category $features_sizes_category)
+    public function edit($id)
     {
-        //
+        $tallaCat = Features_sizes_category::with("md_features_sizes")->find($id);
+        return $this->view('admin.features.editSizeCategory', compact('tallaCat'));
     }
 
     /**
@@ -134,9 +168,20 @@ class FeatureSizesCategoryController extends Controller
      * @param  \App\Features_sizes_category  $features_sizes_category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Features_sizes_category $features_sizes_category)
+    public function destroy($id)
     {
-        //
+        try {
+        
+            Categories::destroy($id);
+            Session::flash('success', trans('modules.mod_categories_store_msj_delete_succes'));
+
+        } catch (QueryException $e) {
+        
+            Session::flash('error',trans('modules.mod_categories_store_msj_delete_error'));
+        
+        }
+
+        return redirect()->route('categories.index');
     }
 
 }

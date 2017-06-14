@@ -15,7 +15,7 @@ class Features_sizes_category extends Model
 
     public function md_features_sizes()
     {
-        return $this->hasMany('md_features_sizes');
+        return $this->hasMany('App\Features_size', 'id_md_features_sizes_category', 'id');
     }
 }
  
