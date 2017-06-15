@@ -36,7 +36,7 @@
        <tr>
           <td>{{ $product->reference }}</td> 
           <td>{{ $product->name }}</td>
-          <td>{{ $product->category }}</td>
+          <td>{{ $product->md_category->name }}</td>
           <td>
             @if($product->state == 1)
               {{ trans('modules.mod_categories_field_state_enabled') }}
@@ -69,7 +69,7 @@ $("#category").change(function() {
   $.ajax({
       type: 'GET',
       dataType: 'json',
-      url: 'products/ajax/category/'+$(this).val(),
+      url: '{{ route('products.ajax.category') }}/'+$(this).val(),
       success: function(d) {
         table.destroy();
         table = $("#tableProduct").DataTable({

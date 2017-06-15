@@ -20,9 +20,7 @@
     <link href="{{ asset('vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-    <!-- Custom Theme Style -->
-    <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/aplicacion.css') }}" rel="stylesheet">
+    
 
     @if(isset($plugins))
         @foreach($plugins as $plugin)
@@ -38,6 +36,10 @@
         @endforeach
     @endif
 
+    <!-- Custom Theme Style -->
+    <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/aplicacion.css') }}" rel="stylesheet">
+    
     @yield('css')
 
     <script>

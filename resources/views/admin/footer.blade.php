@@ -30,7 +30,6 @@
     <!-- Autosize -->
     <script src="{{ asset('vendors/autosize/dist/autosize.min.js') }}"></script>
     <!-- Custom Theme Scripts -->
-    <script src="{{ asset('build/js/custom.min.js') }}"></script>
 
     @if(isset($plugins))
         @foreach($plugins as $plugin)
@@ -52,6 +51,8 @@
         @endforeach
     @endif
     
+    <script src="{{ asset('build/js/custom.js') }}"></script>
+
     @yield('js')
 
   </body>

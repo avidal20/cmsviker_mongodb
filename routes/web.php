@@ -57,7 +57,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
     // Product
     Route::get('products/home', 'Products\ProductController@home')->name('products.home');
-    Route::get('products/ajax/category/{id?}', 'Products\ProductController@ajaxCategory');
+    Route::get('products/ajax/category/{id?}', 'Products\ProductController@ajaxCategory')->name('products.ajax.category');
+    Route::PUT('products/ajax/InputsTypeSize/{id?}', 'Products\ProductController@AjaxInputsTypeSize')->name('products.ajax.InputsTypeSize');
     Route::resource('products', 'Products\ProductController');
 
 

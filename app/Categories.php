@@ -13,4 +13,8 @@ class Categories extends Model
      */
     protected  $collection = 'md_categories';
 
+    public function md_products()
+    {
+        return $this->hasMany('App\Products', 'category', '_id');
+    }
 }

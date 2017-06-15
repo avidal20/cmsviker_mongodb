@@ -12,5 +12,25 @@ class Products extends Model
      * @var string
      */
     protected  $collection = 'md_products';
+    
+    public function md_category()
+    {
+        return $this->belongsTo('App\Categories', 'category', '_id');
+    }
+
+    public function md_size_category()
+    {
+        return $this->belongsTo('App\Features_sizes_category', 'type_size', '_id');
+    }
+
+    public function md_size()
+    {
+        return $this->hasMany('App\Features_size', 'id_md_features_sizes_category', 'type_size');
+    }
+
+    public function md_feactures()
+    {
+        return $this->hasMany('App\ProductsFeatures', 'id_product', '_id');
+    }
 
 }

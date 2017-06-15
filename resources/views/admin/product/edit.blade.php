@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form id="form-obj" data-parsley-validate="" novalidate="" method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
+<form id="form" data-parsley-validate="" novalidate="" method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
   {{ csrf_field() }}
     <div class="form-horizontal form-label-left">
       
@@ -14,7 +14,7 @@
             <select id="category" name="category" class="form-control" required="required">
                <option value="">{{ trans('config.app_field_select_value') }}</option>
                @foreach($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                <option value="{{ $category->id }}" @if($product->category == $category->id) selected @endif >{{ $category->name }}</option>
                @endforeach
             </select>
          </div>
@@ -24,7 +24,7 @@
          <label for="reference" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference')}}<span class="required">*</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="reference" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="reference">
+             <input id="reference" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="reference" value="{{ $product->reference }}">
          </div>
       </div>
 
@@ -32,7 +32,7 @@
          <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_name')}}<span class="required">*</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="name" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="name">
+             <input id="name" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="name" value="{{ $product->name }}">
          </div>
       </div>
 
@@ -40,7 +40,7 @@
          <label for="reference_alternate" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference_alternate')}}<span class="required">*</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="reference_alternate" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="reference_alternate">
+             <input id="reference_alternate" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="reference_alternate" value="{{ $product->alter_reference }}">
          </div>
       </div>
 
@@ -49,8 +49,8 @@
           <div class="col-md-6 col-sm-6 col-xs-12">
             <select name="state" id="state" class="form-control" required="required">
               <option value="">{{trans('config.app_field_select_value')}}</option>
-              <option value="1">{{trans('modules.mod_products_field_state_enabled')}}</option>
-              <option value="0">{{trans('modules.mod_products_field_state_disabled')}}</option>
+              <option value="1" @if($product->state == "1") selected @endif >{{trans('modules.mod_products_field_state_enabled')}}</option>
+              <option value="0" @if($product->state == "1") selected @endif >{{trans('modules.mod_products_field_state_disabled')}}</option>
             </select>
           </div>
       </div>
@@ -60,7 +60,7 @@
          <div class="clearfix"></div>
       </div>
 
-      <textarea id="description" name="description"></textarea>
+      <textarea id="description" name="description">{{ $product->description }}</textarea>
 
       <div class="x_title">
          <h2>{{trans('modules.mod_products_fielset_product_features')}}</h2>
@@ -73,46 +73,76 @@
             <select name="type_size" id="type_size" class="form-control" required="required">
               <option value="">{{trans('config.app_field_select_value')}}</option>
               @foreach($sizes as $size)
-                <option value="{{$size->id}}">{{$size->name}}</option>
+                <option value="{{$size->id}}" @if($product->type_size == $size->id) selected @endif>{{$size->name}}</option>
               @endforeach
             </select>
           </div>
       </div>
 
-      <div id="contentInputTypeSize"></div>
+      <div id="contentInputTypeSize">
+
+      <div class="form-group">
+         <label name="education" class="col-md-3 col-sm-3 col-xs-12 control-label">Tallas*</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+            @foreach($product->md_size as $sizes)
+                <div class="checkbox">
+                  <label class="">
+                    <div class="icheckbox_flat-green @if(in_array($sizes->id, $productSizesSelect)) checked @endif" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;" value="{{ $size->id }}" name="sizes[]" @if(in_array($sizes->id, $productSizesSelect)) checked @endif><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> {{ $sizes->name }}
+                  </label>
+                </div>
+            @endforeach
+         </div>
+      </div>
+
+      </div>
 
        <div class="form-group">
           <a href="#" class="control-label col-md-3 col-sm-3 col-xs-12" id="addFielset">
           <i class="fa fa-plus"></i> {{trans('modules.mod_products_field_add_color')}}</a>
       </div>
 
-    <div class="jumbotron formFielset" data-fielset="0">
-        <div class="form-group">
-            <label for="color_0" class="control-label col-md-3 col-sm-3 col-xs-12">Color<span class="required">*</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <select name="color[0]" id="color_0" class="form-control" required="required">
-                <option value="">{{trans('config.app_field_select_value')}}</option>
-                @foreach($colors as $color)
-                  <option value="{{$color->id}}">{{$color->name}}</option>
-                @endforeach
-              </select>
-            </div>
-        </div>
+@foreach($product->md_feactures as $feactures)
 
-        <div class="form-group">
-            <a data-fielset="0" href="#" class="control-label col-md-3 col-sm-3 col-xs-12 addImg">
-            <i class="fa fa-plus"></i>{{trans('modules.mod_products_field_add_img')}}</a>
-        </div>
+  <div class="jumbotron formFielset" data-fielset="{{ $loop->index }}">
+          <div class="form-group">
+              <label for="color_{{ $loop->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">Color<span class="required">*</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select name="color[{{ $loop->index }}]" id="color_{{ $loop->index }}" class="form-control" required="required">
+                  <option value="">{{trans('config.app_field_select_value')}}</option>
+                  @foreach($colors as $color)
+                    <option value="{{$color->id}}" @if($feactures->id_color == $color->id) selected @endif>{{$color->name}}</option>
+                  @endforeach
+                </select>
+              </div>
+          </div>
 
-        <div class="form-group">
-            <label for="img_0" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_add_img_des')}}<span class="required">*</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input data-idField="0" id="img_0" type="file" required="required" class="form-control col-md-7 col-xs-12 field_img_0" maxlength="255" name="img[0][]">
-            </div>
-        </div>
+          <div class="form-group">
+              <a data-fielset="{{ $loop->index }}" href="#" class="control-label col-md-3 col-sm-3 col-xs-12 addImg">
+              <i class="fa fa-plus"></i>{{trans('modules.mod_products_field_add_img')}}</a>
+          </div>
 
-        <div id="content_field_img_0"></div>
-</div>
+          @foreach($feactures->md_imgs as $img)
+
+          <div class="form-group">
+            <label for="img_{{ $loop->parent->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_add_img_des')}}<span class="required">*</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <img src="/storage/{{ $img->file }}" class="img-responsive img-rounded" alt="Cinque Terre" style="width:100px;height:auto;">
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="img_{{ $loop->parent->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_add_img_des')}}<span class="required">*</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input data-idField="{{ $loop->parent->index }}" id="img_{{ $loop->index }}" type="file" required="required" class="form-control col-md-7 col-xs-12 field_img_{{ $loop->parent->index }}" maxlength="255" name="img[{{ $loop->parent->index }}][]">
+              </div>
+          </div>
+
+          @endforeach
+
+          <div id="content_field_img_{{ $loop->index }}"></div>
+  </div>
+
+@endforeach
 
 <div id="contentFielset"></div>
 
@@ -120,7 +150,7 @@
                         
       <div class="form-group">
          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-            <button type="submit" class="btn btn-success">{{trans('config.app_create')}}</button>
+            <button type="submit" class="btn btn-success">{{trans('config.app_edit')}}</button>
          </div>
       </div>
       
@@ -221,6 +251,15 @@
                 alert(xhr + "\n" + textStatus + "\n" + thrownError);
             }
         });
+      });
+
+      //Confirmar antes de enviar
+      $("#form").submit(function(event) {
+          $(this).parsley().validate();
+          if ($(this).parsley().isValid()) {
+            return confirm("{{trans('modules.mod_products_edit_msj_confirm')}}");
+          }
+          event.preventDefault();
       });
 
   });

@@ -48,10 +48,13 @@ return [
         'mod_products_field_add_img_des' => 'A&ntilde;adir imagen',
         //Index
         'mod_products_index_action' => 'Listado de productos',
-        //create
+        //crear
         'mod_products_create_action' => 'Crear producto',
         'mod_products_fielset_product_features' => 'Caracter&iacute;sticas de producto',
         'mod_products_store_msj_error' => 'Ha ocurrido un error al eliminar el producto, por favor intente de nuevo.',
         'mod_products_store_msj_succes' => 'Producto creado con &eacute;xito.',
+        //modificar
+        'mod_products_edit_action' => 'Modificar producto',
+        'mod_products_edit_msj_confirm' => 'Realmente desea modificar el producto?',
 
 ];

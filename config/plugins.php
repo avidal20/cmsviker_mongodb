@@ -27,9 +27,6 @@ return [
         'useJs' => "autosize(\$('#description'));",
     ],
 
-
-
-
     'NProgress' => [
       'css' => 'vendors/nprogress/nprogress.css',
       'js' => 'vendors/nprogress/nprogress.js',
@@ -37,7 +34,7 @@ return [
 
     'iCheck' => [
       'css' => 'vendors/iCheck/skins/flat/green.css',
-      'js' => 'vendors/iCheck/icheck.min.js',
+      'js' => 'vendors/icheck/icheck.min.js',
     ],
 
     'bootstrap-wysiwyg' => [

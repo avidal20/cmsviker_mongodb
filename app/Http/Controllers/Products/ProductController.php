@@ -10,10 +10,12 @@ use Illuminate\Database\QueryException;
 
 use App\Categories;
 use App\Features_sizes_category;
+use App\Features_size;
 use App\Features_color;
 use App\Products;
 use App\ProductsFeatures;
 use App\ProductFeacturesImgs;
+use App\ProductSize;
 
 class ProductController extends Controller
 {
@@ -40,6 +42,11 @@ class ProductController extends Controller
                     trans('config.app_back') => [
                         'href' => route('products.index'),
                     ]
+                ],
+                'edit' => [
+                    trans('config.app_back') => [
+                        'href' => route('products.index'),
+                    ]
                 ]
             ],
 
@@ -47,6 +54,7 @@ class ProductController extends Controller
                 'home' => trans('config.mod_products_desc'),
                 'index' => trans('modules.mod_products_index_action'),
                 'create' => trans('modules.mod_products_create_action'),
+                'edit' => trans('modules.mod_products_edit_action'),
               ],
 
             'modBreadCrumb' => [
@@ -80,6 +88,20 @@ class ProductController extends Controller
                         'href' => route('products.index')
                     ],
                     trans('modules.mod_products_create_action') => [
+                        'active' => true
+                    ],
+                ],
+                'edit' => [
+                    trans('config.app_home') => [
+                        'href' => route('admin')
+                    ],
+                    trans('config.mod_products_desc') => [
+                        'href' => route('products.home')
+                    ],
+                    trans('modules.mod_products_index_action') => [
+                        'href' => route('products.index')
+                    ],
+                    trans('modules.mod_products_edit_action') => [
                         'active' => true
                     ],
                 ]
@@ -120,9 +142,10 @@ class ProductController extends Controller
     public function create()
     {
         $plugins[] = 'summernote';
-        $categories = Categories::all();
-        $sizes = Features_sizes_category::all();
-        $colors = Features_color::all();
+        $plugins[] = 'iCheck';
+        $categories = Categories::where('state','1')->get();
+        $sizes = Features_sizes_category::where('state','1')->get();
+        $colors = Features_color::where('state','1')->get();
         return $this->view('admin.product.create',
           compact(
             'plugins',
@@ -166,6 +189,14 @@ class ProductController extends Controller
           $product->type_size = $request->type_size;
           $product->save();
 
+          //Cracion de tallas
+          foreach($request->sizes as $size){
+            $sizes = new ProductSize();
+            $sizes->id_product = $product->id;
+            $sizes->id_size = $size;
+            $sizes->save();
+          }
+          
           //Creacion de las caracteristicas
           foreach($request->color as $key => $value){
             $productFeactures = new ProductsFeatures();
@@ -215,7 +246,30 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $plugins[] = 'summernote';
+        $plugins[] = 'iCheck';
+
+        $product = Products::find($id);
+        $categories = Categories::where('state','1')->get();
+        $sizes = Features_sizes_category::where('state','1')->get();
+        $colors = Features_color::where('state','1')->get();
+        $producstSizes = ProductSize::select('id_size')->where('id_product',$id)->get();
+        
+        $productSizesSelect = [];
+        foreach ($producstSizes as $productSize) {
+          $productSizesSelect[] = $productSize->id_size;
+        }
+
+        return $this->view('admin.product.edit',
+          compact(
+            'plugins',
+            'categories',
+            'sizes',
+            'colors',
+            'product',
+            'sizes',
+            'productSizesSelect')
+        );
     }
 
     /**
@@ -266,5 +320,10 @@ class ProductController extends Controller
         return response(array(
           'data' => $dataArray
         ),200);
+    }
+
+    public function AjaxInputsTypeSize($id){
+      $sizes = Features_size::where('id_md_features_sizes_category',$id)->get();
+      return view('admin.product.ajaxInputsTypeSize',compact('sizes'))->render();
     }
 }

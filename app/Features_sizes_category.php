@@ -17,5 +17,11 @@ class Features_sizes_category extends Model
     {
         return $this->hasMany('App\Features_size', 'id_md_features_sizes_category', 'id');
     }
+
+    public function md_products()
+    {
+        return $this->hasMany('App\Products', 'type_size', '_id');
+    }
+
 }
  

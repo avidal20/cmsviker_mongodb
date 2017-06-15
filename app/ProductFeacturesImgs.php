@@ -12,4 +12,9 @@ class ProductFeacturesImgs extends Model
      * @var string
      */
     protected  $collection = 'md_products_features_imgs';
+
+    public function md_feactures()
+    {
+        return $this->hasMany('App\ProductsFeatures', 'id_product_feature', '_id');
+    }
 }
