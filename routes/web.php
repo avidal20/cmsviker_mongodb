@@ -14,14 +14,9 @@ use App\Features_sizes_category;
 use App\Features_color;
 
 Route::get('/test', function () {
-    $size = new Features_sizes_category();
-    $size->name = '111';
-    $size->state = '111';
-    $size->save();
-
     $color = new Features_color();
-    $color->name = '111';
-    $color->state = '111';
+    $color->name = 'Amarillo';
+    $color->state = '1';
     $color->image = '111';
     $color->save();
 

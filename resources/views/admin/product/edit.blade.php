@@ -4,8 +4,9 @@
 
 @section('content')
 
-<form id="form" data-parsley-validate="" novalidate="" method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
+<form id="form" data-parsley-validate="" novalidate="" method="post" action="{{ route('products.update',['id' => $product->_id] ) }}" enctype="multipart/form-data">
   {{ csrf_field() }}
+  {{ method_field('PUT') }}    
     <div class="form-horizontal form-label-left">
       
       <div class="form-group">
@@ -122,19 +123,24 @@
           </div>
 
           @foreach($feactures->md_imgs as $img)
+          <div class="tmp">
 
-          <div class="form-group">
-            <label for="img_{{ $loop->parent->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_add_img_des')}}<span class="required">*</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <img src="/storage/{{ $img->file }}" class="img-responsive img-rounded" alt="Cinque Terre" style="width:100px;height:auto;">
+              <div class="form-group">
+                <label for="img_{{ $loop->parent->index  }}" class="control-label col-md-3 col-sm-3 col-xs-12"><a class="deleteImgEdit"><i class="fa fa-trash fa-2x"></i></a></label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <img src="{{ asset(str_replace('public','storage',$img->file)) }}" class="img-responsive img-rounded" alt="Cinque Terre" style="width:100px;height:auto;">
+                  </div>
               </div>
-          </div>
 
-          <div class="form-group">
-              <label for="img_{{ $loop->parent->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_add_img_des')}}<span class="required">*</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input data-idField="{{ $loop->parent->index }}" id="img_{{ $loop->index }}" type="file" required="required" class="form-control col-md-7 col-xs-12 field_img_{{ $loop->parent->index }}" maxlength="255" name="img[{{ $loop->parent->index }}][]">
+              <div class="form-group">
+                  <label for="img_{{ $loop->parent->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_add_img_des')}}<span class="required">*</label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input data-idField="{{ $loop->parent->index }}" id="img_{{ $loop->index }}" type="file"  class="form-control col-md-7 col-xs-12 field_img_{{ $loop->parent->index }}" maxlength="255" name="img[{{ $loop->parent->index }}][]">
+                  </div>
+
+                  <input type="hidden" name="imgHidden[{{ $loop->parent->index }}][]" value="{{ $img->file }}">
               </div>
+
           </div>
 
           @endforeach
@@ -275,6 +281,13 @@
     e.preventDefault();
     $(this).parent().remove();
   });
+
+  //Eliminar campo de archivos del fielset
+  $(document).on("click", "a.deleteImgEdit", function(e){
+    e.preventDefault();
+    $(this).parent().parent().parent().remove();
+  });
+
 
 
 </script>

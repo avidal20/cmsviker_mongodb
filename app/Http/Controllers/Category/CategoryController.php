@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 
 use App\Categories;
+use App\Products;
 
 class CategoryController extends Controller
 {
@@ -221,7 +222,13 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         try {
-        
+            
+            $productos = Products::where('category',$id)->get();
+            if(count($productos) > 0){
+              Session::flash('error',trans('modules.mod_categories_delete_msj_valid_product'));
+              return redirect()->route('categories.index');
+            }
+
             Categories::destroy($id);
             Session::flash('success', trans('modules.mod_categories_store_msj_delete_succes'));
 

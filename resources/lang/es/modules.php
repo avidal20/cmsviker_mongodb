@@ -32,6 +32,7 @@ return [
         'mod_categories_store_msj_delete_succes' => 'Categor&iacute;a eliminada con &eacute;xito.',
         'mod_categories_store_msj_delete_error' => 'Ha ocurrido un error al eliminar la categor&iacute;a, por favor intente de nuevo.',
         'mod_categories_store_msj_confirm_delete' => 'Realmente desea eliminar la categor\u00EDa?',
+        'mod_categories_delete_msj_valid_product' => 'La categor&iacute;a tiene asociado productos, no se puede eliminar.',
 
     /* Modulo  Products */
         'mod_products_field_name' => 'Nombre',

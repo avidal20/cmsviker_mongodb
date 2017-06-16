@@ -183,6 +183,7 @@ class ProductController extends Controller
           $product->name = $request->name;
           $product->description = $request->description;
           $product->reference = $request->reference;
+          $product->reference_alternate = $request->reference_alternate;
           $product->alter_reference = $request->alter_reference;
           $product->state = $request->state;
           $product->category = $request->category;
@@ -281,7 +282,83 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+        'category' => 'required',
+        'reference' => 'required',
+        'name' => 'required',
+        'reference_alternate' => 'required',
+        'description' => 'required',
+        'state' => 'required|max:10|numeric',
+        'type_size' => 'required',
+        'color.*' => 'required',
+      ]);
+
+        try {
+
+          //Eliminar todo asociado al producto
+          Products::destroy($id);
+          ProductSize::where('id_product',$id)->delete();
+          $feactures = ProductsFeatures::where('id_product',$id)->get();
+          foreach($feactures as $feacture){
+            ProductFeacturesImgs::where('id_product_feature',$feacture->id)->delete();
+          }
+          ProductsFeatures::where('id_product',$id)->delete();
+
+
+          //Creacion del producto
+          $product = new Products();
+          $product->name = $request->name;
+          $product->description = $request->description;
+          $product->reference = $request->reference;
+          $product->alter_reference = $request->alter_reference;
+          $product->state = $request->state;
+          $product->category = $request->category;
+          $product->type_size = $request->type_size;
+          $product->save();
+
+          //Cracion de tallas
+          foreach($request->sizes as $size){
+            $sizes = new ProductSize();
+            $sizes->id_product = $product->id;
+            $sizes->id_size = $size;
+            $sizes->save();
+          }
+          
+          //Creacion de las caracteristicas
+          foreach($request->color as $key => $value){
+            $productFeactures = new ProductsFeatures();
+            $productFeactures->id_product = $product->id;
+            $productFeactures->id_color = $value;
+            $productFeactures->save();
+
+            //Creacion de los archivos
+            foreach($request->img[$key] as $keyChildren => $file){
+              if(!isset($request->imgHidden[$key][$keyChildren])){
+                $productFeacturesFile = new ProductFeacturesImgs();
+                $productFeacturesFile->id_product_feature = $productFeactures->id;
+                $productFeacturesFile->file = $request->imgHidden[$key][$keyChildren];
+                $productFeacturesFile->save();
+              }else{
+                Storage::putfile('public',$file);
+                $productFeacturesFile = new ProductFeacturesImgs();
+                $productFeacturesFile->id_product_feature = $productFeactures->id;
+                $productFeacturesFile->file = $file->store('public');
+                $productFeacturesFile->save();
+              }
+              
+            }
+
+          }
+
+          Session::flash('success', trans('modules.mod_products_store_msj_succes'));
+
+        } catch (QueryException $e) {
+
+            Session::flash('error',trans('modules.mod_products_store_msj_error'));
+
+        }
+
+        return redirect()->route('products.index');
     }
 
     /**

@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form id="form" data-parsley-validate="" novalidate="" method="post" action="{{ route('categories.update',['id' => $category->id]) }}">
+<form id="form" data-parsley-validate="" novalidate="" method="post" action="{{ route('categories.update',['id' => $product->id]) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}    
 
