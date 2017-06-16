@@ -23,7 +23,7 @@ class ProductController extends Controller
         public function __construct() {
         $this->middleware('auth');
         $this->modData = [
-            'modTitle' => trans('config.mod_products_name'),
+            'modTitle' => trans('config.mod_products_desc'),
             'modMenu' => [
                 'home' => [
                     trans('config.app_back') => [
@@ -47,6 +47,11 @@ class ProductController extends Controller
                     trans('config.app_back') => [
                         'href' => route('products.index'),
                     ]
+                ],
+                'show' => [
+                    trans('modules.mod_products_show_action') => [
+                        'href' => route('products.index'),
+                    ]
                 ]
             ],
 
@@ -55,6 +60,7 @@ class ProductController extends Controller
                 'index' => trans('modules.mod_products_index_action'),
                 'create' => trans('modules.mod_products_create_action'),
                 'edit' => trans('modules.mod_products_edit_action'),
+                'show' => trans('modules.mod_products_show_action'),
               ],
 
             'modBreadCrumb' => [
@@ -104,6 +110,20 @@ class ProductController extends Controller
                     trans('modules.mod_products_edit_action') => [
                         'active' => true
                     ],
+                ],
+                'show' => [
+                    trans('config.app_home') => [
+                        'href' => route('admin')
+                    ],
+                    trans('config.mod_products_desc') => [
+                        'href' => route('products.home')
+                    ],
+                    trans('modules.mod_products_index_action') => [
+                        'href' => route('products.index')
+                    ],
+                    trans('modules.mod_products_show_action') => [
+                        'active' => true
+                    ],
                 ]
             ]
           ];
@@ -129,7 +149,7 @@ class ProductController extends Controller
     {
         $plugins[] = 'Datatable';
         $categories = Categories::all();
-        $products = Products::all();
+        $products = Products::where('category','1')->get();
 
         return $this->view('admin.product.index',compact('plugins','categories','products'));
     }
@@ -168,7 +188,7 @@ class ProductController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'reference_alternate' => 'required',
+        'alter_reference' => 'required',
         'description' => 'required',
         'state' => 'required|max:10|numeric',
         'type_size' => 'required',
@@ -183,7 +203,6 @@ class ProductController extends Controller
           $product->name = $request->name;
           $product->description = $request->description;
           $product->reference = $request->reference;
-          $product->reference_alternate = $request->reference_alternate;
           $product->alter_reference = $request->alter_reference;
           $product->state = $request->state;
           $product->category = $request->category;
@@ -236,7 +255,30 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $plugins[] = 'summernote';
+        $plugins[] = 'iCheck';
+
+        $product = Products::find($id);
+        $categories = Categories::where('state','1')->get();
+        $sizes = Features_sizes_category::where('state','1')->get();
+        $colors = Features_color::where('state','1')->get();
+        $producstSizes = ProductSize::select('id_size')->where('id_product',$id)->get();
+        
+        $productSizesSelect = [];
+        foreach ($producstSizes as $productSize) {
+          $productSizesSelect[] = $productSize->id_size;
+        }
+        //dd($producstSizes);
+        return $this->view('admin.product.show',
+          compact(
+            'plugins',
+            'categories',
+            'sizes',
+            'colors',
+            'product',
+            'sizes',
+            'productSizesSelect')
+        );
     }
 
     /**
@@ -260,7 +302,7 @@ class ProductController extends Controller
         foreach ($producstSizes as $productSize) {
           $productSizesSelect[] = $productSize->id_size;
         }
-
+        //dd($producstSizes);
         return $this->view('admin.product.edit',
           compact(
             'plugins',
@@ -286,27 +328,16 @@ class ProductController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'reference_alternate' => 'required',
+        'alter_reference' => 'required',
         'description' => 'required',
         'state' => 'required|max:10|numeric',
         'type_size' => 'required',
         'color.*' => 'required',
       ]);
-
         try {
 
-          //Eliminar todo asociado al producto
-          Products::destroy($id);
-          ProductSize::where('id_product',$id)->delete();
-          $feactures = ProductsFeatures::where('id_product',$id)->get();
-          foreach($feactures as $feacture){
-            ProductFeacturesImgs::where('id_product_feature',$feacture->id)->delete();
-          }
-          ProductsFeatures::where('id_product',$id)->delete();
-
-
           //Creacion del producto
-          $product = new Products();
+          $product = Products::find($id);
           $product->name = $request->name;
           $product->description = $request->description;
           $product->reference = $request->reference;
@@ -317,26 +348,34 @@ class ProductController extends Controller
           $product->save();
 
           //Cracion de tallas
+          ProductSize::where('id_product',$id)->delete();
           foreach($request->sizes as $size){
             $sizes = new ProductSize();
             $sizes->id_product = $product->id;
             $sizes->id_size = $size;
             $sizes->save();
           }
-          
+
           //Creacion de las caracteristicas
+            //Eliminacion de las tallas
+            $feactures = ProductsFeatures::where('id_product',$id)->get();
+            foreach($feactures as $feacture){
+              ProductFeacturesImgs::where('id_product_feature',$feacture->id)->delete();
+            }
+            ProductsFeatures::where('id_product',$id)->delete();
+
           foreach($request->color as $key => $value){
+
             $productFeactures = new ProductsFeatures();
             $productFeactures->id_product = $product->id;
             $productFeactures->id_color = $value;
             $productFeactures->save();
 
-            //Creacion de los archivos
             foreach($request->img[$key] as $keyChildren => $file){
-              if(!isset($request->imgHidden[$key][$keyChildren])){
+              if(is_string($request->img[$key][$keyChildren])){
                 $productFeacturesFile = new ProductFeacturesImgs();
                 $productFeacturesFile->id_product_feature = $productFeactures->id;
-                $productFeacturesFile->file = $request->imgHidden[$key][$keyChildren];
+                $productFeacturesFile->file = $request->img[$key][$keyChildren];
                 $productFeacturesFile->save();
               }else{
                 Storage::putfile('public',$file);
@@ -345,16 +384,14 @@ class ProductController extends Controller
                 $productFeacturesFile->file = $file->store('public');
                 $productFeacturesFile->save();
               }
-              
             }
-
           }
 
-          Session::flash('success', trans('modules.mod_products_store_msj_succes'));
+            Session::flash('success', trans('modules.mod_products_edit_msj_succes'));
 
         } catch (QueryException $e) {
 
-            Session::flash('error',trans('modules.mod_products_store_msj_error'));
+            Session::flash('error',trans('modules.mod_products_edit_msj_error'));
 
         }
 
@@ -369,12 +406,30 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+      try {
+
+        Products::destroy($id);
+        ProductSize::where('id_product',$id)->delete();
+        $feactures = ProductsFeatures::where('id_product',$id)->get();
+        
+        foreach($feactures as $feacture){
+          ProductFeacturesImgs::where('id_product_feature',$feacture->id)->delete();
+        Session::flash('success', trans('modules.mod_products_edit_msj_succes'));
+        }
+        ProductsFeatures::where('id_product',$id)->delete();
+
+        Session::flash('success', trans('modules.mod_products_delete_msj_succes'));
+
+      } catch (Exception $e) {
+        Session::flash('error',trans('modules.mod_products_delete_msj_error'));
+      }
+
+      return redirect()->route('products.index');
+
     }
 
     public function ajaxCategory($id = null)
     {
-
         if(is_null($id)){
           $products = Products::all();
         }else{

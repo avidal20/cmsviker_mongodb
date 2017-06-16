@@ -37,10 +37,10 @@
       </div>
 
       <div class="form-group">
-         <label for="reference_alternate" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference_alternate')}}<span class="required">*</span>
+         <label for="alter_reference" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference_alternate')}}<span class="required">*</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="reference_alternate" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="reference_alternate">
+             <input id="alter_reference" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="alter_reference">
          </div>
       </div>
 

@@ -57,5 +57,17 @@ return [
         //modificar
         'mod_products_edit_action' => 'Modificar producto',
         'mod_products_edit_msj_confirm' => 'Realmente desea modificar el producto?',
+        'mod_products_edit_msj_error' => 'Ha ocurrido un error al modificar el producto, por favor intente de nuevo.',
+        'mod_products_edit_msj_succes' => 'Producto modificado con &eacute;xito.',
+        //Eliminar
+        'mod_products_show_action' => 'Eliminar producto',
+        'mod_products_delete_msj_confirm' => 'Realmente desea eliminar el producto?',
+        'mod_products_delete_msj_error' => 'Ha ocurrido un error al eliminar el producto, por favor intente de nuevo.',
+        'mod_products_delete_msj_succes' => 'Producto eliminar con &eacute;xito.',
 
+    /* Modulo  Products Kids*/
+        'mod_kids_fielset_product' => 'Productos',
+        'mod_kids_field_add_product' => 'A&ntilde;adir producto',
+    //Index
+        'mod_kids_index_action' => 'Listado de kids',
 ];
