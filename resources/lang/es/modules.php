@@ -6,6 +6,8 @@ return [
         'mod_features_sizes_title' => 'Tallas',
         'mod_features_size_title' => 'Talla',
         'mod_features_sizes_list_title' => 'Listado de tallas',
+        'mod_features_gst_size_title' => 'Tallas',
+        'mod_features_gst_color_title' => 'Colores',
         //Crear
         'mod_features_sizes_add' => 'Agregar talla',
         'mod_features_sizes_create' => 'Crear talla',
@@ -83,6 +85,7 @@ return [
         'mod_products_field_add_color' => 'Agregar color',
         'mod_products_field_add_img' => 'Agregar imagen',
         'mod_products_field_add_img_des' => 'A&ntilde;adir imagen',
+        'mod_products_delete_msj_valid_product' => 'El producto esta asociado a un kid, no se puede eliminar.',
         //Index
         'mod_products_index_action' => 'Listado de productos',
         //crear
@@ -104,6 +107,7 @@ return [
     /* Modulo  Products Kids*/
         'mod_kids_fielset_product' => 'Productos',
         'mod_kids_field_add_product' => 'A&ntilde;adir producto',
+        'mod_kids_msj_not_product' => 'No se ha incluido ning&uacute;n producto.',
     //Index
         'mod_kids_index_action' => 'Listado de kids',
     //Crear
@@ -112,5 +116,13 @@ return [
         'mod_kids_store_msj_succes' => 'Kid creado con &eacute;xito.',
     //Modificar
         'mod_kids_edit_action' => 'Modificar Kid',
+        'mod_kids_edit_msj_confirm' => 'Realmente desea modificar el Kid?',
+        'mod_kids_edit_msj_error' => 'Ha ocurrido un error al modificar el kid, por favor intente de nuevo.',
+        'mod_kids_edit_msj_success' => 'Kid modificado con &eacute;xito.',
+    //Eliminar
+        'mod_kids_delete_action' => 'Eliminar Kid',
+        'mod_kids_delete_msj_confirm' => 'Realmente desea eliminar el Kid?',
+        'mod_kids_delete_msj_error' => 'Ha ocurrido un error al eliminar el kid, por favor intente de nuevo.',
+        'mod_kids_delete_msj_success' => 'Kid eliminar con &eacute;xito.',
 
 ];

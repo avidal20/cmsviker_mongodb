@@ -3,15 +3,17 @@
 @section('title', trans('modules.mod_features_title'))
 
 @section('content')
-        <div class="row">
-        @foreach ($features as $feature)
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <img src="{{ asset('media/modules/talla.png') }}">
+            <h2><a href="{{ route('sizes.index') }}">{{ trans('modules.mod_features_gst_size_title') }}</a></h2>
+          </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <a href="{{route($feature->route_name.'.index')}}">
-                <img src="{{ asset($feature->image) }}">
-                <h2>{{ $feature->name }}</h2>
-            </a>
-            </div>
-        @endforeach
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <img src="{{ asset('media/modules/color.png') }}">
+            <h2><a href="{{ route('colors.index') }}">{{ trans('modules.mod_features_gst_color_title') }}</a></h2>
+          </div>
         </div>
+    </div>
 @endsection

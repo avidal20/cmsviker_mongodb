@@ -16,6 +16,7 @@ use App\Products;
 use App\ProductsFeatures;
 use App\ProductFeacturesImgs;
 use App\ProductSize;
+use App\ProductKidsSelected;
 
 class ProductController extends Controller
 {
@@ -49,7 +50,7 @@ class ProductController extends Controller
                     ]
                 ],
                 'show' => [
-                    trans('modules.mod_products_show_action') => [
+                    trans('config.app_back') => [
                         'href' => route('products.index'),
                     ]
                 ]
@@ -259,11 +260,11 @@ class ProductController extends Controller
         $plugins[] = 'iCheck';
 
         $product = Products::find($id);
-        $categories = Categories::where('state','1')->get();
-        $sizes = Features_sizes_category::where('state','1')->get();
-        $colors = Features_color::where('state','1')->get();
+        $categories = Categories::all();
+        $sizes = Features_sizes_category::all();
+        $colors = Features_color::all();
         $producstSizes = ProductSize::select('id_size')->where('id_product',$id)->get();
-        
+
         $productSizesSelect = [];
         foreach ($producstSizes as $productSize) {
           $productSizesSelect[] = $productSize->id_size;
@@ -293,11 +294,10 @@ class ProductController extends Controller
         $plugins[] = 'iCheck';
 
         $product = Products::find($id);
-        $categories = Categories::where('state','1')->get();
-        $sizes = Features_sizes_category::where('state','1')->get();
-        $colors = Features_color::where('state','1')->get();
+        $categories = Categories::all();
+        $sizes = Features_sizes_category::all();
+        $colors = Features_color::all();
         $producstSizes = ProductSize::select('id_size')->where('id_product',$id)->get();
-        
         $productSizesSelect = [];
         foreach ($producstSizes as $productSize) {
           $productSizesSelect[] = $productSize->id_size;
@@ -407,6 +407,12 @@ class ProductController extends Controller
     public function destroy($id)
     {
       try {
+
+        $productsKids = ProductKidsSelected::where('id_product',$id)->get();
+        if(count($productsKids) > 0){
+          Session::flash('error',trans('modules.mod_products_delete_msj_valid_product'));
+          return redirect()->route('products.index');
+        }
 
         Products::destroy($id);
         ProductSize::where('id_product',$id)->delete();

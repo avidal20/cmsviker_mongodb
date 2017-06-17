@@ -12,10 +12,10 @@
 
   <fieldset disabled="">
     <div class="form-group">
-         <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12" for="name">{{trans('modules.mod_categories_field_name')}}<span class="required">*</span>
+         <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12" for="name">{{trans('modules.mod_categories_field_name')}}</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="name" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="name" value="{{ $category->name }}">
+             <input id="name" type="text"  class="form-control col-md-7 col-xs-12" maxlength="255" name="name" value="{{ $category->name }}">
          </div>
       </div>
 
@@ -28,9 +28,9 @@
       </div>
 
        <div class="form-group">
-          <label for="state" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_categories_field_state')}}<span class="required">*</label>
+          <label for="state" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_categories_field_state')}}</label>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <select name="state" id="state" class="form-control" required="required">
+            <select name="state" id="state" class="form-control" >
               <option value="">{{trans('config.app_field_select_value')}}</option>
               <option value="1" @if($category->state == '1') selected @endif>{{trans('modules.mod_categories_field_state_enabled')}}</option>
               <option value="0" @if($category->state == '0') selected @endif>{{trans('modules.mod_categories_field_state_disabled')}}</option>

@@ -1,6 +1,6 @@
 @extends('admin.layoutAdminModule')
 
-@section('title', trans('modules.mod_features_title'))
+@section('title', trans('config.mod_products_desc'))
 
 @section('content')
 

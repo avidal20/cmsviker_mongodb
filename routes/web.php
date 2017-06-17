@@ -13,14 +13,6 @@
 use App\Features_sizes_category;
 use App\Features_color;
 
-Route::get('/test', function () {
-    $color = new Features_color();
-    $color->name = 'Amarillo';
-    $color->state = '1';
-    $color->image = '111';
-    $color->save();
-});
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -40,16 +32,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
     // Features - Caracteristicas
     Route::get('features', 'Features\FeatureController@index')->name('features');
-/*
-    Route::get('features/sizes', 'Features\FeatureSizesCategoryController@index')->name('features.sizes');
-    Route::get('features/sizes/create', 'Features\FeatureSizesCategoryController@create')->name('features.sizes.create');
-    Route::post('features/sizes/store', 'Features\FeatureSizesCategoryController@store')->name('features.sizes.store');
-    Route::get('features/sizes/edit', 'Features\FeatureSizesCategoryController@edit')->name('features.sizes.edit');
-    Route::get('features/sizes/delete', 'Features\FeatureSizesCategoryController@delete')->name('features.sizes.delete');
-*/
     Route::resource('sizes', 'Features\FeatureSizesCategoryController');
     Route::resource('colors', 'Features\FeatureColorsController');
-
     Route::get('features/colors', 'Features\FeatureController@colors')->name('features.colors');
 
     // Product
@@ -61,5 +45,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     //Kids
     Route::get('kids/ajax/category/{id?}', 'Products\kidsController@ajaxCategory')->name('kids.ajax.category');
     Route::get('kids/ajax/product/{id?}', 'Products\kidsController@ajaxProduct')->name('kids.ajax.product');
+    Route::get('kids/ajax/product/{idKid}/{id?}', 'Products\kidsController@ajaxProductEdit')->name('kids.ajax.product.edit');
+    Route::put('kids/ajax/productselected', 'Products\kidsController@ajaxProductSelect')->name('kids.ajax.product.select');
     Route::resource('kids', 'Products\kidsController');
 });

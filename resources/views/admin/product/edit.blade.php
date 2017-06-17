@@ -1,6 +1,6 @@
 @extends('admin.layoutAdminModule')
 
-@section('title', trans('config.mod_categories_name'))
+@section('title', trans('config.mod_products_desc'))
 
 @section('content')
 
@@ -15,7 +15,9 @@
             <select id="category" name="category" class="form-control" required="required">
                <option value="">{{ trans('config.app_field_select_value') }}</option>
                @foreach($categories as $category)
-                <option value="{{ $category->id }}" @if($product->category == $category->id) selected @endif >{{ $category->name }}</option>
+                @if($product->category == $category->id or $category->state != 0)
+                  <option value="{{ $category->id }}" @if($product->category == $category->id) selected @endif >{{ $category->name }}</option>
+                @endif
                @endforeach
             </select>
          </div>
@@ -74,7 +76,9 @@
             <select name="type_size" id="type_size" class="form-control" required="required">
               <option value="">{{trans('config.app_field_select_value')}}</option>
               @foreach($sizes as $size)
-                <option value="{{$size->id}}" @if($product->type_size == $size->id) selected @endif>{{$size->name}}</option>
+                @if($product->type_size == $size->id or $product->state != 0)
+                  <option value="{{$size->id}}" @if($product->type_size == $size->id) selected @endif>{{$size->name}}</option>
+                @endif
               @endforeach
             </select>
           </div>
@@ -111,7 +115,9 @@
                 <select name="color[{{ $loop->index }}]" id="color_{{ $loop->index }}" class="form-control" required="required">
                   <option value="">{{trans('config.app_field_select_value')}}</option>
                   @foreach($colors as $color)
+                    @if($feactures->id_color == $color->id or $color->state != 0)
                     <option value="{{$color->id}}" @if($feactures->id_color == $color->id) selected @endif>{{$color->name}}</option>
+                    @endif
                   @endforeach
                 </select>
               </div>
@@ -128,7 +134,7 @@
               <div class="form-group">
                 <label for="img_{{ $loop->parent->index  }}" class="control-label col-md-3 col-sm-3 col-xs-12"><a class="deleteImgEdit"><i class="fa fa-trash fa-2x"></i></a></label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <img src="{{ asset(str_replace('public','storage',$img->file)) }}" class="img-responsive img-rounded" alt="Cinque Terre" style="width:100px;height:auto;">
+                    <img src="{{ asset(str_replace('public','storage',$img->file)) }}" class="img-responsive img-rounded" style="width:100px;height:auto;">
                   </div>
                   <input type="hidden" name="img[{{ $loop->parent->index }}][]" value="{{ $img->file }}">
               </div>
@@ -190,7 +196,9 @@
                       '<select name="color['+countField+']" id="color_'+countField+'" class="form-control" required="required">'+
                         '<option value="">{{trans('config.app_field_select_value')}}</option>'+
                           @foreach($colors as $color)
-                            '<option value="{{$color->id}}">{{$color->name}}</option>'+
+                            @if($color->state != 0)
+                              '<option value="{{$color->id}}">{{$color->name}}</option>'+
+                            @endif
                           @endforeach
                       '</select>'+
                     '</div>'+
