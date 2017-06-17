@@ -14,17 +14,11 @@ use App\Features_sizes_category;
 use App\Features_color;
 
 Route::get('/test', function () {
-    $size = new Features_sizes_category();
-    $size->name = '111';
-    $size->state = '111';
-    $size->save();
-
     $color = new Features_color();
-    $color->name = '111';
-    $color->state = '111';
+    $color->name = 'Amarillo';
+    $color->state = '1';
     $color->image = '111';
     $color->save();
-
 });
 
 Route::get('/', function () {
@@ -64,5 +58,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::PUT('products/ajax/InputsTypeSize/{id?}', 'Products\ProductController@AjaxInputsTypeSize')->name('products.ajax.InputsTypeSize');
     Route::resource('products', 'Products\ProductController');
 
-
+    //Kids
+    Route::get('kids/ajax/category/{id?}', 'Products\kidsController@ajaxCategory')->name('kids.ajax.category');
+    Route::get('kids/ajax/product/{id?}', 'Products\kidsController@ajaxProduct')->name('kids.ajax.product');
+    Route::resource('kids', 'Products\kidsController');
 });

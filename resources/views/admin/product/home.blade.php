@@ -13,7 +13,7 @@
 
           <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <img src="{{ asset('media/modules/kids.png') }}">
-            <h2><a href="{{ route('features') }}">{{ trans('config.mod_kids_name') }}</a></h2>
+            <h2><a href="{{ route('kids.index') }}">{{ trans('config.mod_kids_name') }}</a></h2>
           </div>
         </div>
       </div>

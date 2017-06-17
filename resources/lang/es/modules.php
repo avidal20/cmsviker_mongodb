@@ -65,6 +65,7 @@ return [
         'mod_categories_store_msj_delete_succes' => 'Categor&iacute;a eliminada con &eacute;xito.',
         'mod_categories_store_msj_delete_error' => 'Ha ocurrido un error al eliminar la categor&iacute;a, por favor intente de nuevo.',
         'mod_categories_store_msj_confirm_delete' => 'Realmente desea eliminar la categor\u00EDa?',
+        'mod_categories_delete_msj_valid_product' => 'La categor&iacute;a tiene asociado productos, no se puede eliminar.',
 
     /* Modulo  Products */
         'mod_products_field_name' => 'Nombre',
@@ -89,5 +90,17 @@ return [
         //modificar
         'mod_products_edit_action' => 'Modificar producto',
         'mod_products_edit_msj_confirm' => 'Realmente desea modificar el producto?',
+        'mod_products_edit_msj_error' => 'Ha ocurrido un error al modificar el producto, por favor intente de nuevo.',
+        'mod_products_edit_msj_succes' => 'Producto modificado con &eacute;xito.',
+        //Eliminar
+        'mod_products_show_action' => 'Eliminar producto',
+        'mod_products_delete_msj_confirm' => 'Realmente desea eliminar el producto?',
+        'mod_products_delete_msj_error' => 'Ha ocurrido un error al eliminar el producto, por favor intente de nuevo.',
+        'mod_products_delete_msj_succes' => 'Producto eliminar con &eacute;xito.',
 
+    /* Modulo  Products Kids*/
+        'mod_kids_fielset_product' => 'Productos',
+        'mod_kids_field_add_product' => 'A&ntilde;adir producto',
+    //Index
+        'mod_kids_index_action' => 'Listado de kids',
 ];
