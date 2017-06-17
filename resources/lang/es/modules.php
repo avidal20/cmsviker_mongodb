@@ -85,7 +85,7 @@ return [
         //crear
         'mod_products_create_action' => 'Crear producto',
         'mod_products_fielset_product_features' => 'Caracter&iacute;sticas de producto',
-        'mod_products_store_msj_error' => 'Ha ocurrido un error al eliminar el producto, por favor intente de nuevo.',
+        'mod_products_store_msj_error' => 'Ha ocurrido un error al crear el producto, por favor intente de nuevo.',
         'mod_products_store_msj_succes' => 'Producto creado con &eacute;xito.',
         //modificar
         'mod_products_edit_action' => 'Modificar producto',
@@ -103,4 +103,11 @@ return [
         'mod_kids_field_add_product' => 'A&ntilde;adir producto',
     //Index
         'mod_kids_index_action' => 'Listado de kids',
+    //Crear
+        'mod_kids_create_action' => 'Crear Kid',
+        'mod_kids_store_msj_error' => 'Ha ocurrido un error al crear el Kid, por favor intente de nuevo.',
+        'mod_kids_store_msj_succes' => 'Kid creado con &eacute;xito.',
+    //Modificar
+        'mod_kids_edit_action' => 'Modificar Kid',
+
 ];

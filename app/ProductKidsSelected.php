@@ -12,4 +12,5 @@ class ProductKidsSelected extends Model
      * @var string
      */
     protected  $collection = 'md_products_kids_selected';
+
 }

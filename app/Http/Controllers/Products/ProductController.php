@@ -149,7 +149,7 @@ class ProductController extends Controller
     {
         $plugins[] = 'Datatable';
         $categories = Categories::all();
-        $products = Products::where('category','1')->get();
+        $products = Products::all();
 
         return $this->view('admin.product.index',compact('plugins','categories','products'));
     }

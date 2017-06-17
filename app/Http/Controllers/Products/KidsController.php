@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Products;
 
+use Illuminate\Support\Facades\Session;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Categories;
@@ -44,8 +46,8 @@ class KidsController extends Controller
 
             'modTitleAction' => [
                 'index' => trans('modules.mod_kids_index_action'),
-                'create' => trans('modules.mod_products_create_action'),
-                'edit' => trans('modules.mod_products_edit_action'),
+                'create' => trans('modules.mod_kids_create_action'),
+                'edit' => trans('modules.mod_kids_edit_action'),
                 'show' => trans('modules.mod_products_show_action'),
               ],
 
@@ -69,9 +71,9 @@ class KidsController extends Controller
                         'href' => route('products.home')
                     ],
                     trans('modules.mod_kids_index_action') => [
-                        'href' => route('products.index')
+                        'href' => route('kids.index')
                     ],
-                    trans('modules.mod_products_create_action') => [
+                    trans('modules.mod_kids_create_action') => [
                         'active' => true
                     ],
                 ],
@@ -82,10 +84,10 @@ class KidsController extends Controller
                     trans('config.mod_products_desc') => [
                         'href' => route('products.home')
                     ],
-                    trans('modules.mod_products_index_action') => [
-                        'href' => route('products.index')
+                    trans('modules.mod_kids_index_action') => [
+                        'href' => route('kids.index')
                     ],
-                    trans('modules.mod_products_edit_action') => [
+                    trans('modules.mod_kids_edit_action') => [
                         'active' => true
                     ],
                 ],
@@ -97,7 +99,7 @@ class KidsController extends Controller
                         'href' => route('products.home')
                     ],
                     trans('modules.mod_products_index_action') => [
-                        'href' => route('products.index')
+                        'href' => route('kids.index')
                     ],
                     trans('modules.mod_products_show_action') => [
                         'active' => true
@@ -171,20 +173,20 @@ class KidsController extends Controller
           //Cracion de productos asociados
           foreach($request->products as $product){
             $productKid = new ProductKidsSelected();
-            $productKid->id_product_kids = $kid;
-            $productKid->id_product = $product
+            $productKid->id_product_kids = $kid->id;
+            $productKid->id_product = $product;
             $productKid->save();
           }
 
-          Session::flash('success', trans('modules.mod_products_store_msj_succes'));
+            Session::flash('success', trans('modules.mod_kids_store_msj_succes'));
 
         } catch (QueryException $e) {
 
-            Session::flash('error',trans('modules.mod_products_store_msj_error'));
+            Session::flash('error',trans('modules.mod_kids_store_msj_error'));
 
         }
 
-        return redirect()->route('products.kid.index');
+        return redirect()->route('kids.index');
     }
 
     /**
@@ -206,7 +208,19 @@ class KidsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $plugins[] = 'summernote';
+        $plugins[] = 'iCheck';
+        $plugins[] = 'Datatable';
+        $categories = Categories::where('state','1')->get();
+        $kid = ProductKids::find($id);
+        $products = Products::all();
+        $productsSelect = ProductKidsSelected::where('id_product_kids',$kid->id)->get();
+        $productSelected = [];
+        foreach ($productsSelect as $select) {
+          $productSelected[] = $select->id_product;
+        }
+
+        return $this->view('admin.product.kid.edit',compact('plugins','categories','products','kid','productSelected'));
     }
 
     /**
@@ -237,7 +251,7 @@ class KidsController extends Controller
         if(is_null($id)){
           $kids = ProductKids::all();
         }else{
-          $kids = ProductKids::where('id_category','=',$id)->get();
+          $kids = ProductKids::where('category','=',$id)->get();
         }
 
         $count = 0;
@@ -246,7 +260,7 @@ class KidsController extends Controller
         foreach ($kids as $kid) {
           $dataArray[$count][] = $kid->reference;
           $dataArray[$count][] = $kid->name;
-          $dataArray[$count][] = $kid->category;
+          $dataArray[$count][] = $kid->md_category->name;
           $dataArray[$count][] = ($kid->state == 1)? trans('modules.mod_categories_field_state_enabled') : trans('modules.mod_categories_field_state_disabled');
           $dataArray[$count][] = "<a href='".route('kids.edit',['id' => $kid->id ])."'><i class='fa fa-edit fa-2x'></a>";
           $dataArray[$count][] = "<a href='".route('kids.show',['id' => $kid->id ])."'><i class='fa fa-remove fa-2x'></a>";

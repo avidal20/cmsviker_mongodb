@@ -12,4 +12,10 @@ class ProductKids extends Model
      * @var string
      */
     protected  $collection = 'md_products_kids';
+
+    public function md_category()
+    {
+        return $this->belongsTo('App\Categories', 'category', '_id');
+    }
+
 }
