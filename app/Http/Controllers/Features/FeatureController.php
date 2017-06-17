@@ -16,7 +16,6 @@ class FeatureController extends Controller
             'modMenu' => [
                 'index' => [
                     trans('config.app_back') => [
-                        'class' => 'active',
                         'href' => route('admin'),
                         'atribute' => [],
                     ],

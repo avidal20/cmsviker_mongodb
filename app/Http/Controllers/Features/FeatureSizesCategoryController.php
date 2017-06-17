@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Database\QueryException;
 use App\Features_size;
 use App\Features_sizes_category;
+use App\Products;
 
 class FeatureSizesCategoryController extends Controller
 {
@@ -207,29 +208,37 @@ class FeatureSizesCategoryController extends Controller
         ]);
 
         try {
-            
-            $tallaCat = Features_sizes_category::find($id);
-            $tallaCat->name = $request->name;
-            $tallaCat->state = $request->state;
-            $tallaCat->save();
 
-            // Update Falso, en realidad elimina las existentes y crea nuevas
-            // Elimina las tallas existentes
-            $currentSizes = Features_size::where("id_md_features_sizes_category", $tallaCat->id)->get();
-            foreach($currentSizes as $index => $size){
-                Features_size::destroy($size->id);
-            }
-            // Crea las tallas
-            foreach($request->sizes as $index => $size){
-                if(strlen($size) > 0){
-                    $talla = new Features_size;
-                    $talla->name = $size;
-                    $talla->id_md_features_sizes_category = $tallaCat->id;
-                    $talla->save();
+            // valida si esta enlasado a un producto
+            $delete = Products::where("type_size", $id)->count();
+            if($delete > 0){
+                Session::flash('error', trans('modules.mod_features_sizes_cant_edit'));
+            }else{
+
+                $tallaCat = Features_sizes_category::find($id);
+                $tallaCat->name = $request->name;
+                $tallaCat->state = $request->state;
+                $tallaCat->save();
+
+                // Update Falso, en realidad elimina las existentes y crea nuevas
+                // Elimina las tallas existentes
+                $currentSizes = Features_size::where("id_md_features_sizes_category", $tallaCat->id)->get();
+                foreach($currentSizes as $index => $size){
+                    Features_size::destroy($size->id);
                 }
-            }
+                // Crea las tallas
+                foreach($request->sizes as $index => $size){
+                    if(strlen($size) > 0){
+                        $talla = new Features_size;
+                        $talla->name = $size;
+                        $talla->id_md_features_sizes_category = $tallaCat->id;
+                        $talla->save();
+                    }
+                }
 
-            Session::flash('success', trans('modules.mod_sizes_store_msj_edit_succes'));
+                Session::flash('success', trans('modules.mod_sizes_store_msj_edit_succes'));
+
+            }
 
         } catch (QueryException $e) {
 
@@ -249,14 +258,20 @@ class FeatureSizesCategoryController extends Controller
     public function destroy($id)
     {
         try {
-        
-            $tallaCat = Features_sizes_category::find($id);
-            $currentSizes = Features_size::where("id_md_features_sizes_category", $tallaCat->id)->get();
-            foreach($currentSizes as $index => $size){
-                Features_size::destroy($size->id);
-            }
-            Features_sizes_category::destroy($id);
-            Session::flash('success', trans('modules.mod_sizes_store_msj_delete_succes'));
+
+            // valida si esta enlasado a un producto
+            $delete = Products::where("type_size", $id)->count();
+            if($delete > 0){
+                Session::flash('error', trans('modules.mod_features_sizes_cant_delete'));
+            }else{
+                $tallaCat = Features_sizes_category::find($id);
+                $currentSizes = Features_size::where("id_md_features_sizes_category", $tallaCat->id)->get();
+                foreach($currentSizes as $index => $size){
+                    Features_size::destroy($size->id);
+                }
+                Features_sizes_category::destroy($id);
+                Session::flash('success', trans('modules.mod_sizes_store_msj_delete_succes'));
+            }   
 
         } catch (QueryException $e) {
         

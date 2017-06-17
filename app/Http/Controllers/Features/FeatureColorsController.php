@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use App\Features_color;
+use App\ProductsFeatures;
 
 class FeatureColorsController extends Controller
 {
@@ -241,8 +242,14 @@ class FeatureColorsController extends Controller
     {
         try {
         
-            Features_color::destroy($id);
-            Session::flash('success', trans('modules.mod_colors_store_msj_delete_succes'));
+            //valida si esta enlasado a un producto
+            $delete = ProductsFeatures::where("id_color", $id)->count();
+            if($delete > 0){
+                Session::flash('error', trans('modules.mod_features_colors_cant_delete'));
+            }else{
+                Features_color::destroy($id);
+                Session::flash('success', trans('modules.mod_colors_store_msj_delete_succes'));
+            }
 
         } catch (QueryException $e) {
         

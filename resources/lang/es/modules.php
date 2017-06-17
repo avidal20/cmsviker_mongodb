@@ -16,11 +16,13 @@ return [
         'mod_sizes_store_msj_edit_succes' => 'Talla modificada con &eacute;xito.',
         'mod_features_sizes_store_msj_edit_error' => 'Ha ocurrido un error al modificar la talla, por favor intente de nuevo.',
         'mod_features_sizes_store_msj_confirm_edit' => 'Realmente desea modificar la talla?',
+        'mod_features_sizes_cant_edit' => 'No se puede modificar la talla, ya que esta asociada a uno o m&aacute;s productos.',
         //Eliminar
         'mod_features_sizes_delete' => 'Eliminar talla',
         'mod_sizes_store_msj_delete_succes' => 'Talla eliminada con &eacute;xito.',
         'mod_features_sizes_store_msj_delete_error' => 'Ha ocurrido un error al eliminar la talla, por favor intente de nuevo.',
         'mod_features_sizes_store_msj_confirm_delete' => 'Realmente desea eliminar la talla?',
+        'mod_features_sizes_cant_delete' => 'No se puede eliminar la talla, ya que esta asociada a uno o m&aacute;s productos.',
 
     /* Modulo  features - Colores */
         'mod_features_colors_title' => 'Colores',
@@ -44,6 +46,7 @@ return [
         'mod_colors_store_msj_delete_succes' => 'Color eliminado con &eacute;xito.',
         'mod_features_colors_store_msj_delete_error' => 'Ha ocurrido un error al eliminar el color, por favor intente de nuevo.',
         'mod_features_colors_store_msj_confirm_delete' => 'Realmente desea eliminar el color?',
+        'mod_features_colors_cant_delete' => 'No se puede eliminar el color, ya que esta asociado a uno o m&aacute;s productos.',
 
     /* Modulo  categories */
         'mod_categories_field_name' => 'Nombre',
