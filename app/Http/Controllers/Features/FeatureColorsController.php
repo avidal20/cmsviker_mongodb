@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\QueryException;
-use App\Features_size;
-use App\Features_sizes_category;
+use Illuminate\Support\Facades\Storage;
+use App\Features_color;
 
-class FeatureSizesCategoryController extends Controller
+class FeatureColorsController extends Controller
 {
 
     public function __construct() {
@@ -23,25 +23,25 @@ class FeatureSizesCategoryController extends Controller
                         'atribute' => [],
                     ],
                     trans('config.app_create') => [
-                        'href' => route('sizes.create'),
+                        'href' => route('colors.create'),
                         'atribute' => [],
                     ],
                 ],
                 'create'=> [
                     trans('config.app_back') => [
-                        'href' => route('sizes.index'),
+                        'href' => route('colors.index'),
                         'atribute' => [],
                     ],
                 ],
                 'edit'=> [
                     trans('config.app_back') => [
-                        'href' => route('sizes.index'),
+                        'href' => route('colors.index'),
                         'atribute' => [],
                     ],
                 ],
                 'show'=> [
                     trans('config.app_back') => [
-                        'href' => route('sizes.index'),
+                        'href' => route('colors.index'),
                         'atribute' => [],
                     ],
                 ],
@@ -55,7 +55,7 @@ class FeatureSizesCategoryController extends Controller
                     trans('modules.mod_features_title') => [
                         'href' => route('features'),
                     ],
-                    trans('modules.mod_features_sizes_list_title') => [
+                    trans('modules.mod_features_colors_list_title') => [
                         'active' => true
                     ]
                 ],
@@ -66,10 +66,10 @@ class FeatureSizesCategoryController extends Controller
                     trans('modules.mod_features_title') => [
                         'href' => route('features'),
                     ],
-                    trans('modules.mod_features_sizes_list_title') => [
-                        'href' => route('sizes.index'),
+                    trans('modules.mod_features_colors_list_title') => [
+                        'href' => route('colors.index'),
                     ],
-                    trans('modules.mod_features_sizes_create') => [
+                    trans('modules.mod_features_colors_create') => [
                         'active' => true
                     ]
                 ],
@@ -80,10 +80,10 @@ class FeatureSizesCategoryController extends Controller
                     trans('modules.mod_features_title') => [
                         'href' => route('features'),
                     ],
-                    trans('modules.mod_features_sizes_list_title') => [
-                        'href' => route('sizes.index'),
+                    trans('modules.mod_features_colors_list_title') => [
+                        'href' => route('colors.index'),
                     ],
-                    trans('modules.mod_features_sizes_edit') => [
+                    trans('modules.mod_features_colors_edit') => [
                         'active' => true
                     ]
                 ],
@@ -94,16 +94,17 @@ class FeatureSizesCategoryController extends Controller
                     trans('modules.mod_features_title') => [
                         'href' => route('features'),
                     ],
-                    trans('modules.mod_features_sizes_list_title') => [
-                        'href' => route('sizes.index'),
+                    trans('modules.mod_features_colors_list_title') => [
+                        'href' => route('colors.index'),
                     ],
-                    trans('modules.mod_features_sizes_delete') => [
+                    trans('modules.mod_features_colors_delete') => [
                         'active' => true
                     ]
                 ],
             ]
           ];
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -112,8 +113,8 @@ class FeatureSizesCategoryController extends Controller
     public function index()
     {
         $plugins[] = 'Datatable';
-        $sizesCategories = Features_sizes_category::with("md_features_sizes")->get();
-        return $this->view('admin.features.sizes.index', compact('plugins', 'sizesCategories'));
+        $colors = Features_color::all();
+        return $this->view('admin.features.colors.index', compact('plugins', 'colors'));
     }
 
     /**
@@ -123,7 +124,7 @@ class FeatureSizesCategoryController extends Controller
      */
     public function create()
     {
-        return $this->view('admin.features.sizes.createSizeCategory');
+        return $this->view('admin.features.colors.create');
     }
 
     /**
@@ -136,137 +137,119 @@ class FeatureSizesCategoryController extends Controller
     {
         $this->validate($request, [
           'name' => 'required|max:255',
-          'sizes.*' => 'required',
+          'image' => 'required',
           'state' => 'required|max:10|numeric',
         ]);
 
         try {
 
-            $tallaCat = new Features_sizes_category;
-            $tallaCat->name = $request->name;
-            $tallaCat->state = $request->state;
-            $tallaCat->save();
+            $color = new Features_color;
+            $color->name = $request->name;
+            $color->state = $request->state;
+            // archivo imagen
+            $file = $request->file("image");
+            $fileName = $file->hashName();
+            Storage::putfile('public', $file);
 
-            foreach($request->sizes as $index => $size){
-                if(strlen($size) > 0){
-                     $talla = new Features_size;
-                    $talla->name = $size;
-                    $talla->id_md_features_sizes_category = $tallaCat->id;
-                    $talla->save();
-                }
-            }
+            $color->image = $fileName;
+            $color->save();
 
-            Session::flash('success', trans('modules.mod_sizes_store_msj_create_succes'));
+            Session::flash('success', trans('modules.mod_colors_store_msj_create_succes'));
 
         } catch (QueryException $e) {
 
-            Session::flash('error',trans('modules.mod_features_sizes_store_msj_create_error'));
+            Session::flash('error',trans('modules.mod_features_colors_store_msj_create_error'));
 
         }
 
-        return redirect()->route('sizes.index');
+        return redirect()->route('colors.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Features_sizes_category  $features_sizes_category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $tallaCat = Features_sizes_category::with("md_features_sizes")->find($id);
-        return $this->view('admin.features.sizes.deleteSizeCategory', compact('tallaCat'));
+        $color = Features_color::find($id);
+        return $this->view('admin.features.colors.delete', compact('color'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Features_sizes_category  $features_sizes_category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $tallaCat = Features_sizes_category::with("md_features_sizes")->find($id);
-        return $this->view('admin.features.sizes.editSizeCategory', compact('tallaCat'));
+        $color = Features_color::find($id);
+        return $this->view('admin.features.colors.edit', compact('color'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Features_sizes_category  $features_sizes_category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
           'name' => 'required|max:255',
-          'sizes.*' => 'required',
+          'description' => 'max:550',
           'state' => 'required|max:10|numeric',
         ]);
 
         try {
-            
-            $tallaCat = Features_sizes_category::find($id);
-            $tallaCat->name = $request->name;
-            $tallaCat->state = $request->state;
-            $tallaCat->save();
 
-            // Update Falso, en realidad elimina las existentes y crea nuevas
-            // Elimina las tallas existentes
-            $currentSizes = Features_size::where("id_md_features_sizes_category", $tallaCat->id)->get();
-            foreach($currentSizes as $index => $size){
-                Features_size::destroy($size->id);
+            $color = Features_color::find($id);
+            $color->name = $request->name;
+            $color->state = $request->state;
+            $file = $request->file("image");
+            if ($file !== null) {
+                // Elimina la imagen actual
+                Storage::delete('public/'.$color->image);
+                // archivo imagen
+                $fileName = $file->hashName();
+                Storage::putfile('public', $file);
+                $color->image = $fileName;
             }
-            // Crea las tallas
-            foreach($request->sizes as $index => $size){
-                if(strlen($size) > 0){
-                    $talla = new Features_size;
-                    $talla->name = $size;
-                    $talla->id_md_features_sizes_category = $tallaCat->id;
-                    $talla->save();
-                }
-            }
+            $color->save();
 
-            Session::flash('success', trans('modules.mod_sizes_store_msj_edit_succes'));
+            Session::flash('success', trans('modules.mod_colors_store_msj_edit_succes'));
 
         } catch (QueryException $e) {
 
-            Session::flash('error',trans('modules.mod_features_sizes_store_msj_edit_error'));
+            Session::flash('error',trans('modules.mod_colors_store_msj_edit_error'));
 
         }
 
-        return redirect()->route('sizes.index');
+        return redirect()->route('colors.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Features_sizes_category  $features_sizes_category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         try {
         
-            $tallaCat = Features_sizes_category::find($id);
-            $currentSizes = Features_size::where("id_md_features_sizes_category", $tallaCat->id)->get();
-            foreach($currentSizes as $index => $size){
-                Features_size::destroy($size->id);
-            }
-            Features_sizes_category::destroy($id);
-            Session::flash('success', trans('modules.mod_sizes_store_msj_delete_succes'));
+            Features_color::destroy($id);
+            Session::flash('success', trans('modules.mod_colors_store_msj_delete_succes'));
 
         } catch (QueryException $e) {
         
-            Session::flash('error',trans('modules.mod_features_sizes_store_msj_delete_error'));
+            Session::flash('error',trans('modules.mod_colors_store_msj_delete_error'));
         
         }
 
-        return redirect()->route('sizes.index');
+        return redirect()->route('colors.index');
     }
-
-    
-
 }

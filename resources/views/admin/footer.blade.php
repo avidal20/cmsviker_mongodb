@@ -1,7 +1,7 @@
 <!-- footer content -->
         <footer>
           <div class="pull-right">
-            ParcheGato
+            Yubarta
           </div>
           <div class="clearfix"></div>
         </footer>

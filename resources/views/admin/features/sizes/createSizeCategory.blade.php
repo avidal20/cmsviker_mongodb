@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form id="form-sizes" data-parsley-validate="" novalidate="" method="post" action="{{ route('features.sizes.store') }}">
+<form id="form-sizes" data-parsley-validate="" novalidate="" method="post" action="{{ route('sizes.store') }}">
 	{{ csrf_field() }}
     <div class="form-horizontal form-label-left">
 
@@ -57,9 +57,11 @@
 <script>
 
     let sizesCount = 1;
+    let sizesContainer = document.getElementById("inputSizes");
     
     document.getElementById("btnAddSize").addEventListener("click", function(e){
         e.preventDefault();
+
    
         sizesCount++;
         let divContainer = document.createElement("div");
@@ -67,7 +69,7 @@
         divContainer.className = "form-group";
 
         let label = document.createElement("label");
-        label.innerHTML = "{{ trans('modules.mod_features_size_title') }}";
+        label.innerHTML = "{{ trans('modules.mod_features_size_title') }} *";
         label.className = "control-label col-md-3 col-sm-3 col-xs-12";
         divContainer.appendChild(label);
 
@@ -79,11 +81,21 @@
         input.id = "size"+sizesCount;
         input.name = "sizes[]";
         input.className = "form-control col-md-7 col-xs-12";
+        input.required = true;
         divInput.appendChild(input);
+//<a class="deleteImg"><i class="fa fa-trash"></i></a>
+        let btnRemove = document.createElement("a");
+        btnRemove.className = "deleteImg";
+        btnRemove.innerHTML = "<i class='fa fa-trash'></i>";
+        btnRemove.addEventListener("click", function(e){
+            e.preventDefault();
+            divContainer.parentElement.removeChild(divContainer);
+        });
+
 
         divContainer.appendChild(divInput);
-
-        document.getElementById("inputSizes").appendChild(divContainer);
+        divContainer.appendChild(btnRemove);
+        sizesContainer.appendChild(divContainer);
 
     });
 

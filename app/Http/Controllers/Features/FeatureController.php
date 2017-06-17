@@ -64,6 +64,19 @@ class FeatureController extends Controller
      */
     public function index()
     {
+        if(count( Feature::all()) == 0){
+            $tallas = new Feature;
+            $tallas->name = "Tallas";
+            $tallas->state = 1;
+            $tallas->route_name = "sizes";
+            $tallas->save();
+            
+            $colores = new Feature;
+            $colores->name = "Colores";
+            $colores->state = 1;
+            $colores->route_name = "colors";
+            $colores->save();
+        }
         $features = Feature::all();
         return $this->view('admin.features.index',  compact('features'));
     }

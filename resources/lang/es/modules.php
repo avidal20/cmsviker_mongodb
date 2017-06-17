@@ -1,16 +1,49 @@
 <?php
 
 return [
-	/* Modulo  features */
-    'mod_features_title' => 'Caracter&iacute;sticas de producto',
-    'mod_features_sizes_title' => 'Tallas',
-    'mod_features_size_title' => 'Talla',
-    'mod_features_sizes_list_title' => 'Listado de tallas',
-    'mod_features_sizes_add' => 'Agregar talla',
-    'mod_features_sizes_create' => 'Crear talla',
-    'mod_sizes_store_msj_create_succes' => 'Talla creada con &eacute;xito.',
-    'mod_features_sizes_store_msj_create_error' => 'Ha ocurrido un error al crear la tappa, por favor intente de nuevo.',
-    
+	/* Modulo  features - Tallas */
+        'mod_features_title' => 'Caracter&iacute;sticas de producto',
+        'mod_features_sizes_title' => 'Tallas',
+        'mod_features_size_title' => 'Talla',
+        'mod_features_sizes_list_title' => 'Listado de tallas',
+        //Crear
+        'mod_features_sizes_add' => 'Agregar talla',
+        'mod_features_sizes_create' => 'Crear talla',
+        'mod_sizes_store_msj_create_succes' => 'Talla creada con &eacute;xito.',
+        'mod_features_sizes_store_msj_create_error' => 'Ha ocurrido un error al crear la talla, por favor intente de nuevo.',
+        //Editar
+        'mod_features_sizes_edit' => 'Editar talla',
+        'mod_sizes_store_msj_edit_succes' => 'Talla modificada con &eacute;xito.',
+        'mod_features_sizes_store_msj_edit_error' => 'Ha ocurrido un error al modificar la talla, por favor intente de nuevo.',
+        'mod_features_sizes_store_msj_confirm_edit' => 'Realmente desea modificar la talla?',
+        //Eliminar
+        'mod_features_sizes_delete' => 'Eliminar talla',
+        'mod_sizes_store_msj_delete_succes' => 'Talla eliminada con &eacute;xito.',
+        'mod_features_sizes_store_msj_delete_error' => 'Ha ocurrido un error al eliminar la talla, por favor intente de nuevo.',
+        'mod_features_sizes_store_msj_confirm_delete' => 'Realmente desea eliminar la talla?',
+
+    /* Modulo  features - Colores */
+        'mod_features_colors_title' => 'Colores',
+        'mod_features_color_title' => 'Color',
+        'mod_features_colors_list_title' => 'Listado de colores',
+        'mod_features_colors_image_title' => 'Im&aacute;gen',
+        'mod_features_colors_current_image_title' => 'Im&aacute;gen actual',
+        //Crear
+        'mod_features_colors_add' => 'Agregar color',
+        'mod_features_colors_create' => 'Crear color',
+        'mod_colors_store_msj_create_succes' => 'Color creadp con &eacute;xito.',
+        'mod_features_colors_store_msj_create_error' => 'Ha ocurrido un error al crear el color, por favor intente de nuevo.',
+        //Editar
+        'mod_features_colors_edit' => 'Editar color',
+        'mod_colors_store_msj_edit_succes' => 'Color modificado con &eacute;xito.',
+        'mod_features_colors_store_msj_edit_error' => 'Ha ocurrido un error al modificar el color, por favor intente de nuevo.',
+        'mod_features_colors_store_msj_confirm_edit' => 'Realmente desea modificar el color?',
+        'mod_features_colors_edit_image_title' => 'Cambiar im&aacute;gen',
+        //Eliminar
+        'mod_features_colors_delete' => 'Eliminar color',
+        'mod_colors_store_msj_delete_succes' => 'Color eliminado con &eacute;xito.',
+        'mod_features_colors_store_msj_delete_error' => 'Ha ocurrido un error al eliminar el color, por favor intente de nuevo.',
+        'mod_features_colors_store_msj_confirm_delete' => 'Realmente desea eliminar el color?',
 
     /* Modulo  categories */
         'mod_categories_field_name' => 'Nombre',

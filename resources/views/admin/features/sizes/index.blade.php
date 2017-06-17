@@ -32,8 +32,8 @@
                         @endif
                     </td>
                     <td>{{ $sizesCategory->state == 1? "Activo" : "Inactivo" }}</td>
-                    <td></td>
-                    <td></td>
+                    <td><a href="{{ route('sizes.edit',['id' => $sizesCategory->id ]) }}"><i class="fa fa-edit fa-2x"></i></a></td>
+                    <td><a href="{{ route('sizes.show',['id' => $sizesCategory->id ]) }}"><i class="fa fa-remove fa-2x"></i></a></td>
                 </tr>
             @endforeach
         </tbody>

@@ -6,7 +6,7 @@
         <div class="row">
         @foreach ($features as $feature)
             <div class="col-md-3">
-                <a href="{{route('features.'.$feature->route_name)}}">{{$feature->name}}</a>
+                <a href="{{route($feature->route_name.'.index')}}">{{ $feature->name }}</a>
             </div>
         @endforeach
         </div>
