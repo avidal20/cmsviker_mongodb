@@ -69,12 +69,14 @@ class FeatureController extends Controller
             $tallas->name = "Tallas";
             $tallas->state = 1;
             $tallas->route_name = "sizes";
+            $tallas->image = "media/modules/talla.png";
             $tallas->save();
             
             $colores = new Feature;
             $colores->name = "Colores";
             $colores->state = 1;
             $colores->route_name = "colors";
+            $tallas->image = "media/modules/color.png";
             $colores->save();
         }
         $features = Feature::all();
