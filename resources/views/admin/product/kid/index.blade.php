@@ -32,20 +32,20 @@
     </tr>
   </thead>
     <tbody>
-      @foreach($products as $product)
+      @foreach($products as $kid)
        <tr>
-          <td>{{ $product->reference }}</td> 
-          <td>{{ $product->name }}</td>
-          <td>{{ $product->md_category->name }}</td>
+          <td>{{ $kid->name }}</td> 
+          <td>{{ $kid->name }}</td>
+          <td>{{ $kid->md_category->name }}</td>
           <td>
-            @if($product->state == 1)
+            @if($kid->state == 1)
               {{ trans('modules.mod_categories_field_state_enabled') }}
             @else
               {{ trans('modules.mod_categories_field_state_disabled') }}
             @endif
           </td>
-          <td><a href="{{ route('products.edit',['id' => $product->id ]) }}"><i class="fa fa-edit fa-2x"></i></a></td>
-          <td><a href="{{ route('products.show',['id' => $product->id ]) }}"><i class="fa fa-remove fa-2x"></i></a></td>
+          <td><a href="{{ route('kids.edit',['id' => $kid->id ]) }}"><i class="fa fa-edit fa-2x"></i></a></td>
+          <td><a href="{{ route('kids.show',['id' => $kid->id ]) }}"><i class="fa fa-remove fa-2x"></i></a></td>
       </tr>
     @endforeach
     </tbody>

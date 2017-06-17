@@ -17,4 +17,9 @@ class Categories extends Model
     {
         return $this->hasMany('App\Products', 'category', '_id');
     }
+
+    public function md_kids()
+    {
+        return $this->hasMany('App\ProductsKids', 'category', '_id');
+    }
 }

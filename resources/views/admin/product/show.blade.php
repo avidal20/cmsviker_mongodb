@@ -12,9 +12,9 @@
     <div class="form-horizontal form-label-left">
       
       <div class="form-group">
-         <label for="category" class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('modules.mod_products_field_category') }}<span class="required">*</label>
+         <label for="category" class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('modules.mod_products_field_category') }}</label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-            <select id="category" name="category" class="form-control" required="required">
+            <select id="category" name="category" class="form-control" >
                <option value="">{{ trans('config.app_field_select_value') }}</option>
                @foreach($categories as $category)
                 <option value="{{ $category->id }}" @if($product->category == $category->id) selected @endif >{{ $category->name }}</option>
@@ -24,33 +24,33 @@
       </div>
 
       <div class="form-group">
-         <label for="reference" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference')}}<span class="required">*</span>
+         <label for="reference" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference')}}</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="reference" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="reference" value="{{ $product->reference }}">
+             <input id="reference" type="text"  class="form-control col-md-7 col-xs-12" maxlength="255" name="reference" value="{{ $product->reference }}">
          </div>
       </div>
 
       <div class="form-group">
-         <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_name')}}<span class="required">*</span>
+         <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_name')}}</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="name" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="name" value="{{ $product->name }}">
+             <input id="name" type="text"  class="form-control col-md-7 col-xs-12" maxlength="255" name="name" value="{{ $product->name }}">
          </div>
       </div>
 
       <div class="form-group">
-         <label for="alter_reference" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference_alternate')}}<span class="required">*</span>
+         <label for="alter_reference" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference_alternate')}}</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="alter_reference" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="alter_reference" value="{{ $product->alter_reference }}">
+             <input id="alter_reference" type="text"  class="form-control col-md-7 col-xs-12" maxlength="255" name="alter_reference" value="{{ $product->alter_reference }}">
          </div>
       </div>
 
        <div class="form-group">
-          <label for="state" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_state')}}<span class="required">*</label>
+          <label for="state" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_state')}}</label>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <select name="state" id="state" class="form-control" required="required">
+            <select name="state" id="state" class="form-control" >
               <option value="">{{trans('config.app_field_select_value')}}</option>
               <option value="1" @if($product->state == "1") selected @endif >{{trans('modules.mod_products_field_state_enabled')}}</option>
               <option value="0" @if($product->state == "0") selected @endif >{{trans('modules.mod_products_field_state_disabled')}}</option>
@@ -64,9 +64,9 @@
       </div>
 
       <div class="form-group">
-          <label for="type_size" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_type_size')}}<span class="required">*</label>
+          <label for="type_size" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_type_size')}}</label>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <select name="type_size" id="type_size" class="form-control" required="required">
+            <select name="type_size" id="type_size" class="form-control" >
               <option value="">{{trans('config.app_field_select_value')}}</option>
               @foreach($sizes as $size)
                 <option value="{{$size->id}}" @if($product->type_size == $size->id) selected @endif>{{$size->name}}</option>
@@ -101,9 +101,9 @@
 
   <div class="jumbotron formFielset" data-fielset="{{ $loop->index }}">
           <div class="form-group">
-              <label for="color_{{ $loop->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">Color<span class="required">*</label>
+              <label for="color_{{ $loop->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">Color</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select name="color[{{ $loop->index }}]" id="color_{{ $loop->index }}" class="form-control" required="required">
+                <select name="color[{{ $loop->index }}]" id="color_{{ $loop->index }}" class="form-control" >
                   <option value="">{{trans('config.app_field_select_value')}}</option>
                   @foreach($colors as $color)
                     <option value="{{$color->id}}" @if($feactures->id_color == $color->id) selected @endif>{{$color->name}}</option>
@@ -129,7 +129,7 @@
               </div>
 
               <div class="form-group">
-                  <label for="img_{{ $loop->parent->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_add_img_des')}}<span class="required">*</label>
+                  <label for="img_{{ $loop->parent->index }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_add_img_des')}}</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <input data-idField="{{ $loop->parent->index }}" id="img_{{ $loop->index }}" type="file"  class="form-control col-md-7 col-xs-12 field_img_{{ $loop->parent->index }}" maxlength="255" name="img[{{ $loop->parent->index }}][]">
                   </div>
