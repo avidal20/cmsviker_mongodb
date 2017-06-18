@@ -34,7 +34,7 @@ return [
 
     'iCheck' => [
       'css' => 'vendors/iCheck/skins/flat/green.css',
-      'js' => 'vendors/icheck/icheck.min.js',
+      'js' => 'vendors/iCheck/icheck.min.js',
     ],
 
     'bootstrap-wysiwyg' => [
