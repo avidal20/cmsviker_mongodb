@@ -167,6 +167,7 @@ class ProductController extends Controller
         $categories = Categories::where('state','1')->get();
         $sizes = Features_sizes_category::where('state','1')->get();
         $colors = Features_color::where('state','1')->get();
+
         return $this->view('admin.product.create',
           compact(
             'plugins',
@@ -193,7 +194,12 @@ class ProductController extends Controller
         'type_size' => 'required',
         'color.*' => 'required',
         'img.*' => 'required',
+        'sizes' => 'required',
+      ],[
+        'sizes.required' => 'Debe seleccionar por lo menos una talla.',
       ]);
+
+      dd($request->all());
 
         try {
 
@@ -329,6 +335,9 @@ class ProductController extends Controller
         'state' => 'required|max:10|numeric',
         'type_size' => 'required',
         'color.*' => 'required',
+        'sizes' => 'required',
+      ],[
+        'sizes.required' => 'Debe seleccionar por lo menos una talla.',
       ]);
 
         try {

@@ -169,11 +169,13 @@ class KidsController extends Controller
           $kid->save();
 
           //Cracion de productos asociados
-          foreach($request->products as $product){
-            $productKid = new ProductKidsSelected();
-            $productKid->id_product_kids = $kid->id;
-            $productKid->id_product = $product;
-            $productKid->save();
+          if(isset($request->products)){
+            foreach($request->products as $product){
+              $productKid = new ProductKidsSelected();
+              $productKid->id_product_kids = $kid->id;
+              $productKid->id_product = $product;
+              $productKid->save();
+            }
           }
 
             Session::flash('success', trans('modules.mod_kids_store_msj_succes'));
