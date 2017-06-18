@@ -129,7 +129,7 @@
               <div class="form-group">
                 <label for="img_{{ $loop->parent->index  }}" class="control-label col-md-3 col-sm-3 col-xs-12"><a class="deleteImgEdit"><i class="fa fa-trash fa-2x"></i></a></label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <img src="{{ asset(str_replace('public','storage',$img->file)) }}" class="img-responsive img-rounded" style="width:100px;height:auto;">
+                    <img src="{{ Storage::url($img->file) }}" class="img-responsive img-rounded" style="width:100px;height:auto;">
                   </div>
                   <input type="hidden" name="img[{{ $loop->parent->index }}][]" value="{{ $img->file }}">
               </div>

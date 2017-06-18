@@ -40,10 +40,10 @@
       </div>
 
       <div class="form-group">
-         <label for="alter_reference" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference_alternate')}}<span class="required">*</span>
+         <label for="alter_reference" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_products_field_reference_alternate')}}</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="alter_reference" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="alter_reference" value="{{ $product->alter_reference }}">
+             <input id="alter_reference" type="text" class="form-control col-md-7 col-xs-12" maxlength="255" name="alter_reference" value="{{ $product->alter_reference }}">
          </div>
       </div>
 
@@ -134,7 +134,7 @@
               <div class="form-group">
                 <label for="img_{{ $loop->parent->index  }}" class="control-label col-md-3 col-sm-3 col-xs-12"><a class="deleteImgEdit"><i class="fa fa-trash fa-2x"></i></a></label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <img src="{{ asset(str_replace('public','storage',$img->file)) }}" class="img-responsive img-rounded" style="width:100px;height:auto;">
+                    <img src="{{ Storage::url($img->file) }}" class="img-responsive img-rounded" style="width:100px;height:auto;">
                   </div>
                   <input type="hidden" name="img[{{ $loop->parent->index }}][]" value="{{ $img->file }}">
               </div>

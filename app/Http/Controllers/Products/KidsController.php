@@ -153,7 +153,6 @@ class KidsController extends Controller
         'reference' => 'required',
         'name' => 'required',
         'alter_reference' => 'required',
-        'description' => 'required',
         'state' => 'required|max:10|numeric',
         'products.*' => 'required',
       ]);
@@ -249,7 +248,6 @@ class KidsController extends Controller
         'reference' => 'required',
         'name' => 'required',
         'alter_reference' => 'required',
-        'description' => 'required',
         'state' => 'required|max:10|numeric',
       ]);
 

@@ -149,7 +149,7 @@ class ProductController extends Controller
     public function index()
     {
         $plugins[] = 'Datatable';
-        $categories = Categories::all();
+        $categories = Categories::where('state','1')->get();
         $products = Products::all();
 
         return $this->view('admin.product.index',compact('plugins','categories','products'));
@@ -189,8 +189,6 @@ class ProductController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'alter_reference' => 'required',
-        'description' => 'required',
         'state' => 'required|max:10|numeric',
         'type_size' => 'required',
         'color.*' => 'required',
@@ -328,8 +326,6 @@ class ProductController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'alter_reference' => 'required',
-        'description' => 'required',
         'state' => 'required|max:10|numeric',
         'type_size' => 'required',
         'color.*' => 'required',
@@ -448,7 +444,7 @@ class ProductController extends Controller
         foreach ($products as $product) {
           $dataArray[$count][] = $product->reference;
           $dataArray[$count][] = $product->name;
-          $dataArray[$count][] = $product->category;
+          $dataArray[$count][] = $product->md_category->name;
           $dataArray[$count][] = ($product->state == 1)? trans('modules.mod_categories_field_state_enabled') : trans('modules.mod_categories_field_state_disabled');
           $dataArray[$count][] = "<a href='".route('products.edit',['id' => $product->id ])."'><i class='fa fa-edit fa-2x'></a>";
           $dataArray[$count][] = "<a href='".route('products.show',['id' => $product->id ])."'><i class='fa fa-remove fa-2x'></a>";

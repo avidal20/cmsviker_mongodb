@@ -77,7 +77,7 @@
                 <div class="col-md-4 col-sm-12 col-xs-12" style="margin-bottom: 5px;">
                   <div class="row">
                     <div class="col-md-4 col-sm-12 col-xs-12">
-                      <img src="{{ asset(str_replace('public','storage',$product->md_product->md_feactures[0]->md_imgs[0]->file)) }}" class="img-responsive img-rounded" style="width:100px;height:100px;">
+                      <img src="{{ Storage::url($product->md_product->md_feactures[0]->md_imgs[0]->file) }}" class="img-responsive img-rounded" style="width:100px;height:100px;">
                     </div>
                     <div class="col-md-8 col-sm-12 col-xs-12">
                       <p><strong>Referencia:</strong> {{ $product->md_product->reference }}</p>    
