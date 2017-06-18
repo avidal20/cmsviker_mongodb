@@ -330,6 +330,7 @@ class ProductController extends Controller
         'type_size' => 'required',
         'color.*' => 'required',
       ]);
+
         try {
 
           //Creacion del producto

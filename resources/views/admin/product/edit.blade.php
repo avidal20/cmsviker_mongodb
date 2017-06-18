@@ -76,7 +76,7 @@
             <select name="type_size" id="type_size" class="form-control" required="required">
               <option value="">{{trans('config.app_field_select_value')}}</option>
               @foreach($sizes as $size)
-                @if($product->type_size == $size->id or $product->state != 0)
+                @if($product->type_size == $size->id or $size->state != 0)
                   <option value="{{$size->id}}" @if($product->type_size == $size->id) selected @endif>{{$size->name}}</option>
                 @endif
               @endforeach
