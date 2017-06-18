@@ -18,4 +18,9 @@ class ProductKids extends Model
         return $this->belongsTo('App\Categories', 'category', '_id');
     }
 
+    public function md_products()
+    {
+        return $this->hasMany('App\ProductKidsSelected', 'id_product_kids', '_id');
+    }
+
 }

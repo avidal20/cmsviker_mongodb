@@ -211,12 +211,6 @@ class FeatureSizesCategoryController extends Controller
 
         try {
 
-            // valida si esta enlasado a un producto
-            $delete = Products::where("type_size", $id)->count();
-            if($delete > 0){
-                Session::flash('error', trans('modules.mod_features_sizes_cant_edit'));
-            }else{
-
                 $tallaCat = Features_sizes_category::find($id);
                 $tallaCat->name = $request->name;
                 $tallaCat->state = $request->state;
@@ -239,8 +233,6 @@ class FeatureSizesCategoryController extends Controller
                 }
 
                 Session::flash('success', trans('modules.mod_sizes_store_msj_edit_succes'));
-
-            }
 
         } catch (QueryException $e) {
 

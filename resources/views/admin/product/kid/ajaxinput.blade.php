@@ -11,7 +11,7 @@
       @foreach($products as $product)
        <tr>
           <td>{{ $product->reference }}</td> 
-          <td>{{ $product->name }}</td>
+          <td><a href="{{ route('products.edit',['id' => $product->id ]) }}" target="black">{{ $product->name }}</a></td>
           <td>{{ $product->md_category->name }}</td>
           <td>
     <div class="checkbox">

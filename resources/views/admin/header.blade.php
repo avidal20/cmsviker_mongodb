@@ -56,7 +56,7 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="#" class="site_title"><i class="fa fa-shopping-bag"></i> <span>{{ trans('config.app_name') }}</span></a>
+              <a href="{{ route('admin') }}" class="site_title"><i class="fa fa-shopping-bag"></i> <span>{{ trans('config.app_name') }}</span></a>
             </div>
 
             
@@ -87,25 +87,20 @@
 
                   <li><a><i class="fa fa-folder"></i>{{ trans('config.mod_categories_name') }}<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="#">{{ trans('config.app_home') }}</a></li>
-                      <li><a href="#">{{ trans('config.app_create') }}</a></li>
+                        <li><a href="{{ route('categories.index') }}">{{ trans('config.app_home') }}</a></li>
+                      <li><a href="{{ route('categories.create') }}">{{ trans('config.app_create') }}</a></li>
                     </ul>
                   </li>
                   
-                  <li><a><i class="fa fa-cogs"></i>{{ trans('config.mod_features_name') }}<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="#">{{ trans('config.app_home') }}</a></li>
-                      <li><a href="#">{{ trans('config.app_create') }}</a></li>
-                    </ul>
-                  </li>
-                  
-                  <li><a><i class="fa fa-shopping-bag"></i>{{ trans('config.mod_products_name') }}<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="#">{{ trans('config.app_home') }}</a></li>
-                      <li><a href="#">{{ trans('config.app_create') }}</a></li>
-                    </ul>
+
+                  <li>
+                    <a href="{{ route('features') }}"><i class="fa fa-cogs"></i>{{ trans('config.mod_features_name') }}</a>
                   </li>
 
+                  <li>
+                    <a href="{{ route('products.home') }}"><i class="fa fa-shopping-bag"></i>{{ trans('config.mod_products_name') }}</a>
+                  </li>
+                  
                 </ul>
               </div>
             </div>

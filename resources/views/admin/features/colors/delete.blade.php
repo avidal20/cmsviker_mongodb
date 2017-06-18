@@ -1,6 +1,6 @@
 @extends('admin.layoutAdminModule')
 
-@section('title', trans('config.mod_categories_name'))
+@section('title', trans('modules.mod_features_title'))
 
 @section('content')
 
@@ -22,7 +22,7 @@
             <label for="image" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_features_colors_image_title')}}<span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <img src="{{ Storage::url($color->image)}}">
+                <img src="{{ Storage::url($color->image)}}" class="img-responsive img-rounded" style="width:100px;height:auto;">
             </div>
         </div>
 

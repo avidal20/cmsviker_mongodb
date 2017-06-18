@@ -1,6 +1,6 @@
 @extends('admin.layoutAdminModule')
 
-@section('title', trans('config.mod_categories_name'))
+@section('title', trans('modules.mod_features_title'))
 
 @section('content')
 
@@ -11,17 +11,17 @@
     <div class="form-horizontal form-label-left">
 
         <div class="form-group">
-            <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12" for="name">{{trans('modules.mod_categories_field_name')}}<span class="required">*</span>
+            <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12" for="name">{{trans('modules.mod_categories_field_name')}}</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="name" type="text" name="name" value="{{$tallaCat->name}}" class="form-control col-md-7 col-xs-12" maxlength="255" required>
+                <input id="name" type="text" name="name" value="{{$tallaCat->name}}" class="form-control col-md-7 col-xs-12" maxlength="255" >
             </div>
         </div>
 
         <div class="form-group">
-            <label for="state" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_categories_field_state')}}<span class="required">*</label>
+            <label for="state" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_categories_field_state')}}</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select name="state" id="state" class="form-control" required>
+                <select name="state" id="state" class="form-control" >
                     @if ( $tallaCat->state == 1)
                         <option value="1" selected>{{trans('modules.mod_categories_field_state_enabled')}}</option>
                         <option value="0">{{trans('modules.mod_categories_field_state_disabled')}}</option>
@@ -37,9 +37,9 @@
             @foreach ( $tallaCat->md_features_sizes as $index => $size )
 
                 <div id="size{{$index+1}}Container" class="form-group">
-                    <label for="sizes" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_features_size_title')}}<span class="required">*</span></label>
+                    <label for="sizes" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_features_size_title')}}</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="size{{$index+1}}" type="text" value="{{$size->name}}" name="sizes[]" class="form-control col-md-7 col-xs-12" maxlength="255" required>
+                        <input id="size{{$index+1}}" type="text" value="{{$size->name}}" name="sizes[]" class="form-control col-md-7 col-xs-12" maxlength="255" >
                     </div>
       
                 </div>

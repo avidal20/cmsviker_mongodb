@@ -38,7 +38,7 @@ class KidsController extends Controller
                     ]
                 ],
                 'show' => [
-                    trans('modules.mod_products_show_action') => [
+                    trans('config.app_back') => [
                         'href' => route('kids.index'),
                     ]
                 ]
@@ -153,7 +153,6 @@ class KidsController extends Controller
         'reference' => 'required',
         'name' => 'required',
         'alter_reference' => 'required',
-        'description' => 'required',
         'state' => 'required|max:10|numeric',
         'products.*' => 'required',
       ]);
@@ -162,7 +161,7 @@ class KidsController extends Controller
 
           //Creacion del producto
           $kid = new ProductKids();
-          $kid->name = $request->name;
+          $kid->name = $request->name;  
           $kid->description = $request->description;
           $kid->reference = $request->reference;
           $kid->alter_reference = $request->alter_reference;
@@ -197,7 +196,19 @@ class KidsController extends Controller
      */
     public function show($id)
     {
-        //
+        $plugins[] = 'summernote';
+        $plugins[] = 'iCheck';
+        $plugins[] = 'Datatable';
+        $categories = Categories::all();
+        $kid = ProductKids::find($id);
+        $products = Products::all();
+        $productsSelect = ProductKidsSelected::where('id_product_kids',$kid->id)->get();
+        $productSelected = [];
+        foreach ($productsSelect as $select) {
+          $productSelected[] = $select->id_product;
+        }
+
+        return $this->view('admin.product.kid.show',compact('plugins','categories','products','kid','productSelected'));
     }
 
     /**
@@ -211,7 +222,7 @@ class KidsController extends Controller
         $plugins[] = 'summernote';
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
-        $categories = Categories::where('state','1')->get();
+        $categories = Categories::all();
         $kid = ProductKids::find($id);
         $products = Products::all();
         $productsSelect = ProductKidsSelected::where('id_product_kids',$kid->id)->get();
@@ -232,7 +243,35 @@ class KidsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $this->validate($request, [
+        'category' => 'required',
+        'reference' => 'required',
+        'name' => 'required',
+        'alter_reference' => 'required',
+        'state' => 'required|max:10|numeric',
+      ]);
+
+        try {
+
+          //Creacion del producto
+          $kid = ProductKids::find($id);
+          $kid->name = $request->name;
+          $kid->description = $request->description;
+          $kid->reference = $request->reference;
+          $kid->alter_reference = $request->alter_reference;
+          $kid->state = $request->state;
+          $kid->category = $request->category;
+          $kid->save();
+
+            Session::flash('success', trans('modules.mod_kids_edit_msj_success'));
+
+        } catch (QueryException $e) {
+
+            Session::flash('error',trans('modules.mod_kids_edit_msj_error'));
+
+        }
+
+        return redirect()->route('kids.index');
     }
 
     /**
@@ -243,7 +282,21 @@ class KidsController extends Controller
      */
     public function destroy($id)
     {
-        //
+      try {
+
+          ProductKids::destroy($id);
+          ProductKidsSelected::where('id_product',$id)->delete();
+
+          Session::flash('success', trans('modules.mod_kids_delete_msj_success'));
+
+        } catch (QueryException $e) {
+
+          Session::flash('error',trans('modules.mod_kids_delete_msj_error'));
+
+        }
+
+        return redirect()->route('kids.index');
+        
     }
 
     public function ajaxCategory($id = null)
@@ -273,13 +326,48 @@ class KidsController extends Controller
     }
 
     function ajaxProduct($id = null){
-        
         if(is_null($id)){
-            $products = Products::where('state',1)->get();
+            $products = Products::where('state','1')->get();
         }else{
             $products = Products::where('category',$id)->where('state','1')->get();
         }
 
         return view('admin.product.kid.ajaxinput',compact('products'))->render();
     }
+
+    function ajaxProductEdit($idKid, $id){
+        if($id == '0'){
+            $products = Products::where('state','1')->get();
+        }else{
+            $products = Products::where('category',$id)->where('state','1')->get();
+        }
+
+        $kid = ProductKids::find($idKid);
+        $productsSelect = ProductKidsSelected::where('id_product_kids',$kid->id)->get();
+        $productSelected = [];
+        foreach ($productsSelect as $select) {
+          $productSelected[] = $select->id_product;
+        }
+
+        return view('admin.product.kid.ajaxinputEdit',compact('products','productSelected','kid'))->render();
+    }
+
+    public function ajaxProductSelect(Request $request)
+    {
+      if($request->checked == 'true'){
+          $productKid = new ProductKidsSelected();
+          $productKid->id_product_kids = $request->idKid;
+          $productKid->id_product = $request->idProduct;
+          $productKid->save();
+      }else{
+        ProductKidsSelected::
+          where('id_product_kids',$request->idKid)
+          ->where('id_product',$request->idProduct)->delete();
+      }
+
+      $kid = ProductKids::find($request->idKid);
+      return view('admin.product.kid.ajaxhtmlproduct',compact('kid'))->render();
+
+    }
+
 }

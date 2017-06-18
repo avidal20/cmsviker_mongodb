@@ -16,6 +16,7 @@ use App\Products;
 use App\ProductsFeatures;
 use App\ProductFeacturesImgs;
 use App\ProductSize;
+use App\ProductKidsSelected;
 
 class ProductController extends Controller
 {
@@ -49,7 +50,7 @@ class ProductController extends Controller
                     ]
                 ],
                 'show' => [
-                    trans('modules.mod_products_show_action') => [
+                    trans('config.app_back') => [
                         'href' => route('products.index'),
                     ]
                 ]
@@ -148,7 +149,7 @@ class ProductController extends Controller
     public function index()
     {
         $plugins[] = 'Datatable';
-        $categories = Categories::all();
+        $categories = Categories::where('state','1')->get();
         $products = Products::all();
 
         return $this->view('admin.product.index',compact('plugins','categories','products'));
@@ -188,8 +189,6 @@ class ProductController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'alter_reference' => 'required',
-        'description' => 'required',
         'state' => 'required|max:10|numeric',
         'type_size' => 'required',
         'color.*' => 'required',
@@ -259,11 +258,11 @@ class ProductController extends Controller
         $plugins[] = 'iCheck';
 
         $product = Products::find($id);
-        $categories = Categories::where('state','1')->get();
-        $sizes = Features_sizes_category::where('state','1')->get();
-        $colors = Features_color::where('state','1')->get();
+        $categories = Categories::all();
+        $sizes = Features_sizes_category::all();
+        $colors = Features_color::all();
         $producstSizes = ProductSize::select('id_size')->where('id_product',$id)->get();
-        
+
         $productSizesSelect = [];
         foreach ($producstSizes as $productSize) {
           $productSizesSelect[] = $productSize->id_size;
@@ -293,11 +292,10 @@ class ProductController extends Controller
         $plugins[] = 'iCheck';
 
         $product = Products::find($id);
-        $categories = Categories::where('state','1')->get();
-        $sizes = Features_sizes_category::where('state','1')->get();
-        $colors = Features_color::where('state','1')->get();
+        $categories = Categories::all();
+        $sizes = Features_sizes_category::all();
+        $colors = Features_color::all();
         $producstSizes = ProductSize::select('id_size')->where('id_product',$id)->get();
-        
         $productSizesSelect = [];
         foreach ($producstSizes as $productSize) {
           $productSizesSelect[] = $productSize->id_size;
@@ -328,8 +326,6 @@ class ProductController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'alter_reference' => 'required',
-        'description' => 'required',
         'state' => 'required|max:10|numeric',
         'type_size' => 'required',
         'color.*' => 'required',
@@ -408,6 +404,12 @@ class ProductController extends Controller
     {
       try {
 
+        $productsKids = ProductKidsSelected::where('id_product',$id)->get();
+        if(count($productsKids) > 0){
+          Session::flash('error',trans('modules.mod_products_delete_msj_valid_product'));
+          return redirect()->route('products.index');
+        }
+
         Products::destroy($id);
         ProductSize::where('id_product',$id)->delete();
         $feactures = ProductsFeatures::where('id_product',$id)->get();
@@ -442,7 +444,7 @@ class ProductController extends Controller
         foreach ($products as $product) {
           $dataArray[$count][] = $product->reference;
           $dataArray[$count][] = $product->name;
-          $dataArray[$count][] = $product->category;
+          $dataArray[$count][] = $product->md_category->name;
           $dataArray[$count][] = ($product->state == 1)? trans('modules.mod_categories_field_state_enabled') : trans('modules.mod_categories_field_state_disabled');
           $dataArray[$count][] = "<a href='".route('products.edit',['id' => $product->id ])."'><i class='fa fa-edit fa-2x'></a>";
           $dataArray[$count][] = "<a href='".route('products.show',['id' => $product->id ])."'><i class='fa fa-remove fa-2x'></a>";
