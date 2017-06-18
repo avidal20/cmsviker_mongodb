@@ -135,7 +135,7 @@ class KidsController extends Controller
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
         $categories = Categories::where('state','1')->get();
-        $products = Products::all();
+        $products = Products::where('state','1')->get();
         return $this->view('admin.product.kid.create',compact('plugins','categories','products'));
     }
 
