@@ -152,7 +152,6 @@ class KidsController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'alter_reference' => 'required',
         'state' => 'required|max:10|numeric',
         'products.*' => 'required',
       ]);
@@ -185,7 +184,7 @@ class KidsController extends Controller
 
         }
 
-        return redirect()->route('kids.index');
+        return redirect()->route('kids.edit',['id' => $kid->id ]);
     }
 
     /**
@@ -247,7 +246,6 @@ class KidsController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'alter_reference' => 'required',
         'state' => 'required|max:10|numeric',
       ]);
 
@@ -271,7 +269,7 @@ class KidsController extends Controller
 
         }
 
-        return redirect()->route('kids.index');
+        return redirect()->route('kids.edit',['id' => $kid->id ]);
     }
 
     /**
