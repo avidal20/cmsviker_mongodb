@@ -118,7 +118,7 @@ class KidsController extends Controller
     public function index()
     {
         $plugins[] = 'Datatable';
-        $categories = Categories::all();
+        $categories = Categories::where('state','1')->get();
         $products = ProductKids::all();
 
         return $this->view('admin.product.kid.index',compact('plugins','categories','products'));
@@ -222,7 +222,7 @@ class KidsController extends Controller
         $plugins[] = 'summernote';
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
-        $categories = Categories::all();
+        $categories = Categories::where('state','1')->get();
         $kid = ProductKids::find($id);
         $products = Products::all();
         $productsSelect = ProductKidsSelected::where('id_product_kids',$kid->id)->get();
