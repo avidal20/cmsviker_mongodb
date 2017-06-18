@@ -124,7 +124,8 @@ class FeatureSizesCategoryController extends Controller
      */
     public function create()
     {
-        return $this->view('admin.features.sizes.createSizeCategory');
+        $plugins[] = 'jQueryUi';
+        return $this->view('admin.features.sizes.createSizeCategory', compact('plugins'));
     }
 
     /**
@@ -177,7 +178,7 @@ class FeatureSizesCategoryController extends Controller
     public function show($id)
     {
         $tallaCat = Features_sizes_category::with("md_features_sizes")->find($id);
-        return $this->view('admin.features.sizes.deleteSizeCategory', compact('tallaCat'));
+        return $this->view('admin.features.sizes.deleteSizeCategory', compact( 'tallaCat'));
     }
 
     /**
@@ -188,8 +189,9 @@ class FeatureSizesCategoryController extends Controller
      */
     public function edit($id)
     {
+        $plugins[] = 'jQueryUi';
         $tallaCat = Features_sizes_category::with("md_features_sizes")->find($id);
-        return $this->view('admin.features.sizes.editSizeCategory', compact('tallaCat'));
+        return $this->view('admin.features.sizes.editSizeCategory', compact( 'plugins', 'tallaCat'));
     }
 
     /**

@@ -170,6 +170,11 @@ return [
     'summernote' => [
       'css' => 'vendors/summernote/dist/summernote.css',
       'js' => 'vendors/summernote/dist/summernote.min.js',
+    ],
+
+    'jQueryUi' => [
+      'js' => 'jquery-ui-1.12.1/jquery-ui.min.js',
+      'css' => 'jquery-ui-1.12.1/jquery-ui.min.css',
     ]
 
 ];
