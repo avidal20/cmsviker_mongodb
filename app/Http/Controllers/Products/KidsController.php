@@ -224,7 +224,7 @@ class KidsController extends Controller
         $plugins[] = 'Datatable';
         $categories = Categories::where('state','1')->get();
         $kid = ProductKids::find($id);
-        $products = Products::all();
+        $products = Products::where('state','1')->get();
         $productsSelect = ProductKidsSelected::where('id_product_kids',$kid->id)->get();
         $productSelected = [];
         foreach ($productsSelect as $select) {
