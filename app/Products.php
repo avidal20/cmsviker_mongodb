@@ -33,4 +33,9 @@ class Products extends Model
         return $this->hasMany('App\ProductsFeatures', 'id_product', '_id');
     }
 
+    public function md_size_selected()
+    {
+        return $this->hasMany('App\ProductSize', 'id_product', '_id');
+    }
+
 }

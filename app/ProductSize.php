@@ -12,4 +12,9 @@ class ProductSize extends Model
      * @var string
      */
     protected  $collection = 'md_products_sizes';
+
+    public function md_features_size()
+    {
+        return $this->belongsTo('App\Features_size', 'id_size', '_id');
+    }
 }

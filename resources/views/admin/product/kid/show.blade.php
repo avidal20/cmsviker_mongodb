@@ -78,11 +78,11 @@
                     <p><strong>Referencia:</strong> {{ $product->md_product->reference }}</p>    
                     <p><a href="{{ route('products.edit',['id' => $product->md_product->id ]) }}" target="black">{{ $product->md_product->name }}</a></p>    
                     <p>
-                      @if ( count($product->md_product->md_size)>0 )
+                      @if ( count($product->md_product->md_size_selected)>0 )
                         <ul class="list-inline prod_size">
-                          @foreach ( $product->md_product->md_size as $index => $size )
+                          @foreach ( $product->md_product->md_size_selected as $size )
                           <li>
-                            <button type="button" class="btn btn-default btn-xs">{{ $size->name }}</button>
+                            <button type="button" class="btn btn-default btn-xs">{{ $size->md_features_size->name }}</button>
                           </li>
                           @endforeach
                         </ul>

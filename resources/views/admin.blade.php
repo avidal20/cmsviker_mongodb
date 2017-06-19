@@ -17,7 +17,7 @@
    
             <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-users"></i></div>
+                  <div class="icon"><i class="fa fa-cogs"></i></div>
                   <div class="count"><a href="{{ route('features') }}">{{ trans('config.mod_features_name') }}</a></div>
                   <h3>{{ trans('config.mod_features_desc') }}</h3>
                </div>
