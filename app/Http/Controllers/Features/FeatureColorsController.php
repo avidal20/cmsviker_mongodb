@@ -207,22 +207,28 @@ class FeatureColorsController extends Controller
 
         try {
 
-            $color = Features_color::find($id);
-            $color->name = $request->name;
-            $color->state = $request->state;
-            $file = $request->file("image");
-            if ($file !== null) {
-                // Elimina la imagen actual
-                Storage::delete('public/'.$color->image);
-                // archivo imagen
-                $fileName = $file->hashName();
-                Storage::putfile('public', $file);
-                $color->image = $fileName;
+            //valida si esta enlasado a un producto
+            $delete = ProductsFeatures::where("id_color", $id)->count();
+            if($delete > 0){
+                Session::flash('error', trans('modules.mod_features_colors_cant_delete'));
+            }else{
+
+                $color = Features_color::find($id);
+                $color->name = $request->name;
+                $color->state = $request->state;
+                $file = $request->file("image");
+                if ($file !== null) {
+                    // Elimina la imagen actual
+                    Storage::delete('public/'.$color->image);
+                    // archivo imagen
+                    $fileName = $file->hashName();
+                    Storage::putfile('public', $file);
+                    $color->image = $fileName;
+                }
+                $color->save();
+
+                Session::flash('success', trans('modules.mod_colors_store_msj_edit_succes'));
             }
-            $color->save();
-
-            Session::flash('success', trans('modules.mod_colors_store_msj_edit_succes'));
-
         } catch (QueryException $e) {
 
             Session::flash('error',trans('modules.mod_colors_store_msj_edit_error'));
