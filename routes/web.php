@@ -43,9 +43,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('products', 'Products\ProductController');
 
     //Kids
-    Route::get('kids/ajax/category/{id?}', 'Products\kidsController@ajaxCategory')->name('kids.ajax.category');
-    Route::get('kids/ajax/product/{id?}', 'Products\kidsController@ajaxProduct')->name('kids.ajax.product');
-    Route::get('kids/ajax/product/{idKid}/{id?}', 'Products\kidsController@ajaxProductEdit')->name('kids.ajax.product.edit');
-    Route::put('kids/ajax/productselected', 'Products\kidsController@ajaxProductSelect')->name('kids.ajax.product.select');
-    Route::resource('kids', 'Products\kidsController');
+    Route::get('kids/ajax/category/{id?}', 'Products\KidsController@ajaxCategory')->name('kids.ajax.category');
+    Route::get('kids/ajax/product/{id?}', 'Products\KidsController@ajaxProduct')->name('kids.ajax.product');
+    Route::get('kids/ajax/product/{idKid}/{id?}', 'Products\KidsController@ajaxProductEdit')->name('kids.ajax.product.edit');
+    Route::put('kids/ajax/productselected', 'Products\KidsController@ajaxProductSelect')->name('kids.ajax.product.select');
+    Route::resource('kids', 'Products\KidsController');
 });

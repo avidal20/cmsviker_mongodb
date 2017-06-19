@@ -118,7 +118,7 @@ class KidsController extends Controller
     public function index()
     {
         $plugins[] = 'Datatable';
-        $categories = Categories::all();
+        $categories = Categories::where('state','1')->get();
         $products = ProductKids::all();
 
         return $this->view('admin.product.kid.index',compact('plugins','categories','products'));
@@ -135,7 +135,7 @@ class KidsController extends Controller
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
         $categories = Categories::where('state','1')->get();
-        $products = Products::all();
+        $products = Products::where('state','1')->get();
         return $this->view('admin.product.kid.create',compact('plugins','categories','products'));
     }
 
@@ -152,7 +152,6 @@ class KidsController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'alter_reference' => 'required',
         'state' => 'required|max:10|numeric',
         'products.*' => 'required',
       ]);
@@ -170,11 +169,13 @@ class KidsController extends Controller
           $kid->save();
 
           //Cracion de productos asociados
-          foreach($request->products as $product){
-            $productKid = new ProductKidsSelected();
-            $productKid->id_product_kids = $kid->id;
-            $productKid->id_product = $product;
-            $productKid->save();
+          if(isset($request->products)){
+            foreach($request->products as $product){
+              $productKid = new ProductKidsSelected();
+              $productKid->id_product_kids = $kid->id;
+              $productKid->id_product = $product;
+              $productKid->save();
+            }
           }
 
             Session::flash('success', trans('modules.mod_kids_store_msj_succes'));
@@ -185,7 +186,7 @@ class KidsController extends Controller
 
         }
 
-        return redirect()->route('kids.index');
+        return redirect()->route('kids.edit',['id' => $kid->id ]);
     }
 
     /**
@@ -222,9 +223,9 @@ class KidsController extends Controller
         $plugins[] = 'summernote';
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
-        $categories = Categories::all();
+        $categories = Categories::where('state','1')->get();
         $kid = ProductKids::find($id);
-        $products = Products::all();
+        $products = Products::where('state','1')->get();
         $productsSelect = ProductKidsSelected::where('id_product_kids',$kid->id)->get();
         $productSelected = [];
         foreach ($productsSelect as $select) {
@@ -247,7 +248,6 @@ class KidsController extends Controller
         'category' => 'required',
         'reference' => 'required',
         'name' => 'required',
-        'alter_reference' => 'required',
         'state' => 'required|max:10|numeric',
       ]);
 
@@ -271,7 +271,7 @@ class KidsController extends Controller
 
         }
 
-        return redirect()->route('kids.index');
+        return redirect()->route('kids.edit',['id' => $kid->id ]);
     }
 
     /**
