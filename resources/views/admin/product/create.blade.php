@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form id="form-obj" data-parsley-validate="" novalidate="" method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
+<form id="form" data-parsley-validate="" novalidate="" method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
   {{ csrf_field() }}
     <div class="form-horizontal form-label-left">
       
@@ -133,7 +133,34 @@
 
 <script>
 
+
+$("#form").submit(function(event) {
+        
+      var boolSizes = false;
+      $( ".sizes" ).each(function( index ) {
+        if($(this).is(':checked') == true){
+          boolSizes = true;
+        }
+      });
+
+      if(boolSizes == false){
+        $(".contentValidSize").html('Debe seleccionar por lo menos una talla.');
+        return false;
+      }
+
+        $(this).parsley().validate();
+        if ($(this).parsley().isValid()) {
+          return true;
+        }
+        event.preventDefault();
+    });
+
   $(document).ready(function() {
+
+     //Confirmar antes de enviar
+
+
+
       //Objeto del editor html
       $('#description').summernote({
           lang: 'es-ES',
@@ -223,6 +250,8 @@
         });
       });
 
+
+      
   });
 
   //Eliminar campo de archivos del fielset

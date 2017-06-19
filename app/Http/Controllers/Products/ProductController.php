@@ -199,8 +199,6 @@ class ProductController extends Controller
         'sizes.required' => 'Debe seleccionar por lo menos una talla.',
       ]);
 
-      dd($request->all());
-
         try {
 
           //Creacion del producto

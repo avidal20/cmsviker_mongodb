@@ -87,12 +87,13 @@
       <div id="contentInputTypeSize">
 
       <div class="form-group">
+
          <label name="education" class="col-md-3 col-sm-3 col-xs-12 control-label">Tallas*</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
             @foreach($product->md_size as $sizes)
                 <div class="checkbox">
                   <label class="">
-                    <div class="icheckbox_flat-green @if(in_array($sizes->id, $productSizesSelect)) checked @endif" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;" value="{{ $sizes->id }}" name="sizes[]" @if(in_array($sizes->id, $productSizesSelect)) checked @endif><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> {{ $sizes->name }}
+                    <div class="icheckbox_flat-green @if(in_array($sizes->id, $productSizesSelect)) checked @endif" style="position: relative;"><input type="checkbox" class="flat sizes" style="position: absolute; opacity: 0;" value="{{ $sizes->id }}" name="sizes[]" @if(in_array($sizes->id, $productSizesSelect)) checked @endif><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> {{ $sizes->name }} @if($loop->index == 0) <span style="color: #E74C3C;" class="contentValidSize"></span> @endif
                   </label>
                 </div>
             @endforeach
@@ -268,6 +269,19 @@
 
       //Confirmar antes de enviar
       $("#form").submit(function(event) {
+
+        var boolSizes = false;
+        $( ".sizes" ).each(function( index ) {
+          if($(this).is(':checked') == true){
+            boolSizes = true;
+          }
+        });
+
+        if(boolSizes == false){
+          $(".contentValidSize").html('Debe seleccionar por lo menos una talla.');
+          return false;
+        }
+
           $(this).parsley().validate();
           if ($(this).parsley().isValid()) {
             return confirm("{{trans('modules.mod_products_edit_msj_confirm')}}");
