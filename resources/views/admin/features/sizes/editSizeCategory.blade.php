@@ -43,14 +43,13 @@
                 <li id="size{{$index+1}}Container" class="form-group">
                     <label for="sizes" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_features_size_title')}}<span class="required"> *</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="size{{$index+1}}" type="text" value="{{$size->name}}" name="sizes[]" class="form-control col-md-7 col-xs-12" maxlength="255" required>
+                        <input id="size{{$index+1}}" type="text" value="{{$size->name}}" name="sizes[{{$tallaCat->id}}][{{$size->id}}]" class="form-control col-md-7 col-xs-12" maxlength="255" required>
                     </div>
                     <i class="fa fa-arrows fa-2x" aria-hidden="true"></i>
                     @if ( $index > 0)
                         <a class="deleteImg" onclick="removeElement('size{{$index+1}}Container')"><i class='fa fa-trash fa-2x fa-w'></i></a>
                     @endif
                 </li>
-
                 
             @endforeach
             

@@ -285,7 +285,7 @@ class KidsController extends Controller
       try {
 
           ProductKids::destroy($id);
-          ProductKidsSelected::where('id_product',$id)->delete();
+          ProductKidsSelected::where('id_product_kids', $id)->delete();
 
           Session::flash('success', trans('modules.mod_kids_delete_msj_success'));
 

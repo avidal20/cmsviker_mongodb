@@ -211,37 +211,49 @@ class FeatureSizesCategoryController extends Controller
 
         try {
 
+            $tallaCat = Features_sizes_category::find($id);
+            $tallaCat->name = $request->name;
+            $tallaCat->state = $request->state;
+            $tallaCat->save();
 
-            // valida si esta enlasado a un producto
-            $delete = Products::where("type_size", $id)->count();
-            if($delete > 0){
-                Session::flash('error', trans('modules.mod_features_sizes_cant_delete'));
-            }else{
+            // arreglo con las tallas editadas y nuevas
+            $goodSizes = [];
 
-                $tallaCat = Features_sizes_category::find($id);
-                $tallaCat->name = $request->name;
-                $tallaCat->state = $request->state;
-                $tallaCat->save();
+            // actualiza las tallas existentes y crea las nuevas
+            foreach($request->sizes as $index => $size){
 
-                // Update Falso, en realidad elimina las existentes y crea nuevas
-                // Elimina las tallas existentes
-                $currentSizes = Features_size::where("id_md_features_sizes_category", $tallaCat->id)->get();
-                foreach($currentSizes as $index => $size){
-                    Features_size::destroy($size->id);
-                }
-                // Crea las tallas
-                foreach($request->sizes as $index => $size){
+                // existentes
+                if(is_array($size)){
+
+                    foreach($size as $id => $name){
+                        $tempSize = Features_size::find($id);
+                        $tempSize->name = $name;
+                        $tempSize->save();
+                        $goodSizes[$id] = $name;
+                    }
+
+                }else if(is_string($size)){
+                // nuevas
                     if(strlen($size) > 0){
                         $talla = new Features_size;
                         $talla->name = $size;
                         $talla->id_md_features_sizes_category = $tallaCat->id;
                         $talla->save();
+                        $goodSizes[$talla->id]  = $talla->name;
                     }
                 }
-
-                Session::flash('success', trans('modules.mod_sizes_store_msj_edit_succes'));
-
             }
+            
+            $currentSizes = Features_size::where("id_md_features_sizes_category", $tallaCat->id)->get();
+
+            // elimina las tallas eliminadas(valga la redundancia)
+            foreach($currentSizes as $index => $size){
+                if(! array_key_exists($size->id, $goodSizes)){
+                    Features_size::destroy($size->id);
+                }
+            }
+
+            Session::flash('success', trans('modules.mod_sizes_store_msj_edit_succes'));
 
         } catch (QueryException $e) {
 
