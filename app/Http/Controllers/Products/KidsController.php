@@ -252,7 +252,7 @@ class KidsController extends Controller
       ]);
 
         try {
-
+           
           //Creacion del producto
           $kid = ProductKids::find($id);
           $kid->name = $request->name;

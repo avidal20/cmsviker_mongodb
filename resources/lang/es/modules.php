@@ -102,7 +102,7 @@ return [
         'mod_products_show_action' => 'Eliminar producto',
         'mod_products_delete_msj_confirm' => 'Realmente desea eliminar el producto?',
         'mod_products_delete_msj_error' => 'Ha ocurrido un error al eliminar el producto, por favor intente de nuevo.',
-        'mod_products_delete_msj_succes' => 'Producto eliminar con &eacute;xito.',
+        'mod_products_delete_msj_succes' => 'Producto eliminado con &eacute;xito.',
 
     /* Modulo  Products Kids*/
         'mod_kids_fielset_product' => 'Productos',
@@ -123,6 +123,6 @@ return [
         'mod_kids_delete_action' => 'Eliminar Kid',
         'mod_kids_delete_msj_confirm' => 'Realmente desea eliminar el Kid?',
         'mod_kids_delete_msj_error' => 'Ha ocurrido un error al eliminar el kid, por favor intente de nuevo.',
-        'mod_kids_delete_msj_success' => 'Kid eliminar con &eacute;xito.',
+        'mod_kids_delete_msj_success' => 'Kid eliminado con &eacute;xito.',
 
 ];
