@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,19 +12,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-
-    @yield('css')
-
-    <!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
 </head>
 <body>
     <div id="app">
@@ -55,26 +42,24 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">{{ trans('auth.menu_login') }}</a></li>
-                            <li><a href="{{ url('/register') }}">{{ trans('auth.menu_register') }}</a></li>
+                        @if (!Auth::guard('admin')->check())
+                            <li><a href="{{ URL::to('admin') }}">Login</a></li>
+                            <li><a href="{{ URL::to('admin/register') }}">Register</a></li>
                         @else
-                            <li><a href="{{ route('RecordPoints.index') }}">Registra tus puntos</a></li>
-                            <li><a href="{{ route('CheckYourPoints.index') }}">Revisa tus puntos</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::guard('admin')->user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ url('/logout') }}"
+                                        <a href="{{ route('admin.logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Cerrar sesi&oacute;n
+                                            Logout
                                         </a>
 
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
@@ -91,25 +76,5 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="{{ asset('vendors/moment/min/moment.min.js') }}"></script>
-    <script src="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-
-    <script>
-      $(document).find('.panel-heading').each(function (index, element) {
-          if($(this).next().hasClass('panel-heading')){
-            $(this).remove();
-            $(this).prev().remove();
-            $(this).next().remove();
-          }
-          if($(this).next().hasClass('form-group')){
-              if(typeof $(this).next().children('label').html() === "undefined"){
-                $(this).remove();
-              }
-          }
-      });
-    </script>
-    @yield('javascript')
-
 </body>
 </html>

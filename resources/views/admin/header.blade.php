@@ -85,22 +85,40 @@
                     <a href="{{ route('admin') }}"><i class="fa fa-home"></i>{{ trans('config.app_home') }}</a>
                   </li>
 
-                  <li><a><i class="fa fa-folder"></i>{{ trans('config.mod_categories_name') }}<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="{{ route('categories.index') }}">{{ trans('config.app_home') }}</a></li>
-                      <li><a href="{{ route('categories.create') }}">{{ trans('config.app_create') }}</a></li>
-                    </ul>
-                  </li>
-                  
+                  @role('category.module')
+                    <li>
+                      <a><i class="fa fa-folder"></i>{{ trans('config.mod_categories_name') }}<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                          @if(Auth::check() && Auth::user()->hasRole('category.all') || Auth::check() && Auth::user()->hasRole('category.list'))
+                          <li><a href="{{ route('categories.index') }}">{{ trans('config.app_home') }}</a></li>
+                          @endif
+                          @if(Auth::check() && Auth::user()->hasRole('category.all') || Auth::check() && Auth::user()->hasRole('category.create'))
+                          <li><a href="{{ route('categories.create') }}">{{ trans('config.app_create') }}</a></li>
+                          @endif
+                      </ul>
+                    </li>
+                  @endrole
 
+                  @if(Auth::check() && Auth::user()->hasRole('colors.module') || Auth::check() && Auth::user()->hasRole('sizes.module'))
                   <li>
                     <a href="{{ route('features') }}"><i class="fa fa-cogs"></i>{{ trans('config.mod_features_name') }}</a>
                   </li>
+                  @endif
 
+                  @if(Auth::check() && Auth::user()->hasRole('products.module') || Auth::check() && Auth::user()->hasRole('kids.module'))
                   <li>
                     <a href="{{ route('products.home') }}"><i class="fa fa-shopping-bag"></i>{{ trans('config.mod_products_name') }}</a>
                   </li>
+                  @endif
                   
+                  <li>
+                    <a><i class="fa fa-cogs"></i>{{ trans('config.mod_users_name') }}<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{{ route('users.index') }}">{{ trans('config.app_home') }}</a></li>
+                      <li><a href="{{ route('users.create') }}">{{ trans('config.app_create') }}</a></li>
+                    </ul>
+                  </li>
+
                 </ul>
               </div>
             </div>

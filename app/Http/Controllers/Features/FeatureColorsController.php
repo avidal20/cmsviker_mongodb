@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use App\Features_color;
 use App\ProductsFeatures;
+use Auth;
 
 class FeatureColorsController extends Controller
 {
@@ -113,6 +114,12 @@ class FeatureColorsController extends Controller
      */
     public function index()
     {
+        if( !Auth::user()->hasRole('colors.all') && 
+            !Auth::user()->hasRole('colors.list') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'Datatable';
         $colors = Features_color::all();
         return $this->view('admin.features.colors.index', compact('plugins', 'colors'));
@@ -125,6 +132,12 @@ class FeatureColorsController extends Controller
      */
     public function create()
     {
+        if( !Auth::user()->hasRole('colors.all') && 
+            !Auth::user()->hasRole('colors.create') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         return $this->view('admin.features.colors.create');
     }
 
@@ -136,6 +149,12 @@ class FeatureColorsController extends Controller
      */
     public function store(Request $request)
     {
+        if( !Auth::user()->hasRole('colors.all') && 
+            !Auth::user()->hasRole('colors.create') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $this->validate($request, [
           'name' => 'required|max:255',
           'image' => 'required',
@@ -174,6 +193,12 @@ class FeatureColorsController extends Controller
      */
     public function show($id)
     {
+        if( !Auth::user()->hasRole('colors.all') && 
+            !Auth::user()->hasRole('colors.delete') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $color = Features_color::find($id);
         return $this->view('admin.features.colors.delete', compact('color'));
     }
@@ -186,6 +211,12 @@ class FeatureColorsController extends Controller
      */
     public function edit($id)
     {
+        if( !Auth::user()->hasRole('colors.all') && 
+            !Auth::user()->hasRole('colors.update') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $color = Features_color::find($id);
         return $this->view('admin.features.colors.edit', compact('color'));
     }
@@ -199,6 +230,12 @@ class FeatureColorsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( !Auth::user()->hasRole('colors.all') && 
+            !Auth::user()->hasRole('colors.update') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $this->validate($request, [
           'name' => 'required|max:255',
           'description' => 'max:550',
@@ -246,6 +283,12 @@ class FeatureColorsController extends Controller
      */
     public function destroy($id)
     {
+        if( !Auth::user()->hasRole('colors.all') && 
+            !Auth::user()->hasRole('colors.delete') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         try {
         
             //valida si esta enlasado a un producto

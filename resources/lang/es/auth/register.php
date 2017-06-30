@@ -14,8 +14,13 @@ return [
     */
 
     'formLegend'   => 'Registro',
-    'formInputName'   => 'Nombre',
-    'formInputEmail'   => 'Direcci&oacute;n de correo electr&oacute;nico',
+    'formInputUsername'   => 'Usuario',
+    'formInputNumberId'   => 'Identificaci&oacute;n',
+    'formInputName'   => 'Nombres',
+    'formInputLastName'   => 'Apellidos',
+    'formInputEmail'   => 'Correo electr&oacute;nico',
+    'formInputNumberPhone'   => 'Tel&eacute;fono',
+    'formInputAddress'   => 'Direcci&oacute;n',
     'formInputPassword'   => 'Contrase&ntilde;a',
     'formInputConfirmPassword'   => 'Confirmar contrase&ntilde;a',
     'formBtnRegister'   => 'Registrar',

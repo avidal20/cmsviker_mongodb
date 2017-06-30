@@ -10,6 +10,7 @@ use App\Categories;
 use App\Products;
 use App\ProductKids;
 use App\ProductKidsSelected;
+use Auth;
 
 class KidsController extends Controller
 {
@@ -117,6 +118,12 @@ class KidsController extends Controller
      */
     public function index()
     {
+        if( !Auth::user()->hasRole('kids.all') && 
+            !Auth::user()->hasRole('kids.list') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'Datatable';
         $categories = Categories::where('state','1')->get();
         $products = ProductKids::all();
@@ -131,6 +138,12 @@ class KidsController extends Controller
      */
     public function create()
     {
+        if( !Auth::user()->hasRole('kids.all') && 
+            !Auth::user()->hasRole('kids.create') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'summernote';
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
@@ -147,6 +160,11 @@ class KidsController extends Controller
      */
     public function store(Request $request)
     {
+      if( !Auth::user()->hasRole('kids.all') && 
+          !Auth::user()->hasRole('kids.create') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
 
       $this->validate($request, [
         'category' => 'required',
@@ -197,6 +215,12 @@ class KidsController extends Controller
      */
     public function show($id)
     {
+      if( !Auth::user()->hasRole('kids.all') && 
+          !Auth::user()->hasRole('kids.delete') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         $plugins[] = 'summernote';
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
@@ -220,6 +244,11 @@ class KidsController extends Controller
      */
     public function edit($id)
     {
+      if( !Auth::user()->hasRole('kids.all') && 
+          !Auth::user()->hasRole('kids.update') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
         $plugins[] = 'summernote';
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
@@ -244,6 +273,12 @@ class KidsController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if( !Auth::user()->hasRole('kids.all') && 
+          !Auth::user()->hasRole('kids.update') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
       $this->validate($request, [
         'category' => 'required',
         'reference' => 'required',
@@ -282,6 +317,12 @@ class KidsController extends Controller
      */
     public function destroy($id)
     {
+      if( !Auth::user()->hasRole('kids.all') && 
+          !Auth::user()->hasRole('kids.delete') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
       try {
 
           ProductKids::destroy($id);

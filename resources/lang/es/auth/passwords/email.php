@@ -15,6 +15,9 @@ return [
 
     'formLegend'   => 'Restablecer la contrase&ntilde;a',
     'formInputEmail'   => 'Direcci&oacute;n de correo electr&oacute;nico',
+    'formInputUsername'   => 'Usuario',
     'formBtnResetPws'   => 'Restablecer contrase&ntilde;a',
+    'formInputPassword' => 'Nueva contrase&ntilde;a',
+    'formInputConfirmPassword' => 'Confirmar contrase&ntilde;a',
 
 ];
