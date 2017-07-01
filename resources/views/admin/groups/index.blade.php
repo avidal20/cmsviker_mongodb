@@ -21,7 +21,7 @@
                     <td>{{ $grupo->name }}</td>
                     <td>{{ $grupo->description }}</td>
                     <td>{{ $grupo->state == 1? "Activo" : "Inactivo" }}</td>
-                    <td>Usuarios</td>
+                    <td><a href="{{ route('groups.users',['id' => $grupo->id ]) }}"><i class="fa fa-user fa-2x"></i></a></td>
                     <td><a href="{{ route('groups.edit',['id' => $grupo->id ]) }}"><i class="fa fa-edit fa-2x"></i></a></td>
                     <td><a href="{{ route('groups.show',['id' => $grupo->id ]) }}"><i class="fa fa-remove fa-2x"></i></a></td>
                 </tr>

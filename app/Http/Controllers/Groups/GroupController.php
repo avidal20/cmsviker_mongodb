@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Group;
+use App\User;
 use Auth;
+
 
 class GroupController extends Controller
 {
@@ -43,6 +45,20 @@ class GroupController extends Controller
                         'href' => route('groups.index'),
                         'atribute' => [],
                     ]
+                ],
+                'users' => [
+                    trans('config.app_back') => [
+                        'href' => route('groups.index'),
+                        'atribute' => [],
+                    ],
+                    trans('config.app_create') => [
+                        'href' => route('groups.createUser', ['id' => ':id:']),
+                        'atribute' => [],
+                    ],
+                    trans('modules.mod_groups_import_users') => [
+                        'href' => route('groups.importUsers', ['id' => ':id:']),
+                        'atribute' => [],
+                    ],
                 ]
 
             ],
@@ -87,9 +103,22 @@ class GroupController extends Controller
                     trans('modules.mod_groups_delete') => [
                         'active' => true
                     ]
+                ],
+                'users' => [
+                    trans('config.app_home') => [
+                        'href' => route('admin'),
+                    ],
+                    trans('modules.mod_groups_list') => [
+                        'href' => route('groups.index'),
+                    ],
+                    trans('modules.mod_groups_list_users') => [
+                        'active' => true
+                    ]
                 ]
             ]
         ];
+
+        $this->modVars = [];
     }
 
 
@@ -260,5 +289,13 @@ class GroupController extends Controller
             Session::flash('error',trans('config.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
+    }
+
+    public function users($id){
+
+        $plugins[] = 'Datatable';
+        $users = User::all();
+        $this->modVars = [":id:" => $id];
+        return $this->view('admin.groups.users_index', compact('plugins', 'users'));
     }
 }

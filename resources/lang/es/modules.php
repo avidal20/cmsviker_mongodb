@@ -128,6 +128,7 @@ return [
         'mod_groups_title' => 'Administrar grupos',
         'mod_groups_title_admin' => 'Grupos',
         'mod_groups_list' => 'Listado de grupos',
+        'mod_groups_list_users' => 'Listado de usuarios',
         'mod_groups_create' => 'Crear grupo',
         'mod_groups_edit' => 'Modificar grupo',
         'mod_groups_delete' => 'Eliminar grupo',
@@ -137,6 +138,7 @@ return [
         'mod_groups_edit_msj_error' => 'Ha ocurrido un error al modificar el grupo, por favor intente de nuevo.',
         'mod_groups_edit_msj_succes' => 'Grupo modificado con &eacute;xito.',
         'mod_groups_id_error' => 'No se encontro informaci&oacute;n',
+        'mod_groups_import_users' => 'Importar usuarios',
 
     /** Modulo Usuarios */
         'mod_users_field_username' => 'Usuario',
