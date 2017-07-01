@@ -57,7 +57,7 @@
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">{{ trans('auth.menu_login') }}</a></li>
-                            <li><a href="{{ url('/register') }}">{{ trans('auth.menu_register') }}</a></li>
+                            <!-- <li><a href="{{ url('/register') }}">{{ trans('auth.menu_register') }}</a></li> -->
                         @else
                             <li><a href="{{ route('RecordPoints.index') }}">Registra tus puntos</a></li>
                             <li><a href="{{ route('CheckYourPoints.index') }}">Revisa tus puntos</a></li>

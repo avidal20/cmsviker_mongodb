@@ -33,7 +33,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'address',
         'state',
         'password',
-        'id_md_groups'
+        'id_md_groups',
+        'admin',
     ];
 
 
