@@ -104,7 +104,7 @@ return [
         'mod_products_delete_msj_error' => 'Ha ocurrido un error al eliminar el producto, por favor intente de nuevo.',
         'mod_products_delete_msj_succes' => 'Producto eliminado con &eacute;xito.',
 
-    /* Modulo  Products Kids*/
+    /** Modulo  Products Kids*/
         'mod_kids_fielset_product' => 'Productos',
         'mod_kids_field_add_product' => 'A&ntilde;adir producto',
         'mod_kids_msj_not_product' => 'No se ha incluido ning&uacute;n producto.',
@@ -137,4 +137,44 @@ return [
         'mod_groups_edit_msj_error' => 'Ha ocurrido un error al modificar el grupo, por favor intente de nuevo.',
         'mod_groups_edit_msj_succes' => 'Grupo modificado con &eacute;xito.',
         'mod_groups_id_error' => 'No se encontro informaci&oacute;n',
+
+    /** Modulo Usuarios */
+        'mod_users_field_username' => 'Usuario',
+        'mod_users_field_id_num' => 'Identificaci&oacute;n',
+        'mod_users_field_first_name' => 'Nombres',
+        'mod_users_field_last_name' => 'Apellidos',
+        'mod_users_field_email' => 'Correo electr&oacute;nico',
+        'mod_users_field_address' => 'Direcci&oacute;n',
+        'mod_users_field_state' => 'Estado',
+        'mod_users_field_number_phone' => 'Tel&eacute;fono',
+        'mod_users_field_permissions' => 'Permisos',
+        'mod_users_field_state_enabled' => 'Activo',
+        'mod_users_field_state_disabled' => 'Inactivo',
+        'mod_users_fielset_password' => 'Contrase&ntilde;a',
+        'mod_users_field_password' => 'Contrase&ntilde;a',
+        'mod_users_field_confirm_password' => 'Confirmar contrase&ntilde;a',
+    //Index
+        'mod_users_index_action' => 'Listado de usuarios',
+    //Crear
+        'mod_users_create_action' => 'Crear usuario',
+        'mod_users_store_msj_succes' => 'Usuario creado con &eacute;xito.',
+        'mod_users_store_msj_error' => 'Ha ocurrido un error al crear el usuario, por favor intente de nuevo.',
+    //Modificar
+        'mod_users_edit_action' => 'Modificar usuario',
+        'mod_users_update_msj_succes' => 'Usuario modificado con &eacute;xito.',
+        'mod_users_update_msj_error' => 'Ha ocurrido un error al modificar el usuario, por favor intente de nuevo.',
+        'mod_users_update_msj_confirm_edit' => 'Realmente desea modificar el usuario?',
+    //Eliminar
+        'mod_users_delete_action' => 'Modificar usuario',
+        'mod_users_delete_msj_succes' => 'Usuario eliminado con &eacute;xito.',
+        'mod_users_delete_msj_error' => 'Ha ocurrido un error al eliminar el usuario, por favor intente de nuevo.',
+        'mod_users_delete_msj_confirm_edit' => 'Realmente desea eliminar el usuario?',
+    //Permisos
+        'mod_users_permissions_action' => 'Permisos',
+        'mod_users_permissions_msj_succes' => 'Permisos establecidos con &eacute;xito.',
+        'mod_users_permissions_msj_error' => 'Ha ocurrido un error al establecer los permisos, por favor intente de nuevo.',
+        'mod_users_permissions_no_input_msj_error' => 'Para continuar por favor seleccione al menos un permiso.',
+        'mod_users_permissions_msj_confirm_edit' => 'Realmente desea establecer los permisos?',
+
+        
 ];

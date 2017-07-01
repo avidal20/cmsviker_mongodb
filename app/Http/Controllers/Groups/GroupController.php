@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Group;
+use Auth;
 
 class GroupController extends Controller
 {
@@ -99,7 +100,13 @@ class GroupController extends Controller
      */
     public function index()
     {
-        
+
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.list') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'Datatable';
         $grupos = Group::all();
         return $this->view('admin.groups.index', compact('plugins', 'grupos'));
@@ -112,6 +119,11 @@ class GroupController extends Controller
      */
     public function create()
     {
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.create') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
         return $this->view('admin.groups.create');
     }
 
@@ -123,6 +135,12 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.store') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         try {
             $this->validate($request, [
             'name' => 'required|max:255',
@@ -156,6 +174,11 @@ class GroupController extends Controller
      */
     public function show($id)
     {
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.delete') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
     }
 
     /**
@@ -166,6 +189,12 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.edit') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $group = Group::find($id);
         if(is_null($group)){
              Session::flash('error',trans('modules.mod_groups_id_error'));
@@ -183,6 +212,12 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.update') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         try {
             $this->validate($request, [
             'name' => 'required|max:255',
@@ -220,6 +255,10 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.destroy') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
     }
 }

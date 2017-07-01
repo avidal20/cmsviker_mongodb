@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 use App\Features_size;
 use App\Features_sizes_category;
 use App\Products;
+use Auth;
 
 class FeatureSizesCategoryController extends Controller
 {
@@ -112,6 +113,12 @@ class FeatureSizesCategoryController extends Controller
      */
     public function index()
     {
+        if( !Auth::user()->hasRole('sizes.all') && 
+            !Auth::user()->hasRole('sizes.list') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'Datatable';
         $sizesCategories = Features_sizes_category::with("md_features_sizes")->get();
         return $this->view('admin.features.sizes.index', compact('plugins', 'sizesCategories'));
@@ -124,6 +131,12 @@ class FeatureSizesCategoryController extends Controller
      */
     public function create()
     {
+        if( !Auth::user()->hasRole('sizes.all') && 
+            !Auth::user()->hasRole('sizes.create') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'jQueryUi';
         return $this->view('admin.features.sizes.createSizeCategory', compact('plugins'));
     }
@@ -136,6 +149,12 @@ class FeatureSizesCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if( !Auth::user()->hasRole('sizes.all') && 
+            !Auth::user()->hasRole('sizes.create') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $this->validate($request, [
           'name' => 'required|max:255',
           'sizes.*' => 'required',
@@ -177,6 +196,12 @@ class FeatureSizesCategoryController extends Controller
      */
     public function show($id)
     {
+        if( !Auth::user()->hasRole('sizes.all') && 
+            !Auth::user()->hasRole('sizes.delete') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $tallaCat = Features_sizes_category::with("md_features_sizes")->find($id);
         return $this->view('admin.features.sizes.deleteSizeCategory', compact( 'tallaCat'));
     }
@@ -189,6 +214,12 @@ class FeatureSizesCategoryController extends Controller
      */
     public function edit($id)
     {
+        if( !Auth::user()->hasRole('sizes.all') && 
+            !Auth::user()->hasRole('sizes.update') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'jQueryUi';
         $tallaCat = Features_sizes_category::with("md_features_sizes")->find($id);
         return $this->view('admin.features.sizes.editSizeCategory', compact( 'plugins', 'tallaCat'));
@@ -203,6 +234,12 @@ class FeatureSizesCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( !Auth::user()->hasRole('sizes.all') && 
+            !Auth::user()->hasRole('sizes.update') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $this->validate($request, [
           'name' => 'required|max:255',
           'sizes.*' => 'required',
@@ -272,6 +309,12 @@ class FeatureSizesCategoryController extends Controller
      */
     public function destroy($id)
     {
+        if( !Auth::user()->hasRole('sizes.all') && 
+            !Auth::user()->hasRole('sizes.delete') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         try {
 
             // valida si esta enlasado a un producto

@@ -43,7 +43,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('products', 'Products\ProductController');
 
     //Kids
-    Route::get('kids/ajax/category/{id?}', 'Products\KidsController@ajaxCategory')->name('kids.ajax.category');
     Route::get('kids/ajax/product/{id?}', 'Products\KidsController@ajaxProduct')->name('kids.ajax.product');
     Route::get('kids/ajax/product/{idKid}/{id?}', 'Products\KidsController@ajaxProductEdit')->name('kids.ajax.product.edit');
     Route::put('kids/ajax/productselected', 'Products\KidsController@ajaxProductSelect')->name('kids.ajax.product.select');
@@ -51,5 +50,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
     // Grupos
     Route::resource('groups', 'Groups\GroupController');
+
+    //Usuarios
+    Route::PUT('users/permissions/{id}', 'Users\UsersController@permissionsUpdate')->name('users.permissions.update');
+    Route::get('users/permissions/{id}/edit', 'Users\UsersController@permissions')->name('users.permissions');
+    Route::resource('users', 'Users\UsersController');
     
 });

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
-
+use Auth;
 use App\Categories;
 use App\Products;
 
@@ -107,6 +107,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        if( !Auth::user()->hasRole('category.all') && 
+            !Auth::user()->hasRole('category.list') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'Datatable';
         $categories = Categories::all();
         return $this->view('admin.category.index',compact('plugins','categories'));
@@ -119,6 +125,12 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if( !Auth::user()->hasRole('category.all') && 
+            !Auth::user()->hasRole('category.create') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         return $this->view('admin.category.create');
     }
 
@@ -130,6 +142,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if( !Auth::user()->hasRole('category.all') && 
+            !Auth::user()->hasRole('category.create') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $this->validate($request, [
           'name' => 'required|max:255',
           'description' => 'max:550',
@@ -163,6 +181,12 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
+        if( !Auth::user()->hasRole('category.all') && 
+            !Auth::user()->hasRole('category.delete') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $category = Categories::find($id);
         return $this->view('admin.category.show',compact('category'));
     }
@@ -175,6 +199,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+
+        if( !Auth::user()->hasRole('category.all') && 
+            !Auth::user()->hasRole('category.update') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $category = Categories::find($id);
         return $this->view('admin.category.edit',compact('category'));
     }
@@ -188,6 +219,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( !Auth::user()->hasRole('category.all') && 
+            !Auth::user()->hasRole('category.update') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $this->validate($request, [
           'name' => 'required|max:255',
           'description' => 'max:550',
@@ -221,6 +258,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        if( !Auth::user()->hasRole('category.all') && 
+            !Auth::user()->hasRole('category.delete') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         try {
             
             $productos = Products::where('category',$id)->get();

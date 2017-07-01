@@ -20,3 +20,6 @@
 
 /****[Utilizar Mongodb laravel]****/
 https://github.com/jenssegers/laravel-mongodb
+
+/*****[Error al cambiar contraseña por utilizar mongodb - solucion]*******/
+https://github.com/jenssegers/laravel-mongodb/issues/1138

@@ -21,5 +21,7 @@ return [
     'btn_login_start' => 'Iniciar',
     'remember_me' => 'Recu&eacute;rdame',
     'remember_password' => 'Olvidaste tu contrase&ntilde;a?',
+    'menu_login' => 'Iniciar sesi&oacute;n',
+    'menu_register' => 'Registro',
 
 ];

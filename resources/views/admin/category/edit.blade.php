@@ -6,8 +6,7 @@
 
 <form id="form" data-parsley-validate="" novalidate="" method="post" action="{{ route('categories.update',['id' => $category->id]) }}">
       {{ csrf_field() }}
-      {{ method_field('PUT') }}    
-
+      {{ method_field('PUT') }}
       <div class="form-horizontal form-label-left">
                         
       <div class="form-group">

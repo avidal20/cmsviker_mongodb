@@ -17,6 +17,7 @@ use App\ProductsFeatures;
 use App\ProductFeacturesImgs;
 use App\ProductSize;
 use App\ProductKidsSelected;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -148,6 +149,12 @@ class ProductController extends Controller
      */
     public function index()
     {
+        if( !Auth::user()->hasRole('products.all') && 
+            !Auth::user()->hasRole('products.list') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'Datatable';
         $categories = Categories::where('state','1')->get();
         $products = Products::all();
@@ -162,6 +169,12 @@ class ProductController extends Controller
      */
     public function create()
     {
+        if( !Auth::user()->hasRole('products.all') && 
+            !Auth::user()->hasRole('products.create') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'summernote';
         $plugins[] = 'iCheck';
         $categories = Categories::where('state','1')->get();
@@ -185,6 +198,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+      if( !Auth::user()->hasRole('products.all') && 
+          !Auth::user()->hasRole('products.create') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
 
       $this->validate($request, [
         'category' => 'required',
@@ -258,6 +277,12 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+      if( !Auth::user()->hasRole('products.all') && 
+          !Auth::user()->hasRole('products.delete') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         $plugins[] = 'summernote';
         $plugins[] = 'iCheck';
 
@@ -292,6 +317,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+      if( !Auth::user()->hasRole('products.all') && 
+          !Auth::user()->hasRole('products.update') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         $plugins[] = 'summernote';
         $plugins[] = 'iCheck';
 
@@ -326,6 +357,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if( !Auth::user()->hasRole('products.all') && 
+          !Auth::user()->hasRole('products.update') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         $this->validate($request, [
         'category' => 'required',
         'reference' => 'required',
@@ -410,6 +447,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+      if( !Auth::user()->hasRole('products.all') && 
+          !Auth::user()->hasRole('products.delete') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
       try {
 
         $productsKids = ProductKidsSelected::where('id_product',$id)->get();
