@@ -69,7 +69,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     <a href="{{ url('/login') }}">{{ trans('auth.menu_login') }}</a>
-                    <a href="{{ url('/register') }}">{{ trans('auth.menu_register') }}</a>
+                    <!-- <a href="{{ url('/register') }}">{{ trans('auth.menu_register') }}</a> -->
                 </div>
             @endif
 

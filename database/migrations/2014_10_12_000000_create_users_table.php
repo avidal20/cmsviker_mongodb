@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('state');
             $table->string('password');
             $table->string('id_md_groups');
+            $table->string('admin');
             $table->rememberToken();
             $table->timestamps();
         });

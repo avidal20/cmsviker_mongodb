@@ -110,22 +110,8 @@ class UsersController extends Controller
                 ]
             ]
           ];
-
     }
-
-    public function test(){
-
-$createUsersPermission = Role::create([
-    'name' => 'Create users',
-    'slug' => 'create.users',
-    'description' => '', // optional
-]);
-
-$user = User::find("594ff18ef6bf3b3a44005fe4");
-$user->attachPermission($createUsersPermission);
-dd($user->hasPermission('create.users'));
-
-    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -134,6 +120,7 @@ dd($user->hasPermission('create.users'));
     public function index()
     {
         $plugins[] = 'Datatable';
+        //$users = User::where('admin','1')->get();
         $users = User::all();
         return $this->view('admin.users.index',compact('plugins','users'));
     }
@@ -181,6 +168,7 @@ dd($user->hasPermission('create.users'));
           $user->address = $request->address;
           $user->number_phone = $request->number_phone;
           $user->state = $request->state;
+          $user->admin = '1';
           $user->password = bcrypt($request->password);
           $user->save();
 
