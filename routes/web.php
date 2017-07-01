@@ -48,4 +48,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('kids/ajax/product/{idKid}/{id?}', 'Products\KidsController@ajaxProductEdit')->name('kids.ajax.product.edit');
     Route::put('kids/ajax/productselected', 'Products\KidsController@ajaxProductSelect')->name('kids.ajax.product.select');
     Route::resource('kids', 'Products\KidsController');
+
+    // Grupos
+    Route::resource('groups', 'Groups\GroupController');
+    
 });

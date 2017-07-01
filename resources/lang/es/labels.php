@@ -3,6 +3,8 @@
 return [
 
 	'name' => 'Nombre',
+	'description' => 'Descripci&oacute;n',
+	'users' => 'Usuarios',
 	'size' => 'Talla',
 	'sizes' => 'Tallas',
 	'color' => 'Color',

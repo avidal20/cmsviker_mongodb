@@ -124,5 +124,17 @@ return [
         'mod_kids_delete_msj_confirm' => 'Realmente desea eliminar el Kid?',
         'mod_kids_delete_msj_error' => 'Ha ocurrido un error al eliminar el kid, por favor intente de nuevo.',
         'mod_kids_delete_msj_success' => 'Kid eliminado con &eacute;xito.',
-
+    /* Modulo Grupos */
+        'mod_groups_title' => 'Administrar grupos',
+        'mod_groups_title_admin' => 'Grupos',
+        'mod_groups_list' => 'Listado de grupos',
+        'mod_groups_create' => 'Crear grupo',
+        'mod_groups_edit' => 'Modificar grupo',
+        'mod_groups_delete' => 'Eliminar grupo',
+        'mod_groups_description' => 'Descripci&oacute;n',
+        'mod_groups_create_msj_error' => 'Ha ocurrido un error al crear el grupo, por favor intente de nuevo.',
+        'mod_groups_create_msj_succes' => 'Grupo creado con &eacute;xito.',
+        'mod_groups_edit_msj_error' => 'Ha ocurrido un error al modificar el grupo, por favor intente de nuevo.',
+        'mod_groups_edit_msj_succes' => 'Grupo modificado con &eacute;xito.',
+        'mod_groups_id_error' => 'No se encontro informaci&oacute;n',
 ];
