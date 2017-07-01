@@ -48,7 +48,7 @@
             
             <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-shopping-bag"></i></div>
+                  <div class="icon"><i class="fa fa-cubes"></i></div>
                   <div class="count"><a href="{{ route('groups.index') }}">{{ trans('modules.mod_groups_title_admin') }}</a></div>
                   <h3>{{ trans('modules.mod_groups_title') }}</h3>
                </div>
