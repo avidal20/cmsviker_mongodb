@@ -33,11 +33,13 @@ class Controller extends BaseController
       //Si esta definido modMenu se agrega al array
       if(isset($this->modData['modMenu'])){
         $menus = $this->modData['modMenu'][$nameFunctionOrigin];
-        foreach ($menus as $parentKey => $parentValue) {
+        foreach ($menus as $parentKey => $parentValue) {         
           foreach ($parentValue as $key => $value) {
-            if(strpos($value,':id:')){
-              $newValue = str_replace(':id:', $this->modVars[':id:'], $value);
-              $this->modData['modMenu'][$nameFunctionOrigin][$parentKey][$key] = $newValue;
+            if(!is_array($value)){
+              if(strpos($value,':id:')){
+                $newValue = str_replace(':id:', $this->modVars[':id:'], $value);
+                $this->modData['modMenu'][$nameFunctionOrigin][$parentKey][$key] = $newValue;
+              }
             }
           }
         }

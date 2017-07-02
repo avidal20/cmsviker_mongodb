@@ -298,4 +298,12 @@ class GroupController extends Controller
         $this->modVars = [":id:" => $id];
         return $this->view('admin.groups.users_index', compact('plugins', 'users'));
     }
+    public function createUsers($id){
+
+        dd($id);
+    }
+    public function importUsers($id){
+
+        dd($id);
+    }
 }

@@ -51,8 +51,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     // Grupos
     Route::resource('groups', 'Groups\GroupController');
     Route::get('groups/{id}/users', 'Groups\GroupController@users')->name("groups.users");
-    Route::get('groups/{id}/users/create', 'Groups\GroupController@users')->name("groups.createUser");
-    Route::get('groups/{id}/users/import', 'Groups\GroupController@users')->name("groups.importUsers");
+    Route::get('groups/{id}/users/create', 'Groups\GroupController@createUsers')->name("groups.createUser");
+    Route::get('groups/{id}/users/import', 'Groups\GroupController@importUsers')->name("groups.importUsers");
 
     //Usuarios
     Route::PUT('users/permissions/{id}', 'Users\UsersController@permissionsUpdate')->name('users.permissions.update');
