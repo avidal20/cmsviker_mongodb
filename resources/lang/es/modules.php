@@ -108,18 +108,18 @@ return [
         'mod_kids_fielset_product' => 'Productos',
         'mod_kids_field_add_product' => 'A&ntilde;adir producto',
         'mod_kids_msj_not_product' => 'No se ha incluido ning&uacute;n producto.',
-    //Index
+        //Index
         'mod_kids_index_action' => 'Listado de kids',
-    //Crear
+        //Crear
         'mod_kids_create_action' => 'Crear Kid',
         'mod_kids_store_msj_error' => 'Ha ocurrido un error al crear el Kid, por favor intente de nuevo.',
         'mod_kids_store_msj_succes' => 'Kid creado con &eacute;xito.',
-    //Modificar
+        //Modificar
         'mod_kids_edit_action' => 'Modificar Kid',
         'mod_kids_edit_msj_confirm' => 'Realmente desea modificar el Kid?',
         'mod_kids_edit_msj_error' => 'Ha ocurrido un error al modificar el kid, por favor intente de nuevo.',
         'mod_kids_edit_msj_success' => 'Kid modificado con &eacute;xito.',
-    //Eliminar
+        //Eliminar
         'mod_kids_delete_action' => 'Eliminar Kid',
         'mod_kids_delete_msj_confirm' => 'Realmente desea eliminar el Kid?',
         'mod_kids_delete_msj_error' => 'Ha ocurrido un error al eliminar el kid, por favor intente de nuevo.',
@@ -127,6 +127,7 @@ return [
     /* Modulo Grupos */
         'mod_groups_title' => 'Administrar grupos',
         'mod_groups_title_admin' => 'Grupos',
+        'mod_groups_title_file' => 'Grupo',
         'mod_groups_list' => 'Listado de grupos',
         'mod_groups_list_users' => 'Listado de usuarios',
         'mod_groups_create' => 'Crear grupo',
@@ -139,8 +140,17 @@ return [
         'mod_groups_edit_msj_succes' => 'Grupo modificado con &eacute;xito.',
         'mod_groups_id_error' => 'No se encontro informaci&oacute;n',
         'mod_groups_import_users' => 'Importar usuarios',
+        'mod_groups_import' => 'Importar',
         'mod_groups_msj_delete_error' => 'Ha ocurrido un error al eliminar el grupo, por favor intente de nuevo.',
         'mod_groups_msj_delete_success' => 'Grupo eliminado con &eacute;xito.',
+        'mod_groups_delete_msj_confirm' => 'Realmente desea eliminar el Grupo?',
+        'mod_groups_delete_msj_users_error' => 'No se puede eliminar el grupo ya que tiene usuarios asociados',
+        'mod_groups_cupon_number' => 'N&uacute;mero de cup&oacute;n',
+        // errores de importar usuarios
+        'mod_groups_import_users_error_row' => 'No se pudo insertar la fila n&uacute;mero: :row, por favor verifique la informaci&oacute;n.',
+        'mod_groups_import_users_error_username' => 'No se pudo insertar la fila n&uacute;mero: :row, ya existe el usuario :username',
+        'mod_groups_import_users_error_number_id' => 'No se pudo insertar la fila n&uacute;mero: :row,  ya existe el n&uacute;mero de identificaci&oacute;n :num',
+        'mod_groups_import_users_finish' => 'Proceso de importar usuarios finalizado.',
 
     /** Modulo Usuarios */
         'mod_users_field_username' => 'Usuario',
@@ -171,7 +181,7 @@ return [
         'mod_users_update_msj_error' => 'Ha ocurrido un error al modificar el usuario, por favor intente de nuevo.',
         'mod_users_update_msj_confirm_edit' => 'Realmente desea modificar el usuario?',
     //Eliminar
-        'mod_users_delete_action' => 'Modificar usuario',
+        'mod_users_delete_action' => 'Eliminar usuario',
         'mod_users_delete_msj_succes' => 'Usuario eliminado con &eacute;xito.',
         'mod_users_delete_msj_error' => 'Ha ocurrido un error al eliminar el usuario, por favor intente de nuevo.',
         'mod_users_delete_msj_confirm_edit' => 'Realmente desea eliminar el usuario?',
