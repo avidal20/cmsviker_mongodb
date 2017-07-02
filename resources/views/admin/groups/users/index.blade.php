@@ -37,8 +37,8 @@
               </label>
             </div>
           </td>
-          <td><a href="{{ route('users.edit',['id' => $user->id ]) }}"><i class="fa fa-edit fa-2x"></i></a></td>
-          <td><a href="{{ route('users.show',['id' => $user->id ]) }}"><i class="fa fa-remove fa-2x"></i></a></td>
+          <td><a href="{{ route('groups.editUser',['id' => $user->id ]) }}"><i class="fa fa-edit fa-2x"></i></a></td>
+          <td><a href="{{ route('groups.showUser',['id' => $user->id ]) }}"><i class="fa fa-remove fa-2x"></i></a></td>
       </tr>
     @endforeach
     </tbody>
