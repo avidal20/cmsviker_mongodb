@@ -1,19 +1,18 @@
 @extends('admin.layoutAdminModule')
 
-@section('title', trans('config.mod_groups_title'))
+@section('title', trans('modules.mod_groups_title'))
 
 @section('content')
 
 <table id="datatable-buttons" class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th>{{ trans('modules.mod_users_field_username') }}</th>
       <th>{{ trans('modules.mod_users_field_id_num') }}</th>
       <th>{{ trans('modules.mod_users_field_first_name') }}</th>
       <th>{{ trans('modules.mod_users_field_last_name') }}</th>
       <th>{{ trans('modules.mod_users_field_email') }}</th>
-      <th>{{ trans('modules.mod_users_field_state') }}</th>
-      <th>{{ trans('modules.mod_users_field_permissions') }}</th>
+      <th>{{ trans('modules.mod_users_field_cupon_status') }}</th>
+      <th>{{ trans('modules.mod_users_field_supervisor') }}</th>
       <th>{{ trans('config.app_edit') }}</th>
       <th>{{ trans('config.app_delete') }}</th>
     </tr>
@@ -21,19 +20,23 @@
     <tbody>
       @foreach($users as $user)
        <tr>
-          <td>{{ $user->username }}</td> 
           <td>{{ $user->id_number }}</td> 
           <td>{{ $user->name }}</td>
           <td>{{ $user->last_name }}</td>
           <td>{{ $user->email }}</td>
           <td>
-            @if($user->state == 1)
-              {{ trans('modules.mod_categories_field_state_enabled') }}
-            @else
-              {{ trans('modules.mod_categories_field_state_disabled') }}
-            @endif
+            Estado del cup&oacute;n
           </td>
-          <td><a href="{{ route('users.permissions',['id' => $user->id ]) }}"><i class="fa fa-key fa-2x"></i></a></td>
+          <td>
+            <div class="checkbox">
+              <label class="">
+                  <div class="icheckbox_flat-green" style="position: relative;">
+                    <input id="userAll" type="checkbox" name="isGroupAdmin" class="flat" style="position: absolute; opacity: 0;"  @if (!is_null($user->is_group_admin) && $user->is_group_admin == 1) checked @endif >
+                    <ins id="insUserAll" class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                  </div>
+              </label>
+            </div>
+          </td>
           <td><a href="{{ route('users.edit',['id' => $user->id ]) }}"><i class="fa fa-edit fa-2x"></i></a></td>
           <td><a href="{{ route('users.show',['id' => $user->id ]) }}"><i class="fa fa-remove fa-2x"></i></a></td>
       </tr>

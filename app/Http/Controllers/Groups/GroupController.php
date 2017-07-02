@@ -59,6 +59,12 @@ class GroupController extends Controller
                         'href' => route('groups.importUsers', ['id' => ':id:']),
                         'atribute' => [],
                     ],
+                ],
+                'createUser' => [
+                    trans('config.app_back') => [
+                        'href' => route('groups.users', ['id' => ':id:']),
+                        'atribute' => [],
+                    ]
                 ]
 
             ],
@@ -112,6 +118,20 @@ class GroupController extends Controller
                         'href' => route('groups.index'),
                     ],
                     trans('modules.mod_groups_list_users') => [
+                        'active' => true
+                    ]
+                ],
+                'createUser' => [
+                    trans('config.app_home') => [
+                        'href' => route('admin'),
+                    ],
+                    trans('modules.mod_groups_list') => [
+                        'href' => route('groups.index'),
+                    ],
+                    trans('modules.mod_groups_list_users') => [
+                        'href' => route('groups.users', ['id' => ':id:']),
+                    ],
+                    trans('modules.mod_users_create_action') => [
                         'active' => true
                     ]
                 ]
@@ -287,21 +307,92 @@ class GroupController extends Controller
         if( !Auth::user()->hasRole('groups.all') && 
             !Auth::user()->hasRole('groups.destroy') ){
             Session::flash('error',trans('config.app_msj_not_permissions'));
-            return redirect()->route('admin');
+            return redirect()->route('groups.index');
         }
+
+        try {
+
+            // valida si el grupo tiene usuarios
+            $numUsers = User::where("id_md_groups", $id)->count();
+            if($numUsers > 0){
+                Session::flash('error',trans('modules.mod_groups_msj_delete_error'));
+                return redirect()->route('groups.index');
+            }
+
+            Group::destroy($id);
+
+            Session::flash('success', trans('mod_groups_msj_delete_success'));
+
+        } catch (QueryException $e) {
+        
+            Session::flash('error',trans('modules.mod_groups_msj_delete_error'));
+        }
+
+        return redirect()->route('groups.index');
+
     }
 
     public function users($id){
 
-        $plugins[] = 'Datatable';
-        $users = User::all();
         $this->modVars = [":id:" => $id];
-        return $this->view('admin.groups.users_index', compact('plugins', 'users'));
+        $plugins[] = 'iCheck';
+        $plugins[] = 'Datatable';
+        $users = User::where("id_md_groups", $id)->get();
+        return $this->view('admin.groups.users.index', compact('plugins', 'users'));
     }
-    public function createUsers($id){
 
-        dd($id);
+    public function createUser($id){
+
+        $this->modVars = [":id:" => $id];
+        $plugins[] = 'iCheck';
+        $plugins[] = 'Datatable';
+        $id_md_groups = $id;
+        return $this->view('admin.groups.users.create', compact('plugins', 'id_md_groups'));
     }
+
+    public function storeUser(Request $request){
+
+        $this->validate($request, [
+            'username' => 'required|string|max:255|unique:users',
+            'id_number' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'address' => 'max:255',
+            'number_phone' => 'required|string|max:255',
+            'state' => 'required|max:10|numeric',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        try {
+
+            //Creacion del usuario
+            $user = new User();
+            $user->username = $request->username;  
+            $user->id_number = $request->id_number;
+            $user->name = $request->name;
+            $user->last_name = $request->last_name;
+            $user->email = $request->email;
+            $user->address = $request->address;
+            $user->number_phone = $request->number_phone;
+            $user->state = $request->state;
+            $user->admin = '0';
+            $user->password = bcrypt($request->password);
+            $user->id_md_groups = $request->id_md_groups;
+            $user->is_group_admin = !is_null($request->is_group_admin)? 1 : 0;
+            $user->save();
+
+            Session::flash('success', trans('modules.mod_users_store_msj_succes'));
+
+        } catch (QueryException $e) {
+
+            Session::flash('error',trans('modules.mod_users_store_msj_error'));
+        }
+
+        return redirect()->route('groups.users', ['id' => $request->id_md_groups]);
+
+    }
+
     public function importUsers($id){
 
         dd($id);

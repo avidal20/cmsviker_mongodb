@@ -139,6 +139,8 @@ return [
         'mod_groups_edit_msj_succes' => 'Grupo modificado con &eacute;xito.',
         'mod_groups_id_error' => 'No se encontro informaci&oacute;n',
         'mod_groups_import_users' => 'Importar usuarios',
+        'mod_groups_msj_delete_error' => 'Ha ocurrido un error al eliminar el grupo, por favor intente de nuevo.',
+        'mod_groups_msj_delete_success' => 'Grupo eliminado con &eacute;xito.',
 
     /** Modulo Usuarios */
         'mod_users_field_username' => 'Usuario',
@@ -148,6 +150,8 @@ return [
         'mod_users_field_email' => 'Correo electr&oacute;nico',
         'mod_users_field_address' => 'Direcci&oacute;n',
         'mod_users_field_state' => 'Estado',
+        'mod_users_field_cupon_status' => 'Estado Cup&oacute;n',
+        'mod_users_field_supervisor' => 'Supervisor',
         'mod_users_field_number_phone' => 'Tel&eacute;fono',
         'mod_users_field_permissions' => 'Permisos',
         'mod_users_field_state_enabled' => 'Activo',
@@ -177,6 +181,7 @@ return [
         'mod_users_permissions_msj_error' => 'Ha ocurrido un error al establecer los permisos, por favor intente de nuevo.',
         'mod_users_permissions_no_input_msj_error' => 'Para continuar por favor seleccione al menos un permiso.',
         'mod_users_permissions_msj_confirm_edit' => 'Realmente desea establecer los permisos?',
-
+    /* Cupon */
+        'mod_cupon_info' => 'Informaci&oacute;n del cup&oacute;n' ,
         
 ];

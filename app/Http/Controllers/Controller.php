@@ -56,6 +56,17 @@ class Controller extends BaseController
       //Si esta definido el rastro de miga se agrega al array
       if(isset($this->modData['modBreadCrumb'])){
         if(isset($this->modData['modBreadCrumb'][$nameFunctionOrigin])){
+          $breadcums = $this->modData['modBreadCrumb'][$nameFunctionOrigin];
+          foreach ($breadcums as $parentKey => $parentValue) {         
+            foreach ($parentValue as $key => $value) {
+              if(!is_array($value)){
+                if(strpos($value,':id:')){
+                  $newValue = str_replace(':id:', $this->modVars[':id:'], $value);
+                  $this->modData['modBreadCrumb'][$nameFunctionOrigin][$parentKey][$key] = $newValue;
+                }
+              }
+            }
+          }
           $configV['modBreadCrumb'] = $this->modData['modBreadCrumb'][$nameFunctionOrigin];
         }
       }
