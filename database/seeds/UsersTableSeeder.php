@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
 			$user->address = "Cr 11d 24 33";
 			$user->number_phone = "3153659513";
 			$user->state = "1";
-			$user->admin = '0';
+			$user->admin = '1';
 			$user->password = bcrypt("Yubarta2017");
 			$user->save();
     	}

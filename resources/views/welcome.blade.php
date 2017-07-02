@@ -68,7 +68,7 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    <a href="{{ url('/login') }}">{{ trans('auth.menu_login') }}</a>
+                    @if(Auth::guest()) <a href="{{ url('/login') }}">{{ trans('auth.menu_login') }}</a>@endif
                     <!-- <a href="{{ url('/register') }}">{{ trans('auth.menu_register') }}</a> -->
                 </div>
             @endif

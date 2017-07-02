@@ -72,8 +72,8 @@
           <div class="col-md-6 col-sm-6 col-xs-12">
             <select name="state" id="state" class="form-control" required="required">
               <option value="">{{trans('config.app_field_select_value')}}</option>
-              <option value="1" @if($user->state = 1) selected @endif>{{trans('modules.mod_users_field_state_enabled')}}</option>
-              <option value="0" @if($user->state = 0) selected @endif>{{trans('modules.mod_users_field_state_disabled')}}</option>
+              <option value="1" @if($user->state == 1) selected @endif>{{trans('modules.mod_users_field_state_enabled')}}</option>
+              <option value="0" @if($user->state == 0) selected @endif>{{trans('modules.mod_users_field_state_disabled')}}</option>
             </select>
           </div>
       </div>
