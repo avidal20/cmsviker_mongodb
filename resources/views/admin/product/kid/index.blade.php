@@ -69,7 +69,7 @@ $("#category").change(function() {
   $.ajax({
       type: 'GET',
       dataType: 'json',
-      url: '{{ route('kids.ajax.category') }}/'+$(this).val(),
+      url: '{{ route('kids.ajax.product') }}/'+$(this).val(),
       success: function(d) {
         table.destroy();
         table = $("#tableProduct").DataTable({

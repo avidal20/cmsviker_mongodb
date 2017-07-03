@@ -33,9 +33,11 @@
                                     {{ trans('auth.btn_accept') }}
                                 </button>
 
+                                @if(Auth::user()->is_group_admin == 1)
                                 <a class="btn btn-link" href="#">
                                     {{ trans('auth.list_orders') }}
                                 </a>
+                                @endif
                             </div>
                         </div>
                         

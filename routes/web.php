@@ -67,5 +67,10 @@ Route::group(['middleware' => ['auth','admin'], 'prefix' => 'admin'], function (
     
 });
 
-// Categories - Categorias
-Route::resource('coupons', 'Coupons\CouponsController');
+Route::group(['middleware' => 'auth'], function () {
+
+    // Categories - Categorias
+    Route::resource('coupons', 'Coupons\CouponsController');
+
+});
+
