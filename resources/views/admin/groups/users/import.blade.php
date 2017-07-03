@@ -24,6 +24,9 @@ Para realizar la importaci&oacute;n de usuarios tenga en cuenta la siguiente inf
 - El archivo cargado debe ser Excel (xls, xlsx), para descargarlo presione <a href="{{asset('media/formato_usuarios.xlsx')}}">aqu&iacute;</a><br>
 </label>
 <br>
+<label>
+- <strong>Nota:</strong> Elimine todas las filas en blanco del archivo. <br>
+</label>
 <br>
 <br>
 <div class="x_title">
