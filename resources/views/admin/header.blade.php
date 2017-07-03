@@ -121,7 +121,7 @@
 
                   @role('groups.module')
                     <li>
-                      <a><i class="fa fa-folder"></i>{{ trans('config.mod_groups_name') }}<span class="fa fa-chevron-down"></span></a>
+                      <a><i class="fa fa-cubes"></i>{{ trans('config.mod_groups_name') }}<span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                           @if(Auth::check() && Auth::user()->hasRole('groups.all') || Auth::check() && Auth::user()->hasRole('groups.list'))
                           <li><a href="{{ route('groups.index') }}">{{ trans('config.app_home') }}</a></li>

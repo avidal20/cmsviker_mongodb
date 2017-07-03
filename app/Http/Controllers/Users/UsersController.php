@@ -120,8 +120,7 @@ class UsersController extends Controller
     public function index()
     {
         $plugins[] = 'Datatable';
-        //$users = User::where('admin','1')->get();
-        $users = User::all();
+        $users = User::where('admin','1')->get();
         return $this->view('admin.users.index',compact('plugins','users'));
     }
 

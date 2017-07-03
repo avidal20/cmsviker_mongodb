@@ -19,9 +19,13 @@ return [
     'field_login_user' => 'Usuario',
     'field_login_password' => 'Contrase&ntilde;a',
     'btn_login_start' => 'Iniciar',
+    'btn_coupon_start' => 'Aceptar',
     'remember_me' => 'Recu&eacute;rdame',
     'remember_password' => 'Olvidaste tu contrase&ntilde;a?',
     'menu_login' => 'Iniciar sesi&oacute;n',
     'menu_register' => 'Registro',
+    'field_coupon' => 'Cup&oacute;n',
+    'btn_accept' => 'Aceptar',
+    'list_orders' => 'Lista de pedidos',
 
 ];
