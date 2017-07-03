@@ -657,4 +657,10 @@ class GroupController extends Controller
         return redirect()->route('groups.users', ['id' => $request->group]);
 
     }
+
+    public function ajaxChangeAdmin(request $request){
+        $user = User::find($request->user);
+        $user->is_group_admin = $request->newValue;
+        $user->save();
+    }
 }

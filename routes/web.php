@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::delete('groups/users/{id}', 'Groups\GroupController@destroyUser')->name("groups.destroyUser");
     Route::get('groups/{id}/users/import', 'Groups\GroupController@importUsers')->name("groups.importUsers");
     Route::post('groups/{id}/users/import', 'Groups\GroupController@importUsersProcess')->name("groups.importUsersProcess");
+    Route::put('groups/users/ajax/changeadmin', 'Groups\GroupController@ajaxChangeAdmin')->name("groups.ajax.changeadmin");
 
     //Usuarios
     Route::PUT('users/permissions/{id}', 'Users\UsersController@permissionsUpdate')->name('users.permissions.update');
