@@ -18,7 +18,6 @@ Para realizar la importaci&oacute;n de usuarios tenga en cuenta la siguiente inf
 &nbsp;&nbsp;&nbsp;- {{ trans('modules.mod_users_field_address') }}<br>
 &nbsp;&nbsp;&nbsp;- <small>{{ trans('modules.mod_groups_cupon_number') }}</small><br>
 &nbsp;&nbsp;&nbsp;- {{ trans('modules.mod_users_field_supervisor') }} (ingrese el valor de 1 si es supervisor de lo contrario d&eacute;jelo vac&iacute;o)<br>
-&nbsp;&nbsp;&nbsp;- {{ trans('modules.mod_groups_title_file') }}: {{$id}} (ingrese este valor en la columna Grupo del archivo)<br>
 </label>
 <br>
 <label>

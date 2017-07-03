@@ -585,74 +585,71 @@ class GroupController extends Controller
         // guarda el archivo
         Storage::putfile('public', $file);
 
-        Excel::load("public/storage/".$file->hashName(), function($reader) {
-            // Loop through all rows
-            $results = $reader->get();
-            foreach ($results as $index => $row) {
-                $realIndex = $index +1;
+        $results = Excel::load("public/storage/".$file->hashName(), function($reader) {})->get();
+        // Loop through all rows
+        foreach ($results as $index => $row) {
+            $realIndex = $index +1;
 
-                // valida los campos
-                if(
-                    strlen(trim($row->usuario)) == 0 ||
-                    strlen(trim($row->identificacion)) == 0 ||
-                    strlen(trim($row->nombres)) == 0 ||
-                    strlen(trim($row->apellidos)) == 0 ||
-                    strlen(trim($row->correo_electronico)) == 0 || strpos($row->correo_electronico, "@") == false || strpos($row->correo_electronico, ".") == false ||
-                    strlen(trim($row->direccion)) == 0 ||
-                    strlen(trim($row->telefono)) == 0 ||
-                    strlen(trim($row->grupo)) == 0 ||
-                    strlen(trim($row->supervisor)) == 0
-                ){
+            // valida los campos
+            if(
+                strlen(trim($row->usuario)) == 0 ||
+                strlen(trim($row->identificacion)) == 0 ||
+                strlen(trim($row->nombres)) == 0 ||
+                strlen(trim($row->apellidos)) == 0 ||
+                strlen(trim($row->correo_electronico)) == 0 || strpos($row->correo_electronico, "@") == false || strpos($row->correo_electronico, ".") == false ||
+                strlen(trim($row->direccion)) == 0 ||
+                strlen(trim($row->telefono)) == 0 ||
+                strlen(trim($row->supervisor)) == 0
+            ){
+                Session::flash('error', array_merge(
+                    (array) Session::get('error'), 
+                    array(trans("modules.mod_groups_import_users_error_row", ['row' => $realIndex]))
+                ));
+            } else{
+
+                $fail = false;
+
+                // valida que el usuario no este repetido
+                if(User::where("username", $row->usuario)->count() > 0){
                     Session::flash('error', array_merge(
                         (array) Session::get('error'), 
-                        array(trans("modules.mod_groups_import_users_error_row", ['row' => $realIndex]))
+                        array(trans("modules.mod_groups_import_users_error_username", ['row' => $realIndex, 'username' => $row->usuario]))
                     ));
-                } else{
+                    $fail = true;
+                }
 
-                    $fail = false;
+                // valida que el documento no este repetido
+                if(User::where("id_number", intval($row->identificacion))->count() > 0){
+                    Session::flash('error', array_merge(
+                        (array) Session::get('error'), 
+                        array(trans("modules.mod_groups_import_users_error_number_id", ['row' => $realIndex, 'num' => $row->identificacion]))
+                    ));
+                    $fail = true;
+                }
 
-                    // valida que el usuario no este repetido
-                    if(User::where("username", $row->usuario)->count() > 0){
-                        Session::flash('error', array_merge(
-                            (array) Session::get('error'), 
-                            array(trans("modules.mod_groups_import_users_error_username", ['row' => $realIndex, 'username' => $row->usuario]))
-                        ));
-                        $fail = true;
-                    }
-
-                    // valida que el documento no este repetido
-                    if(User::where("id_number", intval($row->identificacion))->count() > 0){
-                        Session::flash('error', array_merge(
-                            (array) Session::get('error'), 
-                            array(trans("modules.mod_groups_import_users_error_number_id", ['row' => $realIndex, 'num' => $row->identificacion]))
-                        ));
-                        $fail = true;
-                    }
-
-                    if(!$fail){
-                        // guarda el usuario
-                        $user = new User();
-                        $user->username = $row->usuario;
-                        $user->id_number = intval($row->identificacion);
-                        $user->name = $row->nombres;
-                        $user->last_name = $row->apellidos;
-                        $user->email = $row->correo_electronico;
-                        $user->address = $row->direccion;
-                        $user->number_phone = intval($row->telefono);
-                        $user->state = 1;
-                        $user->admin = 0;
-                        $user->id_md_groups = $row->grupo;
-                        $user->is_group_admin = intval($row->supervisor);
-                        $user->save();
-                    }
-
+                if(!$fail){
+                    // guarda el usuario
+                    $user = new User();
+                    $user->username = $row->usuario;
+                    $user->id_number = intval($row->identificacion);
+                    $user->name = $row->nombres;
+                    $user->last_name = $row->apellidos;
+                    $user->email = $row->correo_electronico;
+                    $user->address = $row->direccion;
+                    $user->number_phone = intval($row->telefono);
+                    $user->state = 1;
+                    $user->admin = 0;
+                    $user->id_md_groups = $request->group;
+                    $user->is_group_admin = intval($row->supervisor);
+                    $user->save();
                 }
 
             }
 
-            Session::flash('success', trans("modules.mod_groups_import_users_finish"));
+        }
 
-        });
+        Session::flash('success', trans("modules.mod_groups_import_users_finish"));
+
 
         return redirect()->route('groups.users', ['id' => $request->group]);
 
