@@ -585,10 +585,31 @@ class GroupController extends Controller
         // guarda el archivo
         Storage::putfile('public', $file);
 
+        $whiteRows = 0;
         $results = Excel::load("public/storage/".$file->hashName(), function($reader) {})->get();
         // Loop through all rows
         foreach ($results as $index => $row) {
-            $realIndex = $index +1;
+
+            if($whiteRows == 2){
+                break;
+            }
+            // valida si toda la fila esta vacia
+            if(
+                strlen(trim($row->usuario)) == 0 &&
+                strlen(trim($row->identificacion)) == 0 &&
+                strlen(trim($row->nombres)) == 0 &&
+                strlen(trim($row->apellidos)) == 0 &&
+                strlen(trim($row->correo_electronico)) == 0 &&
+                strlen(trim($row->direccion)) == 0 &&
+                strlen(trim($row->telefono)) == 0
+            ){
+                $whiteRows ++;
+                continue;
+            }
+            
+
+            // numero de la fila real, se muestra en los mensajes de error
+            $realIndex = $index +2;
 
             // valida los campos
             if(
@@ -598,8 +619,7 @@ class GroupController extends Controller
                 strlen(trim($row->apellidos)) == 0 ||
                 strlen(trim($row->correo_electronico)) == 0 || strpos($row->correo_electronico, "@") == false || strpos($row->correo_electronico, ".") == false ||
                 strlen(trim($row->direccion)) == 0 ||
-                strlen(trim($row->telefono)) == 0 ||
-                strlen(trim($row->supervisor)) == 0
+                strlen(trim($row->telefono)) == 0
             ){
                 Session::flash('error', array_merge(
                     (array) Session::get('error'), 
@@ -627,6 +647,15 @@ class GroupController extends Controller
                     $fail = true;
                 }
 
+                // valida que el email no este repetido
+                if(User::where("email", $row->correo_electronico)->count() > 0){
+                    Session::flash('error', array_merge(
+                        (array) Session::get('error'), 
+                        array(trans("modules.mod_groups_import_users_error_email", ['row' => $realIndex, 'email' => $row->correo_electronico]))
+                    ));
+                    $fail = true;
+                }
+
                 if(!$fail){
                     // guarda el usuario
                     $user = new User();
@@ -640,7 +669,9 @@ class GroupController extends Controller
                     $user->state = 1;
                     $user->admin = 0;
                     $user->id_md_groups = $request->group;
-                    $user->is_group_admin = intval($row->supervisor);
+                    if(!is_null($row->supervisor) && $row->supervisor == 1){
+                        $user->is_group_admin = intval($row->supervisor);
+                    }
                     $user->save();
                 }
 

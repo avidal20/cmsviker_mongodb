@@ -25,7 +25,7 @@ Para realizar la importaci&oacute;n de usuarios tenga en cuenta la siguiente inf
 </label>
 <br>
 <label>
-- <strong>Nota:</strong> Elimine todas las filas en blanco del archivo. <br>
+- <strong>Nota: No debe haber más de una fila en blanco entre registros.</strong><br>
 </label>
 <br>
 <br>

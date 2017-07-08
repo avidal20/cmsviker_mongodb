@@ -150,6 +150,7 @@ return [
         'mod_groups_import_users_error_row' => 'No se pudo insertar la fila n&uacute;mero: :row, por favor verifique la informaci&oacute;n.',
         'mod_groups_import_users_error_username' => 'No se pudo insertar la fila n&uacute;mero: :row, ya existe el usuario :username',
         'mod_groups_import_users_error_number_id' => 'No se pudo insertar la fila n&uacute;mero: :row,  ya existe el n&uacute;mero de identificaci&oacute;n :num',
+        'mod_groups_import_users_error_email' => 'No se pudo insertar la fila n&uacute;mero: :row,  ya existe el correo electr&oacute;nico :email',
         'mod_groups_import_users_finish' => 'Proceso de importar usuarios finalizado.',
 
     /** Modulo Usuarios */
