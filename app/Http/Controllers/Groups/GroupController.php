@@ -404,6 +404,12 @@ class GroupController extends Controller
 
     public function users($id){
 
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.users') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $this->modVars = [":id:" => $id];
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
@@ -413,6 +419,12 @@ class GroupController extends Controller
 
     public function createUser($id){
 
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.createUser') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $this->modVars = [":id:" => $id];
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
@@ -421,6 +433,12 @@ class GroupController extends Controller
     }
 
     public function storeUser(Request $request){
+
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.storeUser') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
 
         $this->validate($request, [
             'username' => 'required|string|max:255|unique:users',
@@ -465,6 +483,12 @@ class GroupController extends Controller
 
     public function editUser($id){
 
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.editUser') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'iCheck';
         $plugins[] = 'Datatable';
         $user = User::find($id);
@@ -485,6 +509,12 @@ class GroupController extends Controller
      */
     public function updateUser(request $request, $id)
     {
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.updateUser') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         if(is_null($request->password) && is_null($request->password_confirmation)){
 
             $this->validate($request, [
@@ -539,6 +569,12 @@ class GroupController extends Controller
 
     public function showUser($id){
 
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.showUser') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         $plugins[] = 'iCheck';
         $user = User::find($id);
         if(is_null($user)){
@@ -557,6 +593,13 @@ class GroupController extends Controller
      */
     public function destroyUser($id)
     {
+
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.destroyUser') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+
         try {
             $user = User::find($id);
             $group = $user->id_md_groups;
@@ -576,10 +619,23 @@ class GroupController extends Controller
     }
 
     public function importUsers($id){
+
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.createUser') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
+        
         $this->modVars = [":id:" => $id];
         return $this->view('admin.groups.users.import', compact('id'));
     }
     public function importUsersProcess(request $request){
+
+        if( !Auth::user()->hasRole('groups.all') && 
+            !Auth::user()->hasRole('groups.storeUser') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
 
         $file = $request->file("file");
         // guarda el archivo
