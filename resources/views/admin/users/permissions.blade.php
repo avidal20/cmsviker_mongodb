@@ -286,6 +286,18 @@
                  </a>
                  <div id="groupsUser" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
                     <div class="panel-body">
+                      <div class="checkbox">
+                          <label class="">
+                             <div class="icheckbox_flat-green" style="position: relative;"><input id="userAll" type="checkbox" @if($user->hasRole('groups.alluser')) checked="checked" @endif name="perm[groups][alluser]" class="flat" style="position: absolute; opacity: 0;"><ins id="insUserAll" class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                             Todo
+                          </label>
+                       </div>
+                       <div class="checkbox">
+                          <label class="">
+                             <div class="icheckbox_flat-green" style="position: relative;"><input id="user_fields0" type="checkbox"  @if($user->hasRole('groups.listuser')) checked="checked" @endif name="perm[groups][listuser]" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                             Listar
+                          </label>
+                       </div>
                        <div class="checkbox">
                           <label class="">
                              <div class="icheckbox_flat-green" style="position: relative;"><input id="user_fields1" type="checkbox"  @if($user->hasRole('groups.createuser')) checked="checked" @endif name="perm[groups][createuser]" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
