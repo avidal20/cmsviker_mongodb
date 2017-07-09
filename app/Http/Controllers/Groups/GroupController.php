@@ -572,7 +572,7 @@ class GroupController extends Controller
     public function showUser($id){
 
         if( !Auth::user()->hasRole('groups.all') && 
-            !Auth::user()->hasRole('groups.showUser') ){
+            !Auth::user()->hasRole('groups.deleteUser') ){
             Session::flash('error',trans('config.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
@@ -597,7 +597,7 @@ class GroupController extends Controller
     {
 
         if( !Auth::user()->hasRole('groups.all') && 
-            !Auth::user()->hasRole('groups.destroyUser') ){
+            !Auth::user()->hasRole('groups.deleteUser') ){
             Session::flash('error',trans('config.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
