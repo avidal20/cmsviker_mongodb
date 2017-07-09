@@ -56,14 +56,17 @@
 
             @endrole
             
+            @role('users.module')
+
             <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-cogs"></i></div>
+                  <div class="icon"><i class="fa fa-user-circle-o"></i></div>
                   <div class="count"><a href="{{ route('users.index') }}">{{ trans('config.mod_users_name') }}</a></div>
                   <h3>{{ trans('config.mod_users_desc') }}</h3>
                </div>
             </div>
 
+            @endrole
       </div>
 
    </div>

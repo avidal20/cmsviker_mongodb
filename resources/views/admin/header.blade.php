@@ -110,14 +110,20 @@
                     <a href="{{ route('products.home') }}"><i class="fa fa-shopping-bag"></i>{{ trans('config.mod_products_name') }}</a>
                   </li>
                   @endif
-                  
+
+                  @role('users.module')
                   <li>
-                    <a><i class="fa fa-cogs"></i>{{ trans('config.mod_users_name') }}<span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa fa-user-circle-o"></i>{{ trans('config.mod_users_name') }}<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="{{ route('users.index') }}">{{ trans('config.app_home') }}</a></li>
-                      <li><a href="{{ route('users.create') }}">{{ trans('config.app_create') }}</a></li>
+                         @if(Auth::check() && Auth::user()->hasRole('users.all') || Auth::check() && Auth::user()->hasRole('users.list'))
+                          <li><a href="{{ route('users.index') }}">{{ trans('config.app_home') }}</a></li>
+                          @endif
+                          @if(Auth::check() && Auth::user()->hasRole('users.all') || Auth::check() && Auth::user()->hasRole('users.create'))
+                          <li><a href="{{ route('users.create') }}">{{ trans('config.app_create') }}</a></li>
+                          @endif
                     </ul>
                   </li>
+                  @endrole
 
                   @role('groups.module')
                     <li>

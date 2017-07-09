@@ -22,7 +22,7 @@
          <label for="id_number" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_users_field_id_num')}}<span class="required">*</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="id_number" type="text" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="id_number" value="{{ $user->id_number }}">
+             <input id="id_number" type="number" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="id_number" value="{{ $user->id_number }}">
          </div>
       </div>
 
@@ -54,7 +54,7 @@
          <label for="number_phone" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_users_field_number_phone')}}<span class="required">*</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="number_phone" type="text" class="form-control col-md-7 col-xs-12" maxlength="255" name="number_phone" required="required" value="{{ $user->number_phone }}">
+             <input id="number_phone" type="number" class="form-control col-md-7 col-xs-12" maxlength="255" name="number_phone" required="required" value="{{ $user->number_phone }}">
          </div>
       </div>
 
