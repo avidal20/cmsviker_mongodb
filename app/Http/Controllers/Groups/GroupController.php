@@ -442,12 +442,12 @@ class GroupController extends Controller
 
         $this->validate($request, [
             'username' => 'required|string|max:255|unique:users',
-            'id_number' => 'required|string|max:255|unique:users,id_number',
+            'id_number' => 'required|numeric',
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'address' => 'max:255',
-            'number_phone' => 'required|string|max:255',
+            'number_phone' => 'required|numeric',
             'state' => 'required|max:10|numeric',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -518,23 +518,25 @@ class GroupController extends Controller
         if(is_null($request->password) && is_null($request->password_confirmation)){
 
             $this->validate($request, [
-                'id_number' => 'required|string|max:255',
+                'id_number' => 'required|numeric',
                 'name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
                 'address' => 'max:255',
                 'state' => 'required|max:10|numeric',
+                'number_phone' => 'required|numeric',
             ]);
 
         }else{
 
             $this->validate($request, [
-                'id_number' => 'required|string|max:255',
+                'id_number' => 'required|numeric',
                 'name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
                 'address' => 'max:255',
                 'state' => 'required|max:10|numeric',
+                'number_phone' => 'required|numeric',
                 'password' => 'required|string|min:6|confirmed',
             ]);
 

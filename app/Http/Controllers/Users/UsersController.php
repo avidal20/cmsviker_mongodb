@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Ultraware\Roles\Models\Role;
 use Ultraware\Roles\Models\Permission;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -119,6 +120,12 @@ class UsersController extends Controller
      */
     public function index()
     {
+      if( !Auth::user()->hasRole('users.all') && 
+          !Auth::user()->hasRole('users.list') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         $plugins[] = 'Datatable';
         $users = User::where('admin','1')->get();
         return $this->view('admin.users.index',compact('plugins','users'));
@@ -131,6 +138,12 @@ class UsersController extends Controller
      */
     public function create()
     {
+      if( !Auth::user()->hasRole('users.all') && 
+          !Auth::user()->hasRole('users.create') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         $plugins[] = 'Datatable';
         return $this->view('admin.users.create',compact('plugins'));
     }
@@ -143,14 +156,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+      if( !Auth::user()->hasRole('users.all') && 
+          !Auth::user()->hasRole('users.create') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         $this->validate($request, [
             'username' => 'required|string|max:255|unique:users',
-            'id_number' => 'required|string|max:255',
+            'id_number' => 'required|numeric',
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'address' => 'max:255',
-            'number_phone' => 'required|string|max:255',
+            'number_phone' => 'required|numeric',
             'state' => 'required|max:10|numeric',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -191,6 +210,11 @@ class UsersController extends Controller
      */
     public function show($id)
     {
+      if( !Auth::user()->hasRole('users.all') && 
+          !Auth::user()->hasRole('users.delete') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
         $user = User::find($id);
         return $this->view('admin.users.show',compact('user'));
     }
@@ -203,6 +227,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+      if( !Auth::user()->hasRole('users.all') && 
+          !Auth::user()->hasRole('users.update') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
         $user = User::find($id);
         return $this->view('admin.users.edit',compact('user'));
     }
@@ -216,15 +245,22 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+      if( !Auth::user()->hasRole('users.all') && 
+          !Auth::user()->hasRole('users.update') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         if(is_null($request->password) && is_null($request->password_confirmation)){
 
             $this->validate($request, [
-                'id_number' => 'required|string|max:255',
-                'name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255',
-                'address' => 'max:255',
-                'state' => 'required|max:10|numeric',
+              'id_number' => 'required|numeric',
+              'name' => 'required|string|max:255',
+              'last_name' => 'required|string|max:255',
+              'email' => 'required|string|email|max:255',
+              'address' => 'max:255',
+              'state' => 'required|max:10|numeric',
+              'number_phone' => 'required|numeric',
             ]);
 
             try {
@@ -250,12 +286,13 @@ class UsersController extends Controller
         }else{
 
             $this->validate($request, [
-                'id_number' => 'required|string|max:255',
+                'id_number' => 'required|numeric',
                 'name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
                 'address' => 'max:255',
                 'state' => 'required|max:10|numeric',
+                'number_phone' => 'required|numeric',
                 'password' => 'required|string|min:6|confirmed',
             ]);
 
@@ -292,6 +329,12 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+      if( !Auth::user()->hasRole('users.all') && 
+          !Auth::user()->hasRole('users.delete') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         try {
 
             //Eliminacion del usuario
@@ -310,6 +353,13 @@ class UsersController extends Controller
     }
 
     public function permissions($id){
+
+      if( !Auth::user()->hasRole('users.all') && 
+          !Auth::user()->hasRole('users.permissions') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
         $plugins[] = 'iCheck';
         $user = User::find($id);
         $rolesdb = Role::select('name')->get();
@@ -322,6 +372,13 @@ class UsersController extends Controller
     }
 
     public function permissionsUpdate(request $request, $id){
+      
+      if( !Auth::user()->hasRole('users.all') && 
+          !Auth::user()->hasRole('users.permissions') ){
+          Session::flash('error',trans('config.app_msj_not_permissions'));
+          return redirect()->route('admin');
+      }
+
       try {
 
             if(is_null($request->perm)){
