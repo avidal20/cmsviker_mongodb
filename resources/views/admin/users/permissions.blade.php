@@ -234,12 +234,19 @@
           </div>
 
           <div class="panel">
-             <a class="panel-heading collapsed" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#groups" href="#groups" aria-expanded="false" aria-controls="collapseOne">
+             <a class="panel-heading collapsed" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#groupsParent" href="#groupsParent" aria-expanded="false" aria-controls="collapseOne">
                 <h4 class="panel-title">{{ trans('config.mod_groups_name') }}</h4>
              </a>
-             <div id="groups" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+             <div id="groupsParent" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
                 <div class="panel-body">
-                   <div class="checkbox">
+                   
+                  <div class="panel">
+                 <a class="panel-heading collapsed" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#groups" href="#groups" aria-expanded="false" aria-controls="collapseOne">
+                    <h4 class="panel-title">{{ trans('config.mod_groups_name') }}</h4>
+                 </a>
+                 <div id="groups" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+                    <div class="panel-body">
+                       <div class="checkbox">
                       <label class="">
                          <div class="icheckbox_flat-green" style="position: relative;"><input id="userAll" type="checkbox" @if($user->hasRole('groups.all')) checked="checked" @endif name="perm[groups][all]" class="flat" style="position: absolute; opacity: 0;"><ins id="insUserAll" class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
                          Todo
@@ -269,10 +276,42 @@
                          Eliminar
                       </label>
                    </div>
+                    </div>
+                 </div>
+              </div>
+
+                <div class="panel">
+                 <a class="panel-heading collapsed" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#groupsUser" href="#groupsUser" aria-expanded="false" aria-controls="collapseOne">
+                    <h4 class="panel-title">{{ trans('config.mod_users_name') }}</h4>
+                 </a>
+                 <div id="groupsUser" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+                    <div class="panel-body">
+                       <div class="checkbox">
+                          <label class="">
+                             <div class="icheckbox_flat-green" style="position: relative;"><input id="user_fields1" type="checkbox"  @if($user->hasRole('groups.createuser')) checked="checked" @endif name="perm[groups][createuser]" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                             Crear
+                          </label>
+                       </div>
+                       <div class="checkbox">
+                          <label class="">
+                             <div class="icheckbox_flat-green" style="position: relative;"><input id="user_fields2" type="checkbox" @if($user->hasRole('groups.edituser')) checked="checked" @endif name="perm[groups][edituser]" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                             Modificar
+                          </label>
+                       </div>
+                       <div class="checkbox">
+                          <label class="">
+                             <div class="icheckbox_flat-green" style="position: relative;"><input id="user_fields3" type="checkbox"  @if($user->hasRole('groups.deleteuser')) checked="checked" @endif name="perm[groups][deleteuser]" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                             Eliminar
+                          </label>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+
                 </div>
              </div>
           </div>
-
+         
           <div class="panel">
              <a class="panel-heading collapsed" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#users" href="#users" aria-expanded="false" aria-controls="collapseOne">
                 <h4 class="panel-title">{{ trans('config.mod_users_name') }}</h4>
