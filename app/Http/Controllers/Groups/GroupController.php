@@ -745,6 +745,11 @@ class GroupController extends Controller
     }
 
     public function ajaxChangeAdmin(request $request){
+        if( !Auth::user()->hasRole('groups.alluser') && 
+            !Auth::user()->hasRole('groups.edituser') ){
+            Session::flash('error',trans('config.app_msj_not_permissions'));
+            return redirect()->route('admin');
+        }
         $user = User::find($request->user);
         $user->is_group_admin = $request->newValue;
         $user->save();
