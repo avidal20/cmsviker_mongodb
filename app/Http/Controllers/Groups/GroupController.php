@@ -442,7 +442,7 @@ class GroupController extends Controller
 
         $this->validate($request, [
             'username' => 'required|string|max:255|unique:users',
-            'id_number' => 'required|numeric',
+            'id_number' => 'required|numeric|unique:users',
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
@@ -518,7 +518,7 @@ class GroupController extends Controller
         if(is_null($request->password) && is_null($request->password_confirmation)){
 
             $this->validate($request, [
-                'id_number' => 'required|numeric',
+                'id_number' => 'required|numeric|unique:users',
                 'name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
@@ -530,7 +530,7 @@ class GroupController extends Controller
         }else{
 
             $this->validate($request, [
-                'id_number' => 'required|numeric',
+                'id_number' => 'required|numeric|unique:users',
                 'name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
