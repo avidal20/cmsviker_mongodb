@@ -19,10 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/home', 'HomeController@index');
+
 //Rutas de administracion
 Route::group(['middleware' => ['auth','admin'], 'prefix' => 'admin'], function () {
 
-    Route::get('/home', 'HomeController@index');
     Route::get('/', 'HomeController@index')->name('admin');
 
     //Rutas de modulos

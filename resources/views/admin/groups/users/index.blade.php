@@ -7,8 +7,8 @@
 <table id="datatable-buttons" class="table table-striped table-bordered">
   <thead>
     <tr>
+      <th>{{ trans('modules.mod_users_field_username') }}</th>
       <th>{{ trans('modules.mod_users_field_id_num') }}</th>
-      <th>{{ trans ('modules.mod_users_field_username') }}</th>
       <th>{{ trans('modules.mod_users_field_first_name') }}</th>
       <th>{{ trans('modules.mod_users_field_last_name') }}</th>
       <th>{{ trans('modules.mod_users_field_email') }}</th>
@@ -21,8 +21,8 @@
     <tbody>
       @foreach($users as $user)
        <tr>
-          <td>{{ $user->id_number }}</td> 
           <td>{{ $user->username }}</td> 
+          <td>{{ $user->id_number }}</td> 
           <td>{{ $user->name }}</td>
           <td>{{ $user->last_name }}</td>
           <td>{{ $user->email }}</td>

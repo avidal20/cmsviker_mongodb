@@ -22,7 +22,7 @@
          <label for="id_number" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('modules.mod_users_field_id_num')}}<span class="required">*</span>
          </label>
          <div class="col-md-6 col-sm-6 col-xs-12">
-             <input id="id_number" type="number" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="id_number" value="{{ $user->id_number }}">
+             <input id="id_number" type="number" required="required" class="form-control col-md-7 col-xs-12" maxlength="255" name="id_number" disabled="" value="{{ $user->id_number }}">
          </div>
       </div>
 
