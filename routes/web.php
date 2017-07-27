@@ -71,8 +71,10 @@ Route::group(['middleware' => ['auth','admin'], 'prefix' => 'admin'], function (
 
 Route::group(['middleware' => 'auth'], function () {
 
-    // Categories - Categorias
+    // Cupones
     Route::resource('coupons', 'Coupons\CouponsController');
-
+    // PQR
+    Route::get('pqr', 'Pqr\PqrController@indexUser')->name('pqr.user.index');
+    Route::post('pqr', 'Pqr\PqrController@indexUserStore')->name('pqr.user.store');
 });
 

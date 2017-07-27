@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/aplicacion.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
@@ -92,7 +93,9 @@
     <!-- bootstrap-daterangepicker -->
     <script src="{{ asset('vendors/moment/min/moment.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-
+    <!-- Jquery Validator -->
+    <script src="{{ asset('vendors/jquery_validation/dist/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('vendors/jquery_validation/dist/additional-methods.min.js') }}"></script>
     <script>
       $(document).find('.panel-heading').each(function (index, element) {
           if($(this).next().hasClass('panel-heading')){
@@ -107,6 +110,7 @@
           }
       });
     </script>
+    
     @yield('javascript')
 
 </body>

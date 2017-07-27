@@ -1,3 +1,7 @@
-.tile-stats .count {
-    font-size: 30px !important;
+label.valid{
+	display: none !important;
+}
+
+label.error{
+	color: red;
 }

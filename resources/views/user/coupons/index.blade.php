@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Ingresar cup&oacute;n</div>
+                <div class="panel-heading">{{ trans('modules.user_coupon_index_action') }}</div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="#">
@@ -14,7 +14,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('coupon') ? ' has-error' : '' }}">
-                            <label for="coupon" class="col-md-4 control-label">{{ trans('auth.field_coupon') }}</label>
+                            <label for="coupon" class="col-md-4 control-label">{{ trans('modules.mod_coupon_field_coupon') }}</label>
 
                             <div class="col-md-6">
                                 <input id="coupon" type="text" class="form-control" name="coupon" value="{{ old('coupon') }}" required autofocus>
@@ -33,15 +33,20 @@
                                     {{ trans('auth.btn_accept') }}
                                 </button>
 
-                                @if(Auth::user()->is_group_admin == 1)
-                                <a class="btn btn-link" href="#">
-                                    {{ trans('auth.list_orders') }}
-                                </a>
-                                @endif
                             </div>
                         </div>
                         
                     	</fieldset>
+
+                        @if(Auth::user()->is_group_admin == 1)
+                        <a class="btn btn-link" href="#">
+                            {{ trans('auth.list_orders') }}
+                        </a><br>
+                        @endif
+                        <a class="btn btn-link" href="{{ route('pqr.user.index') }}">
+                            {{ trans('modules.mod_pqr_link') }}
+                        </a>
+
                     </form>
                 </div>
             </div>

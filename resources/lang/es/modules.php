@@ -193,6 +193,16 @@ return [
         'mod_users_permissions_no_input_msj_error' => 'Para continuar por favor seleccione al menos un permiso.',
         'mod_users_permissions_msj_confirm_edit' => 'Realmente desea establecer los permisos?',
     /* Cupon */
+        'mod_coupon_field_coupon' => 'Cup&oacute;n',
+    //Usuario Final
+        'user_coupon_index_action' => 'Ingresar cup&oacute;n',
         'mod_cupon_info' => 'Informaci&oacute;n del cup&oacute;n' ,
-        
+
+    /* PQR */
+        'mod_pqr_link' => 'Realiza tu Petici&oacute;n, Queja o Reclamo',
+        'mod_pqr' => 'Petici&oacute;n, Queja o Reclamo',
+        'mod_pqr_field_coupon_affected' => 'Cup&oacute;n afectado',
+        'mod_pqr_field_type_request' => 'Tipo de solicitud',
+        'mod_pqr_field_description_request' => 'Descripci&oacute;n solicitud',
+        'mod_pqr_field_anexo' => 'Anexo',
 ];

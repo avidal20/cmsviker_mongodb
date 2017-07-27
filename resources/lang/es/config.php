@@ -34,6 +34,7 @@ return [
     //Generales
     'app_home' => 'Inicio',
     'app_create' => 'Crear',
+    'app_send' => 'Enviar',
     'app_edit' => 'Modificar',
     'app_delete' => 'Eliminar',
     'app_save' => 'Guardar',
